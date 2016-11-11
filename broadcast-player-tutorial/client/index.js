@@ -38,6 +38,9 @@ const stockBroadcaster = new StockBroadcaster(document.querySelector('#broadcast
 	drivers: ['flash'],
 	tfArgs: ['affiliate=beta', 'host=livelyvideo.tv']
 });
+stockBroadcaster.on('error', (...args) => {
+	console.error('error', args);
+});
 stockBroadcaster.setup();
 window.stockBroadcaster = stockBroadcaster;
 
@@ -93,7 +96,7 @@ function loadPlayer (manifest) {
 	}
 
 	window.stockPlayer = stockPlayer = new StockPlayer(document.querySelector('#player'), manifest, {
-		drivers: ['mediaSourceMp4', 'hlsjs', 'hls', 'flash'],
+		drivers: ['hlsjs', 'mediaSourceMp4', 'hls', 'flash'],
 		hlsjsPath: 'http://dailymotion.github.io/hls.js/dist/hls.js',
 		tfSwfPath: '/thinDebug.swf'
 	});
