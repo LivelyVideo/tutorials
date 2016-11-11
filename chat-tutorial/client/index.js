@@ -1,4 +1,4 @@
-import Chat from '@livelyvideo/chat';
+import LivelyChat from '@livelyvideo/chat';
 
 /**
 Set up the chat instance
@@ -17,12 +17,12 @@ function createChat(user, el) {
 	if (chat) {
 		chat.destroy();
 	}
-	chat = new Chat(el, {
+	chat = new LivelyChat(el, {
 		user: user,
-		room: 'testroom',
-		apiHost: 'https://dev.livelyvideo.tv',
-		websocketHost: 'ws://ws-dev.livelyvideo.tv',
-		authUrl: `/access-token`,
+		room: 'blt',
+		apiHost: 'https://qa.livelyvideo.tv',
+		websocketHost: 'wss://ws-qa.livelyvideo.tv',
+		authUrl: 'https://qa.livelyvideo.tv/auth/v1/lively'
 	});
 }
 
