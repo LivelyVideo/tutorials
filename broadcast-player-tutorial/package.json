@@ -1,0 +1,26 @@
+{
+  "name": "broadcast-player-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "browserify": "browserify ./client/index.js -o dist/app.js -t [ babelify ]",
+    "start": "node server/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {
+    "@livelyvideo/stock-broadcaster": "^1.0.0-alpha.7",
+    "@livelyvideo/stock-live-player": "^1.0.0-alpha.5",
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.1",
+    "text-content": "0.0.3",
+    "xhr": "^2.2.2"
+  }
+}
