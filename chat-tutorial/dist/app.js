@@ -13,11 +13,11 @@ Set up the chat instance
 Params:
 	- html element
 	-
-	user	(string)	(Required) Defaults to null. Current username.
-	room	(string)	(Required) Defaults to null. Room name.
-	apiHost	(string)	(Required) Defaults to null. Route to host of chat api.
-	websocketHost	(string)	(Required) Defaults to null. Route to host of chat websocket.
-	url	(string)	(Required) Defaults to null. Auth url.
+	user: users username, should be unique to the user
+	room: room name
+	apiHost: lively chat api
+	websocketHost: lively ws api
+	url: the company's auth url, which should access livelyvideo to create an access token for the user
 **/
 var chat = void 0;
 function createChat(user, el) {
@@ -26,7 +26,7 @@ function createChat(user, el) {
 	}
 	chat = new _chat2.default(el, {
 		user: user,
-		room: 'testroom',
+		room: 'testroom2',
 		apiHost: 'https://dev.livelyvideo.tv',
 		websocketHost: 'ws://ws-dev.livelyvideo.tv',
 		authUrl: '/access-token'
