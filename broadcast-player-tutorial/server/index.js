@@ -23,7 +23,6 @@ router.get('/listings', (req, res) => {
 // Get an access key for "flashuser" from the private livelyvideo api
 // flashuser can be changed to anything
 router.get('/access-key', (req, res) => {
-	// can be use for beta server
 	let uri = 'https://dev.livelyvideo.tv/api/ls/v1/key/flashuser?token=a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711';
 
 	if (req.query.regenerate) {
