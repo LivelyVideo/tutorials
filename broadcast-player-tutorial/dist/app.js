@@ -46,13 +46,13 @@ I attached the stockBroadcaster to the window so it can be accessed from console
 
 **/
 var stockBroadcaster = new _stockBroadcaster2.default(document.querySelector('#broadcaster'), '/access-key', {
-	affiliate: 'beta',
+	affiliate: 'dev',
 	tfSwfPath: '/thinDebug.swf',
 	// can be used for beta servers
 	// rtmpUrl: 'rtmp://uc-origin.livelyvideo.tv/origin',
 	rtmpUrl: 'rtmp://ids6-ls.dev.caster.tv/origin',
 	drivers: ['flash'],
-	tfArgs: ['affiliate=beta', 'host=livelyvideo.tv']
+	tfArgs: ['affiliate=dev', 'host=livelyvideo.tv']
 });
 stockBroadcaster.on('error', function () {
 	for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
