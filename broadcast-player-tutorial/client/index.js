@@ -90,18 +90,20 @@ Events:
 	- user-idle
 **/
 let stockPlayer;
+let currentManifest;
+let drivers = ['hlsjs', 'mediaSourceMp4', 'hls', 'flashRtmp'];
 function loadPlayer (manifest) {
 	if (stockPlayer) {
 		stockPlayer.destroy();
 	}
 
+	currentManifest = manifest;
 	window.stockPlayer = stockPlayer = new StockPlayer(document.querySelector('#player'), manifest, {
-		drivers: ['hlsjs', 'mediaSourceMp4', 'hls', 'flash'],
+		drivers: drivers,
 		hlsjsPath: 'http://dailymotion.github.io/hls.js/dist/hls.js',
 		tfSwfPath: '/thinDebug.swf'
 	});
 }
-
 
 /** Below is demo code **/
 
@@ -165,3 +167,33 @@ getListingsButton.onclick();
 
 document.querySelector('.listings').appendChild(getListingsButton);
 document.querySelector('.listings').appendChild(resultsContainer);
+
+// Configure player
+document.querySelector('#config-drivers').onsubmit = (e) => {
+	e.preventDefault();
+	const input = e.target.querySelector('input');
+	const tmpDrivers = input.value.split(',');
+	const nextDrivers = [];
+
+	for (let i = 0; i < tmpDrivers.length; i++) {
+		switch(tmpDrivers[i]) {
+			case 'flashRtmp':
+				nextDrivers.push('flashRtmp');
+				break;
+			case 'hlsjs':
+				nextDrivers.push('hlsjs');
+				break;
+			case 'mediaSourceMp4':
+				nextDrivers.push('mediaSourceMp4');
+				break;
+			case 'hls':
+				nextDrivers.push('hls');
+				break;
+		}
+	}
+
+	drivers = nextDrivers;
+	loadPlayer(currentManifest);
+	input.value = drivers.join(', ');
+};
+document.querySelector('#config-drivers input').value = drivers.join(', ');

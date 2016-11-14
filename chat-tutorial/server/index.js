@@ -47,7 +47,7 @@ function createRoomIfNotExists() {
 		},
 		json: {
 			owner: 'owner',
-			name: 'testroom2',
+			name: 'blt',
 			title: 'Test Room'
 		}
 	}, (err, response, body) => {

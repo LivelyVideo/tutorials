@@ -19,19 +19,12 @@ function createChat(user, el) {
 	}
 	chat = new LivelyChat(el, {
 		user: user,
-		room: 'testroom2',
+		room: 'blt',
 		apiHost: 'https://dev.livelyvideo.tv',
 		websocketHost: 'ws://ws-dev.livelyvideo.tv',
 		authUrl: `/access-token`,
 	});
 }
-
-// <<<<<<< HEAD
-// 		room: 'blt',
-// 		apiHost: 'https://qa.livelyvideo.tv',
-// 		websocketHost: 'wss://ws-qa.livelyvideo.tv',
-// 		authUrl: 'https://qa.livelyvideo.tv/auth/v1/lively'
-// =======
 
 document.querySelector('#pickuser').onsubmit = (e) => {
 	e.preventDefault();
