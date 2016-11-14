@@ -1,5 +1,5 @@
 import StockBroadcaster from '@livelyvideo/stock-broadcaster';
-import StockPlayer from '@livelyvideo/stock-live-player';
+import StockPlayer from '@livelyvideo/stock-live-player/lib/index.js';
 import xhr from 'xhr';
 import text from 'text-content';
 
@@ -91,7 +91,7 @@ Events:
 **/
 let stockPlayer;
 let currentManifest;
-let drivers = ['hlsjs', 'mediaSourceMp4', 'hls', 'flashRtmp'];
+let drivers = ['hlsjs', 'hls', 'mediaSourceMp4', 'flashRtmp'];
 function loadPlayer (manifest) {
 	if (stockPlayer) {
 		stockPlayer.destroy();
