@@ -142,5 +142,7 @@ function loadVideos() {
 }
 
 const loadVideosButton = document.querySelector('.loadvideos');
-loadVideosButton.onclick = () => loadVideos;
+loadVideosButton.onclick = () => {
+	loadVideos();
+};
 loadVideos();

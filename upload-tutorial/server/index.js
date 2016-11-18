@@ -21,7 +21,7 @@ function getAccessToken(scopes) {
 			},
 			json: {
 				expire: moment.utc().add(1, 'days').format(),
-				scopes: ['upload'],
+				scopes: scopes,
 				userId: 'demouser'
 			}
 		}, (err, response, body) => {

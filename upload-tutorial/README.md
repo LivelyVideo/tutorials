@@ -14,15 +14,13 @@ Lively's Upload requires clients to use an access token that their service has p
 1) Create an endpoint that will retrieve an access token from LivelyVideo for a given user
 2) Instantiate the client library with that endpoint
 
-This will enable the client library to retrieve authorization tokens
+This will enable the client library to retrieve authorization tokens as shown in server/index.js with the `getAccessToken` method
 
-(1) can be found in server/index.js
-
-Requests to Lively's Authorization Service should be executed from servers as they contain sensitive information - a private key (token) for the company.
+Requests to Lively's Authorization Service should be executed from servers as they contain sensitive information, specifically a private key (token) for the company which is provided when you begin a new project with Lively Video.
 
 If a video is uploaded, it will immediately be transcoded and retrievable through the xcode API, see server/index.js#51.
 
-If another type of asset is uploaded, tutorials are coming soon.
+Tutorials coming soon for uploading assets other than videos.
 
 ## Video Authorization
 
@@ -42,5 +40,6 @@ The upload implementation can be found in client/index.js
 
 ## Default Styles
 
-Default styling can be found in ./node_modules/@livelyvideo/upload/dist/
-Default styling can be found in ./node_modules/@livelyvideo/stock-vod/dist/
+Default styling for upload can be found in ./node_modules/@livelyvideo/upload/dist/
+
+Default styling for the video be found in ./node_modules/@livelyvideo/stock-vod/dist/

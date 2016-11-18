@@ -158,7 +158,7 @@ function loadVideos() {
 
 var loadVideosButton = document.querySelector('.loadvideos');
 loadVideosButton.onclick = function () {
-	return loadVideos;
+	loadVideos();
 };
 loadVideos();
 
