@@ -18,7 +18,7 @@ This will enable the client library to retrieve authorization tokens as shown in
 
 Requests to Lively's Authorization Service should be executed from servers as they contain sensitive information, specifically a private key (token) for the company which is provided when you begin a new project with Lively Video.
 
-If a video is uploaded, it will immediately be transcoded and retrievable through the xcode API, see server/index.js#51.
+If a video is uploaded, then it will immediately be transcoded and retrievable through the xcode API, see server/index.js#51.
 
 Tutorials coming soon for uploading assets other than videos.
 
