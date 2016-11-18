@@ -150,7 +150,7 @@ function loadVideos() {
 			videoEntry.appendChild(videoLink);
 
 			videoLink.onclick = loadPlayer(body.results[i].manifest);
-			(0, _textContent2.default)(videoLink, 'video uploaded by ' + body.results[i].userId + ' on ' + body.results[i].uploadTime);
+			(0, _textContent2.default)(videoLink, 'video uploaded by ' + body.results[i].userId + ' on ' + body.results[i].dateEnd);
 			videosContainer.appendChild(videoEntry);
 		}
 	});

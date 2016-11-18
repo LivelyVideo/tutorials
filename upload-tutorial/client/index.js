@@ -135,7 +135,7 @@ function loadVideos() {
 			videoEntry.appendChild(videoLink);
 
 			videoLink.onclick = loadPlayer(body.results[i].manifest);
-			text(videoLink, `video uploaded by ${body.results[i].userId} on ${body.results[i].uploadTime}`);
+			text(videoLink, `video uploaded by ${body.results[i].userId} on ${body.results[i].dateEnd}`);
 			videosContainer.appendChild(videoEntry);
 		}
 	});

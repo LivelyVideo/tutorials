@@ -48,13 +48,8 @@ router.get('/access-token', getAccessToken(['upload']), (req, res, next) => {
 
 router.get('/videos', getAccessToken(['media']), (req, res) => {
 	// this gets transcoded videos
-	// statuses are
-	// 1: completed
-	// 2: inprogress
-	// 3: completed
-	// 4: aborted
 	request({
-		uri: 'https://dev.livelyvideo.tv/api/videos',
+		uri: 'https://dev.livelyvideo.tv/api/xcode/videos',
 		method: 'GET',
 		rejectUnauthorized: false,
 		requestCert: true,
@@ -64,7 +59,11 @@ router.get('/videos', getAccessToken(['media']), (req, res) => {
 		qs: {
 			limit: 30,
 			offset: 0,
-			status: 3,
+			// CREATED
+			// INPROGRESS
+			// COMPLETED
+			// ABORTED
+			status: 'COMPLETED',
 			// the access token is added to the manifests so that we can guarantee the user should be viewing the video
 			'user-token': res.locals.tokenBody.token
 		}
