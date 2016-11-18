@@ -1,6 +1,11 @@
 # Upload Tutorial
 
-This tutorial has two components, an authorization service and the client for upload.
+This tutorial has four components:
+
+- An authorization integration for upload, retrieving transcoded videos, and playing videos (found in server/index.js)
+- An upload client (found in client/index.js)
+- An api integration to retrieve live videos (found in server/index.js)
+- A vod player (found in client/index.js)
 
 ## Authorization
 
@@ -15,11 +20,15 @@ This will enable the client library to retrieve authorization tokens
 
 Requests to Lively's Authorization Service should be executed from servers as they contain sensitive information - a private key (token) for the company.
 
-## Chat
+## Video Authorization
 
-This is a full chat integration.  For more custom implementations, contact us for access to the core chat libraries.
+To play a video, a manifest must have a valid access token with the "media" scope.  This access token can either be manually applied to the manifest, or can be provided as a query param on the request "user-token", and it will be hydrated.  The latter can be seen in server/index.js#49
 
-The chat implementation can be found in client/index.js
+## Upload
+
+This is a full upload integration.  For more custom implementations, contact us for access to the core upload libraries.
+
+The upload implementation can be found in client/index.js
 
 ## Running
 
@@ -29,4 +38,5 @@ The chat implementation can be found in client/index.js
 
 ## Default Styles
 
-Default styling can be found in ./node_modules/@livelyvideo/chat/dist/
+Default styling can be found in ./node_modules/@livelyvideo/upload/dist/
+Default styling can be found in ./node_modules/@livelyvideo/stock-vod/dist/
