@@ -20,6 +20,10 @@ This will enable the client library to retrieve authorization tokens
 
 Requests to Lively's Authorization Service should be executed from servers as they contain sensitive information - a private key (token) for the company.
 
+If a video is uploaded, it will immediately be transcoded and retrievable through the xcode API, see server/index.js#51.
+
+If another type of asset is uploaded, tutorials are coming soon.
+
 ## Video Authorization
 
 To play a video, a manifest must have a valid access token with the "media" scope.  This access token can either be manually applied to the manifest, or can be provided as a query param on the request "user-token", and it will be hydrated.  The latter can be seen in server/index.js#49
