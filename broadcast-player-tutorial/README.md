@@ -8,7 +8,7 @@ Lively's Live Services (LS) is an API for all things live streaming related.
 
 Found in server/index.js, there are two calls to Live services, one for getting an stream key to broadcast, and one for getting a list of active broadcasts.
 
-Requests to Lively's Live Services should be executed from servers as they contain sensitive information - a private key (token) for the company.
+Requests to Lively's Live Services should be executed from servers as they contain sensitive information, specifically a private key (token) for the company which is provided when you begin a new project with Lively Video.
 
 ## Broadcaster
 

@@ -11,8 +11,8 @@ This tutorial has four components:
 
 Lively's Upload requires clients to use an access token that their service has published.
 
-1) Create an endpoint that will retrieve an access token from LivelyVideo for a given user
-2) Instantiate the client library with that endpoint
+- Create an endpoint that will retrieve an access token from LivelyVideo for a given user (can be found in server/index.js)
+- Instantiate the client library with that endpoint
 
 This will enable the client library to retrieve authorization tokens as shown in server/index.js with the `getAccessToken` method
 
