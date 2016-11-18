@@ -53,16 +53,6 @@ router.get('/videos', getAccessToken(['media']), (req, res) => {
 	// 2: inprogress
 	// 3: completed
 	// 4: aborted
-	res.send({
-		results: [{
-			id: 1234,
-			userId: 'demouser',
-			manifest: 'https://dev.livelyvideo.tv/api/asset/v/CH9a2951d6-f44a-452b-910b-ef1019474314.json?token=ad8202e6-48e4-484f-a980-9f72aad3ee28',
-			uploadTime: '2016-11-18T01:25:12.000Z'
-		}]
-	});
-	return;
-
 	request({
 		uri: 'https://dev.livelyvideo.tv/api/videos',
 		method: 'GET',
