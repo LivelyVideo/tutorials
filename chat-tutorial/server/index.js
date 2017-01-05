@@ -14,7 +14,7 @@ router.get('/access-token', (req, res) => {
 		rejectUnauthorized: false,
 		requestCert: true,
 		headers: {
-			Authorization: 'Bearer a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711'
+			Authorization: 'Bearer something-i-can-type'
 		},
 		json: {
 			expire: moment.utc().add(1, 'days').format(),
@@ -36,32 +36,60 @@ router.get('/access-token', (req, res) => {
 
 function createRoomIfNotExists() {
 	// this function creates a room, or updates it if exists
-	// the name of the room cannot change, the title will be displayed in the UI
+
+	// create the owner user if they do not exist
 	request({
 		method: 'POST',
-		uri: 'https://dev.livelyvideo.tv/chat/private/v1/rooms',
+		uri: 'https://dev.livelyvideo.tv/chat/private/v1/users',
 		rejectUnauthorized: false,
 		requestCert: true,
 		headers: {
-			Authorization: 'Bearer a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711'
+			Authorization: 'Bearer something-i-can-type'
 		},
 		json: {
-			owner: 'owner',
-			name: 'blt',
-			title: 'Test Room'
+			id: 'owner',
+			username: 'owner'
 		}
 	}, (err, response, body) => {
 		if (err) {
-			console.error('room not created');
+			console.error('user not created');
 			process.exit(1);
 		}
 		if (response.statusCode > 399) {
-			console.error('room not created', {
+			console.error('user not created', {
 				code: response.statusCode,
 				error: body
 			});
 			process.exit(1);
 		}
+
+		// the name of the room cannot change, the title will be displayed in the UI
+		request({
+			method: 'POST',
+			uri: 'https://dev.livelyvideo.tv/chat/private/v1/rooms',
+			rejectUnauthorized: false,
+			requestCert: true,
+			headers: {
+				Authorization: 'Bearer something-i-can-type'
+			},
+			json: {
+				owner: 'owner',
+				name: 'blt',
+				title: 'Test Room'
+			}
+		}, (err, response, body) => {
+			if (err) {
+				console.error('room not created');
+				process.exit(1);
+			}
+			if (response.statusCode > 399) {
+				console.error('room not created', {
+					code: response.statusCode,
+					error: body
+				});
+				process.exit(1);
+			}
+		});
 	});
 }
 createRoomIfNotExists();

@@ -6,7 +6,7 @@ const path = require('path');
 // Get listings from the private livelyvideo api
 router.get('/listings', (req, res) => {
 	request({
-		uri: 'https://dev.livelyvideo.tv/api/ls/v1/live?token=a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711',
+		uri: 'https://dev.livelyvideo.tv/api/ls/v1/live?token=something-i-can-type',
 		method: 'GET',
 		rejectUnauthorized: false,
 		requestCert: true,
@@ -24,7 +24,7 @@ router.get('/listings', (req, res) => {
 // the user can be changed to anything
 const USER = `tutorialuser_${Math.floor(Math.random() * 1000)}`;
 router.get('/access-key', (req, res) => {
-	let uri = `https://dev.livelyvideo.tv/api/ls/v1/key/${USER}?token=a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711`;
+	let uri = `https://dev.livelyvideo.tv/api/ls/v1/key/${USER}?token=something-i-can-type`;
 
 	if (req.query.regenerate) {
 		uri += `&regenerate=${req.query.regenerate}`;

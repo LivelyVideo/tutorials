@@ -17,7 +17,7 @@ function getAccessToken(scopes) {
 			rejectUnauthorized: false,
 			requestCert: true,
 			headers: {
-				Authorization: 'Bearer a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711'
+				Authorization: 'Bearer something-i-can-type'
 			},
 			json: {
 				expire: moment.utc().add(1, 'days').format(),
@@ -54,7 +54,7 @@ router.get('/videos', getAccessToken(['media']), (req, res) => {
 		rejectUnauthorized: false,
 		requestCert: true,
 		headers: {
-			Authorization: 'Bearer a0a58f5a-fb21-4eb6-bb1f-b66f0f45d711'
+			Authorization: 'Bearer something-i-can-type'
 		},
 		qs: {
 			limit: 30,
