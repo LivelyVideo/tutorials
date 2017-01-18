@@ -8,5 +8,5 @@ app.use(require('./index'));
 const server = app.listen(process.env.PORT || 7000, () => {
 	const port = server.address().port;
 
-	console.log('console server listening', {port});
+	console.log('server listening', {port});
 });

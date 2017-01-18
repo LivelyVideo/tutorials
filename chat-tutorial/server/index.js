@@ -4,6 +4,9 @@ const request = require('request');
 const path = require('path');
 const moment = require('moment');
 
+const ROOM_NAME = 'blt';
+const OWNER = 'owner';
+
 router.get('/access-token', (req, res) => {
 	// this request creates an access token
 	// access tokens are paired with user and grant access for that user to specific scopes
@@ -47,8 +50,8 @@ function createRoomIfNotExists() {
 			Authorization: 'Bearer something-i-can-type'
 		},
 		json: {
-			id: 'owner',
-			username: 'owner'
+			id: OWNER,
+			username: OWNER
 		}
 	}, (err, response, body) => {
 		if (err) {
@@ -73,8 +76,8 @@ function createRoomIfNotExists() {
 				Authorization: 'Bearer something-i-can-type'
 			},
 			json: {
-				owner: 'owner',
-				name: 'blt',
+				owner: OWNER,
+				name: ROOM_NAME,
 				title: 'Test Room'
 			}
 		}, (err, response, body) => {

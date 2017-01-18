@@ -20,13 +20,14 @@ Params:
 			url: the company's auth url, which should access livelyvideo to create an access token for the user
 **/
 var chat = void 0;
+var ROOM = 'blt2';
 function createChat(user, el) {
 	if (chat) {
 		chat.destroy();
 	}
 	chat = new _chat2.default(el, {
 		user: user,
-		room: 'blt',
+		room: ROOM,
 		apiHost: 'https://dev.livelyvideo.tv',
 		websocketHost: 'ws://ws-dev.livelyvideo.tv',
 		authUrl: '/access-token'
