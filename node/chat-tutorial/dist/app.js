@@ -20,7 +20,7 @@ Params:
 			url: the company's auth url, which should access livelyvideo to create an access token for the user
 **/
 var chat = void 0;
-var ROOM = 'blt2';
+var ROOM = 'blt';
 function createChat(user, el) {
 	if (chat) {
 		chat.destroy();
