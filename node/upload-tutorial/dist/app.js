@@ -51,8 +51,9 @@ Params:
 				LEGACY_SUBTITLE - File preview and drag and drop unavailable. Please upgrade your browser for a better experience. |
 **/
 var upload = new _upload2.default(document.querySelector('.upload'), {
-	url: 'http://dev.livelyvideo.tv/api/upload',
-	authUrl: 'http://localhost:7000/access-token'
+	url: 'https://dev.livelyvideo.tv/api/upload/v2',
+	authUrl: 'http://localhost:7000/access-token',
+    supportLegacy: false
 });
 window.upload = upload;
 
