@@ -63,7 +63,7 @@ a {
 button, .button, input[type="submit"] {
 	position: relative;
 	cursor: pointer;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	vertical-align: middle;
 	color: #fafafa;
 	background-color: #2658A6;
