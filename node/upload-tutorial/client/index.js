@@ -9,33 +9,23 @@ Set up the upload instance
 Params:
 	- html element
 	- options
-			url: (Required) Route to your upload api.
-			authUrl: (Required) Route to your auth api.
-			redirect: Defaults to null. The redirect route to your results template for cross-origin form compatibility.
-			accept: Defaults to null. Sets the value of accept attribute on file input.
-			supportLegacy: Defaults to true. Turn legacy support on or off.
-			forceLegacy: Defaults to false. Helpful option to force use of legacy form for debugging.
-			autoSubmit: Defaults to true. Automatically upload file when added to the uploader.
-			MESSAGES: (Localization) Object containing list of message names and message strings.
-				ERROR_NETWORK - Network error.
-				ERROR_DUP_FILE - This file has already been uploaded.
-				ERROR_FILE_NAME - This file does not have a name.
-				ERROR_FILE_EXT - This file extension is not supported.
-				ERROR_MISSING_BODY - This file does not have any data.
-				ERROR_FILE_SIZE - This file exceeds max file size.
-				ERROR_UNAUTH - The user is not authorized to perform this action.
-				ERROR_DEFAULT - Error.
-				ERROR_CANCEL - Upload has been canceled.
-				ERROR_URL - Invalid url.
-				ERROR_EL - The constructor has not been given a valid element or selector.
-				UNSUPPORTED_BROWSER - Your browser does not support HTML5 upload. We recommend upgrading your browser.
-				TITLE - Drop files here or click to upload.
-				SUBTITLE - Max file size 48Mb.
-				LEGACY_TITLE - Click to upload.
-				LEGACY_SUBTITLE - File preview and drag and drop unavailable. Please upgrade your browser for a better experience. |
+		{object} el - The DOM element for Chat to be constructed on
+		{Config} [options] - Configurable options for the Chat class
+		{string} options.host - host of upload route
+		{string} options.authUrl - authUrl to connect to
+		{string} [options.token] - Manual token for authorization
+		{string} [options.redirect] - Redirect url for legacy support
+		{string} [options.accept] - Accept field for upload accept attribute
+		{string} [options.bemPrefix=upload] - Prefix for DOM classes
+		{string} [options.autoSubmit=true] - Auto submit upload on select
+		{string} [options.pause=false] - Render pause button
+		{string} [options.cancel=false] - Render cancel button
+		{string} [options.messages] - Hard code message strings
+		{number} [options.chunkSize=102400] - Size of chunks to be uploaded
+		{number} [options.chunkConnections=3] - Number of concurrent chunk connections
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
-	url: 'http://dev.livelyvideo.tv/api/upload',
+	host: 'dev.livelyvideo.tv',
 	authUrl: 'http://localhost:7000/access-token'
 });
 window.upload = upload;
