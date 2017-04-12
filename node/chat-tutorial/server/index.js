@@ -12,7 +12,7 @@ router.get('/access-token', (req, res) => {
 	// access tokens are paired with user and grant access for that user to specific scopes
 	// access tokens are intended to be used directly by users on clients in cookies or auth headers
 	request({
-		uri: 'https://dev.livelyvideo.tv/auth/v1/access-tokens',
+		uri: 'https://sandbox.livelyvideo.tv/auth/v1/access-tokens',
 		method: 'POST',
 		rejectUnauthorized: false,
 		requestCert: true,
@@ -43,7 +43,7 @@ function createRoomIfNotExists() {
 	// create the owner user if they do not exist
 	request({
 		method: 'POST',
-		uri: 'https://dev.livelyvideo.tv/chat/private/v1/users',
+		uri: 'https://sandbox.livelyvideo.tv/chat/private/v1/users',
 		rejectUnauthorized: false,
 		requestCert: true,
 		headers: {

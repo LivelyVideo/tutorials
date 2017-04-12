@@ -21,9 +21,8 @@ function createChat(user, el) {
 	chat = new LivelyChat(el, {
 		user: user,
 		room: ROOM,
-		apiHost: 'https://dev.livelyvideo.tv',
-		websocketHost: 'ws://ws-dev.livelyvideo.tv',
-		authUrl: `/access-token`,
+		host: 'sandbox.livelyvideo.tv',
+		authUrl: `/access-token?username=${user}`,
 	});
 }
 
