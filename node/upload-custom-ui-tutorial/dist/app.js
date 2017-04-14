@@ -21,7 +21,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * This is a guide building a custom upload ui
- *
  */
 
 /**
@@ -90,7 +89,7 @@ var uploadMultiple = new _upload2.default(document.querySelector('#upload-multip
  * Step 3:
  * We will set the 'accept' option to 'image/*' to only allow image files to be added to upload
  *
- * Step 4: *See code below 
+ * Step 4: ***See Code Below***
  * We will use the 'success' event listener to manage our interface state 
  * In this case we will change the avatar to whatever image was successfully uploaded
  *
