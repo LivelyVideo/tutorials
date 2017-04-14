@@ -1,0 +1,132 @@
+#upload-avatar__container {
+  background: #FFF;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 12rem;
+  margin: 1.5 auto;
+}
+
+#upload-avatar__image {
+  background: #FFF;
+  height: 12rem;
+  width: 12rem;
+  background-color: #CCC;
+  background-image: url(http://i.pravatar.cc/192);
+  background-size: cover;
+  background-position: center;
+}
+
+.upload-avatar {
+  position: relative;
+  height: 6rem;
+  float: left;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.upload-avatar::before {
+  content: '';
+  position: absolute;
+  left: .25rem;
+  right: .25rem;
+  bottom: .25rem;
+  top: .25rem;
+  border-radius: 4px;
+  border: 2px dashed #1395BA;
+  transition: all .15s ease;
+}
+
+.upload-avatar--is-dragover {
+  background-color: #e9f8fd;
+}
+.upload-avatar--is-dragover::before {
+  border: 2px solid #1395BA;
+}
+
+.upload-avatar__info {
+  text-align: center;
+  padding: 1.5rem;
+  line-height: 1.5rem;
+  font-size: .75rem;
+  text-transform: uppercase;
+  color: #A7AFB2;
+  font-weight: bold;
+}
+
+.upload-avatar__input {
+  display: none;
+}
+
+.upload-avatar__previews {
+  position: absolute;
+  top: -12rem;
+  left: 0;
+  right: 0;
+  height: 12rem;
+  width: 12rem;
+}
+
+.upload-avatar__preview-status {
+  position: absolute;
+  top: 4.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  line-height: 3rem;
+  text-align: center;
+  font-size: .8rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  color: #FFF;
+}
+.upload-avatar__preview-info-name {
+  display: none;
+}
+.upload-avatar__preview-info-size {
+  display: none;
+}
+.upload-avatar__preview-progress {
+  position: absolute;
+  top: 4.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 3rem;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #DADEDF;
+  opacity: .8;
+}
+.upload-avatar__preview-progress-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  background: #1395BA;
+}
+
+.upload-avatar__preview--uploading .upload-avatar__preview-progress {
+  background-color: #1395BA;
+}
+
+.upload-avatar__preview--reconnecting .upload-avatar__preview-progress {
+  background-color: #EBC844;
+}
+
+.upload-avatar__preview--success .upload-avatar__preview-progress {
+  background-color: #A2B86C;
+}
+
+.upload-avatar__preview--success {
+  display: none;
+}
+
+.upload-avatar__preview--failure .upload-avatar__preview-progress {
+  background-color: #D94E1F;
+}
