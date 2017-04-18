@@ -32,7 +32,7 @@ I attached the stockBroadcaster to the window so it can be accessed from console
 const stockBroadcaster = new StockBroadcaster(document.querySelector('#broadcaster'), '/access-key', {
 	affiliate: 'dev',
 	tfSwfPath: '/thinDebug.swf',
-	rtmpUrl: 'rtmp://uc-ls-dev.livelyvideo.tv/origin',
+	rtmpUrl: 'rtmp://ids1-ls-dev.livelyvideo.tv/origin',
 	drivers: ['flash']
 });
 stockBroadcaster.on('error', (...args) => {
