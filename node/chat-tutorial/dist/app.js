@@ -21,6 +21,7 @@ Params:
 **/
 var chat = void 0;
 var ROOM = 'blt';
+//const ROOM = 'sea1a~1~931c1d57-785d-4629-adb2-f290b74b16eb_585_426x240_56';
 function createChat(user, el) {
 	if (chat) {
 		chat.destroy();
@@ -28,7 +29,7 @@ function createChat(user, el) {
 	chat = new _chat2.default(el, {
 		user: user,
 		room: ROOM,
-		host: 'sandbox.livelyvideo.tv',
+		host: 'img2.livelyvideo.tv',
 		authUrl: '/access-token?username=' + user
 	});
 }

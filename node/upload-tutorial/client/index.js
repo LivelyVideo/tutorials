@@ -25,8 +25,8 @@ Params:
 		{number} [options.chunkConnections=3] - Number of concurrent chunk connections
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
-	host: 'dev.livelyvideo.tv',
-	authUrl: 'http://localhost:7000/access-token'
+	authUrl: 'http://localhost:7000/access-token',
+	host: 'dev.livelyvideo.tv'
 });
 window.upload = upload;
 
@@ -85,7 +85,7 @@ function loadPlayer (manifest) {
 
 		window.stockPlayer = stockPlayer = new StockPlayer(document.querySelector('#player'), manifest, {
 			drivers: ['hlsjs', 'hls', 'flashHls', 'mp4'],
-			hlsjsPath: 'http://dailymotion.github.io/hls.js/dist/hls.js',
+			hlsjsPath: 'https://cdn.jsdelivr.net/hls.js/latest/hls.min.js',
 			flashlsPath: './flashlsChromeless.swf',
 		});
 	};

@@ -12,7 +12,7 @@ router.get('/access-token', (req, res) => {
 	// access tokens are paired with user and grant access for that user to specific scopes
 	// access tokens are intended to be used directly by users on clients in cookies or auth headers
 	request({
-		uri: 'https://sandbox.livelyvideo.tv/auth/v1/access-tokens',
+		uri: 'https://dev.livelyvideo.tv/auth/v1/access-tokens',
 		method: 'POST',
 		rejectUnauthorized: false,
 		requestCert: true,
@@ -43,7 +43,7 @@ function createRoomIfNotExists() {
 	// create the owner user if they do not exist
 	request({
 		method: 'POST',
-		uri: 'https://sandbox.livelyvideo.tv/chat/private/v1/users',
+		uri: 'https://dev.livelyvideo.tv/chat/private/v1/users',
 		rejectUnauthorized: false,
 		requestCert: true,
 		headers: {
@@ -55,13 +55,13 @@ function createRoomIfNotExists() {
 		}
 	}, (err, response, body) => {
 		if (err) {
-			console.error('user not created');
+			console.error('user not created', err);
 			process.exit(1);
 		}
 		if (response.statusCode > 399) {
 			console.error('user not created', {
 				code: response.statusCode,
-				error: body
+				error: JSON.stringify(body, null, '  ')
 			});
 			process.exit(1);
 		}

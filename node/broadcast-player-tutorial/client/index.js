@@ -32,11 +32,8 @@ I attached the stockBroadcaster to the window so it can be accessed from console
 const stockBroadcaster = new StockBroadcaster(document.querySelector('#broadcaster'), '/access-key', {
 	affiliate: 'dev',
 	tfSwfPath: '/thinDebug.swf',
-	// can be used for beta servers
-	// rtmpUrl: 'rtmp://uc-origin.livelyvideo.tv/origin',
-	rtmpUrl: 'rtmp://ids6-ls.dev.caster.tv/origin',
-	drivers: ['flash'],
-	tfArgs: ['affiliate=dev', 'host=livelyvideo.tv']
+	rtmpUrl: 'rtmp://uc-ls-dev.livelyvideo.tv/origin',
+	drivers: ['flash']
 });
 stockBroadcaster.on('error', (...args) => {
 	console.error('error', args);
@@ -91,7 +88,7 @@ Events:
 **/
 let stockPlayer;
 let currentManifest;
-let drivers = ['hlsjs', 'hls', 'mediaSourceMp4', 'flashRtmp'];
+let drivers = ['mediaSourceMp4', 'hlsjs', 'hls', 'flashRtmp'];
 function loadPlayer (manifest) {
 	if (stockPlayer) {
 		stockPlayer.destroy();
@@ -100,7 +97,7 @@ function loadPlayer (manifest) {
 	currentManifest = manifest;
 	window.stockPlayer = stockPlayer = new StockPlayer(document.querySelector('#player'), manifest, {
 		drivers: drivers,
-		hlsjsPath: 'http://dailymotion.github.io/hls.js/dist/hls.js',
+		hlsjsPath: 'https://cdn.jsdelivr.net/hls.js/latest/hls.min.js',
 		tfSwfPath: '/thinDebug.swf'
 	});
 }
@@ -150,7 +147,7 @@ getListingsButton.onclick = () => {
 
 		for (let i = 0; i < body.results.length; i++) {
 			const entry = result.cloneNode();
-			text(entry, body.results[i].userId);
+			text(entry, body.results[i].broadcasterId);
 
 			// for each listing, add a click listener to load that manifest.
 			entry.onclick = function (manifest) {

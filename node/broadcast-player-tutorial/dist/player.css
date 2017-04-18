@@ -1,0 +1,660 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'LivelyPlayerControls';
+  src: url("data:application/x-font-ttf;charset=utf-8;base64,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") format("truetype");
+  font-weight: normal;
+  font-style: normal; }
+
+.lvcontrols__progress {
+  position: absolute;
+  height: 12px;
+  left: 20px;
+  right: 20px;
+  cursor: pointer;
+  bottom: 48px;
+  z-index: 11;
+  visibility: none;
+  opacity: 0;
+  transition: all .25s ease; }
+
+.lvcontrols__progress:hover .lvcontrols__progress-slider-value::before {
+  width: 10px;
+  height: 10px;
+  right: -5px;
+  top: -3px;
+  border-radius: 50%; }
+
+.lvcontrols__progress--interacting {
+  visibility: visible;
+  opacity: 1; }
+
+.lvcontrols__progress-slider-buffer {
+  position: absolute;
+  background-color: #555F61;
+  margin-top: -4px;
+  height: 4px; }
+
+.lvcontrols__progress-slider-value {
+  position: absolute;
+  margin-top: -4px;
+  height: 4px;
+  left: 0;
+  background: #1395BA; }
+
+.lvcontrols__progress-slider-value::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #1395BA;
+  right: -2px;
+  top: 0;
+  position: absolute;
+  transition: all .15s ease; }
+
+.lvcontrols__progress-bar {
+  cursor: pointer;
+  margin-top: 3px;
+  height: 4px;
+  width: 100%;
+  background: rgba(218, 222, 223, 0.65); }
+
+.lvcontrols__duration {
+  position: absolute;
+  right: 0;
+  bottom: 14px;
+  font-size: 12px;
+  color: #FFF; }
+
+.lvcontrols__current-time {
+  position: absolute;
+  left: 0;
+  bottom: 14px;
+  font-size: 12px;
+  color: #FFF; }
+
+.lvcontrols__volume-slider {
+  position: absolute;
+  width: 100px;
+  height: 4px;
+  margin-left: 40px;
+  bottom: 18px;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0, 0, 0.2, 1);
+  background: rgba(218, 222, 223, 0.65);
+  cursor: pointer; }
+
+.lvcontrols__volume-slider::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  bottom: 0;
+  right: 0;
+  left: -14px;
+  height: 24px; }
+
+.lvcontrols__volume-slider:hover .lvcontrols__volume-slider-value::before {
+  width: 10px;
+  height: 10px;
+  right: -5px;
+  top: -3px;
+  border-radius: 50%; }
+
+.lvcontrols__volume-slider--interacting {
+  opacity: 1;
+  visibility: visible; }
+
+.lvcontrols__volume-slider-value {
+  position: relative;
+  background-color: #1395BA;
+  height: 100%; }
+
+.lvcontrols__volume-slider-value::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: #1395BA;
+  right: -2px;
+  top: 0;
+  position: absolute;
+  transition: all .15s ease; }
+
+.lvcontrols__volume-bar {
+  display: inline-block; }
+
+.lvcontrols__volume-indicator {
+  position: relative;
+  float: left;
+  height: 40px;
+  width: 32px;
+  opacity: 1;
+  cursor: pointer; }
+
+.lvcontrols__volume-indicator--unmuted::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__volume-indicator--muted::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__volume-indicator--high::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__volume-indicator--low::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__volume-indicator--off::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__qualities {
+  position: absolute;
+  padding: 0;
+  right: 20px;
+  font-size: 12px;
+  bottom: 74px;
+  user-select: none;
+  color: #DADEDF;
+  border-radius: 3px;
+  overflow: hidden;
+  background: rgba(33, 33, 33, 0.9); }
+
+@media (max-width: 30rem) {
+  .lvcontrols__qualities {
+    right: 0;
+    left: 0;
+    bottom: 2.5rem;
+    text-align: center;
+    border-radius: 0; }
+  .lvcontrols__quality {
+    display: inline-block; } }
+
+.lvcontrols__qualities--hidden {
+  display: none; }
+
+.lvcontrols__quality {
+  position: relative;
+  padding: 8px 12px;
+  padding-right: 24px;
+  white-space: nowrap;
+  text-align: right;
+  background: rgba(33, 33, 33, 0.9);
+  cursor: pointer; }
+
+.lvcontrols__quality-selector {
+  position: relative;
+  float: right;
+  height: 40px;
+  width: 32px;
+  cursor: pointer; }
+
+.lvcontrols__quality-selector::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  font-size: 20px;
+  line-height: 40px; }
+
+.lvcontrols__quality-selector--hidden {
+  display: none; }
+
+.lvcontrols__quality:hover,
+.lvcontrols__quality--selected,
+.lvcontrols__quality--next-level:hover,
+.lvcontrols__quality--current-level:hover {
+  background: rgba(41, 41, 41, 0.9); }
+
+.lvcontrols__quality--next-level::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  position: absolute;
+  right: 6px;
+  left: inherit;
+  color: #0D3C55;
+  font-size: 12px;
+  top: 3px; }
+
+.lvcontrols__quality--current-level {
+  background: rgba(33, 33, 33, 0.9); }
+
+.lvcontrols__quality--current-level::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  position: absolute;
+  right: 6px;
+  left: inherit;
+  color: #0F5B78;
+  font-size: 12px;
+  top: 3px; }
+
+.lvcontrols__quality--selected {
+  color: #FFF;
+  background: rgba(41, 41, 41, 0.9); }
+
+.lvcontrols__quality--selected::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  position: absolute;
+  right: 6px;
+  left: inherit;
+  color: #1395BA;
+  font-size: 12px;
+  top: 3px; }
+
+.lvcontrols__kbps {
+  margin-right: 4px;
+  color: #6F7C80; }
+
+.lvcontrols__big-button--stopped {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2NTBweCIgaGVpZ2h0PSI3NTBweCIgdmlld0JveD0iMCAwIDY1MCA3NTAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDY1MCA3NTAiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwb2x5Z29uIGZpbGw9Im5vbmUiIHBvaW50cz0iNDA5LjA0NSwzNzMuNDA0IDY0Ny4yMDcsNDY2LjMzOSA2NDcuNjIyLDQ2Ni4xNTcgNDA5LjQ4NSwzNzMuMjMyICIvPjxwb2x5Z29uIG9wYWNpdHk9IjAuNSIgZmlsbD0iI0ZGRkZGRiIgcG9pbnRzPSI2NDcuNjIyLDQ2Ni4xNTcgNjQ3LjIwNyw0NjYuMzM5IDQwOS4wNDUsMzczLjQwNCAzNjMuMTIzLDM5MS4zMjQgMS4zOTcsNTMyLjQ3OSAxLjM5Nyw3NTAgNTc5LjA0Nyw0OTcuMDA1IDY0OC42MDQsNDY2LjU0MSAiLz48cG9seWdvbiBmaWxsPSIjRkZGRkZGIiBwb2ludHM9IjAsMCAwLDIxMy41MTQgMC4wMzUsMjEzLjUyOCA0MDguNDQsMzcyLjg5NSA0MDguMDksMzczLjAzMSA0MDkuMDQ1LDM3My40MDQgNDA5LjQ4NSwzNzMuMjMyIDY0Ny42MjIsNDY2LjE1NyA2NTAsNDY1LjExNyA2NTAsMzUzLjczMyA2NTAsMjg0LjY4MyAiLz48cG9seWdvbiBvcGFjaXR5PSIwLjIiIHBvaW50cz0iNjQ3LjYyMiw0NjYuMTU3IDY0Ny4yMDcsNDY2LjMzOSA0MDkuMDQ1LDM3My40MDQgNDA4LjA5LDM3My4wMzEgNDA4LjQ0LDM3Mi44OTUgMC4wMzUsMjEzLjUyOCAwLDIxMy42IDM2My4xMjMsMzkxLjMyNCA1NzkuMDQ3LDQ5Ny4wMDUgNjQ4LjYwNCw0NjYuNTQxICIvPjwvZz48L3N2Zz4=);
+  background-size: 20%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer; }
+
+.lvcontrols__big-button--offline {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+  padding-top: 22.5%;
+  font-size: 2em;
+  text-align: center; }
+
+.lvcontrols__play-button {
+  position: relative;
+  float: left;
+  height: 40px;
+  width: 32px;
+  opacity: .4;
+  cursor: pointer; }
+
+.lvcontrols__play-button::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__play-button--playing {
+  opacity: 1; }
+
+.lvcontrols__play-button--playing::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__play-button--stopped {
+  opacity: 1; }
+
+.lvcontrols__play-button--stopped::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  line-height: 40px; }
+
+.lvcontrols__fullscreen {
+  position: relative;
+  float: right;
+  height: 40px;
+  width: 32px;
+  cursor: pointer; }
+
+.lvcontrols__fullscreen::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  font-size: 28px;
+  line-height: 40px; }
+
+.lvcontrols__fullscreen--exit::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  font-size: 28px;
+  line-height: 40px; }
+
+.lvcontrols__fullscreen--hidden {
+  display: none; }
+
+.lvcontrols {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0; }
+
+.lvcontrols * {
+  box-sizing: border-box; }
+
+.lvcontrols__bar {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 12;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.25s, opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
+  padding: 0 12px;
+  margin-bottom: 8px; }
+
+.lvcontrols__bar::after {
+  content: '';
+  height: 98px;
+  width: 100%;
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAADGCAYAAAAT+OqFAAAAdklEQVQoz42QQQ7AIAgEF/T/D+kbq/RWAlnQyyazA4aoAB4FsBSA/bFjuF1EOL7VbrIrBuusmrt4ZZORfb6ehbWdnRHEIiITaEUKa5EJqUakRSaEYBJSCY2dEstQY7AuxahwXFrvZmWl2rh4JZ07z9dLtesfNj5q0FU3A5ObbwAAAABJRU5ErkJggg==);
+  opacity: 0.9;
+  transition: opacity 0.25s cubic-bezier(0, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: -1; }
+
+.lvcontrols__bar--interacting {
+  visibility: visible;
+  opacity: 1; }
+
+.lvcontrols__popout-button {
+  position: relative;
+  float: right;
+  height: 40px;
+  width: 32px;
+  cursor: pointer; }
+
+.lvcontrols__popout-button::before {
+  font-family: 'LivelyPlayerControls' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  font-size: 24px;
+  line-height: 24px;
+  color: #FFF;
+  cursor: pointer;
+  text-align: center;
+  content: "";
+  font-size: 22px;
+  line-height: 40px; }
+
+.lvvideo {
+  margin: 1em 0;
+  position: relative;
+  width: 100%;
+  min-width: 260px;
+  height: 0;
+  padding: 0 0 56.25%;
+  overflow: hidden;
+  background: #000; }
+  .lvvideo video, .lvvideo object, .lvvideo canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0; }
+

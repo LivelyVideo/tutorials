@@ -46,13 +46,10 @@ I attached the stockBroadcaster to the window so it can be accessed from console
 
 **/
 var stockBroadcaster = new _stockBroadcaster2.default(document.querySelector('#broadcaster'), '/access-key', {
-	affiliate: 'dev',
+	affiliate: 'img2',
 	tfSwfPath: '/thinDebug.swf',
-	// can be used for beta servers
-	// rtmpUrl: 'rtmp://uc-origin.livelyvideo.tv/origin',
-	rtmpUrl: 'rtmp://ids6-ls.dev.caster.tv/origin',
-	drivers: ['flash'],
-	tfArgs: ['affiliate=dev', 'host=livelyvideo.tv']
+	rtmpUrl: 'rtmp://uc-ls-img2.livelyvideo.tv/origin',
+	drivers: ['flash']
 });
 stockBroadcaster.on('error', function () {
 	for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -110,7 +107,7 @@ Events:
 **/
 var stockPlayer = void 0;
 var currentManifest = void 0;
-var drivers = ['hlsjs', 'hls', 'mediaSourceMp4', 'flashRtmp'];
+var drivers = ['mediaSourceMp4', 'hlsjs', 'hls', 'flashRtmp'];
 function loadPlayer(manifest) {
 	if (stockPlayer) {
 		stockPlayer.destroy();
@@ -119,7 +116,7 @@ function loadPlayer(manifest) {
 	currentManifest = manifest;
 	window.stockPlayer = stockPlayer = new _index2.default(document.querySelector('#player'), manifest, {
 		drivers: drivers,
-		hlsjsPath: 'http://dailymotion.github.io/hls.js/dist/hls.js',
+		hlsjsPath: 'https://cdn.jsdelivr.net/hls.js/latest/hls.min.js',
 		tfSwfPath: '/thinDebug.swf'
 	});
 }
@@ -169,7 +166,7 @@ getListingsButton.onclick = function () {
 
 		for (var i = 0; i < body.results.length; i++) {
 			var entry = result.cloneNode();
-			(0, _textContent2.default)(entry, body.results[i].userId);
+			(0, _textContent2.default)(entry, body.results[i].broadcasterId);
 
 			// for each listing, add a click listener to load that manifest.
 			entry.onclick = function (manifest) {
@@ -217,7 +214,9 @@ document.querySelector('#config-drivers').onsubmit = function (e) {
 };
 document.querySelector('#config-drivers input').value = drivers.join(', ');
 
-},{"@livelyvideo/stock-broadcaster":45,"@livelyvideo/stock-live-player/lib/index.js":46,"text-content":56,"xhr":58}],2:[function(require,module,exports){
+},{"@livelyvideo/stock-broadcaster":50,"@livelyvideo/stock-live-player/lib/index.js":51,"text-content":62,"xhr":64}],2:[function(require,module,exports){
+!function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.LivelyLocales=t():e.LivelyLocales=t()}(this,function(){return function(e){function t(o){if(n[o])return n[o].exports;var r=n[o]={exports:{},id:o,loaded:!1};return e[o].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function r(e,t){if(t){if("object"!==("undefined"==typeof t?"undefined":i(t)))throw new Error("Lively Localization instantiated with something other than a messages object",{messages:t});return new f(e,t)}return e&&c[e]?c[e]:l}Object.defineProperty(t,"__esModule",{value:!0});var i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},a=function(){function e(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}return function(t,n,o){return n&&e(t.prototype,n),o&&e(t,o),t}}();"function"!=typeof Object.assign&&(Object.assign=function(e,t){if(null==e)throw new TypeError("Cannot convert undefined or null to object");for(var n=Object(e),o=1;o<arguments.length;o++){var r=arguments[o];if(null!=r)for(var i in r)Object.prototype.hasOwnProperty.call(r,i)&&(n[i]=r[i])}return n});var s={},c={},f=function(){function e(t,n){return o(this,e),t&&s[t]||n?(this.name=t,this.data=s[t]||{},void(n&&Object.assign(this.data,n))):void(this.localize=function(e){return e})}return a(e,[{key:"localize",value:function(e){var t=void 0;return(t=this.data[e])?t:(this.name?console.warn("'"+e+"' has no translation in the provided '"+this.name+"' locale files or localization messages"):console.warn("'"+e+"' has no translation in the provided localization messages."),e)}}]),e}(),u=n(1);u.keys().forEach(function(e){var t=e.split("/");3===t.length&&(s[t[1]]||(s[t[1]]={}),s[t[1]]=Object.assign(s[t[1]],u(e)))});var l=new f;Object.keys(s).forEach(function(e){c[e]=new f(e)}),t.default=r,e.exports=t.default},function(e,t){function n(e){throw new Error("Cannot find module '"+e+"'.")}n.keys=function(){return[]},n.resolve=n,e.exports=n,n.id=1}])});
+},{}],3:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -229,7 +228,7 @@ function createElement(tagName, classes) {
 	x.classList.add.apply(x.classList, classes);
 	return x;
 }
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -265,8 +264,8 @@ var Fullscreen = function (_EventEmitter) {
 		_this.controls = controls;
 		_this.livelyPlayer = controls.livelyPlayer;
 		_this.bar = controls.bar;
-		_this.el = (0, _createElement2.default)('div', ['fullscreen']);
-		_this.el.setAttribute('title', 'Full Screen');
+		_this.el = (0, _createElement2.default)('div', ['lvcontrols__fullscreen']);
+		_this.el.setAttribute('title', _this.controls.localize('Full Screen'));
 		_this.bar.appendChild(_this.el);
 		_this.el.addEventListener('click', _this.toggleFullScreen.bind(_this));
 		return _this;
@@ -293,11 +292,9 @@ var Fullscreen = function (_EventEmitter) {
 		key: 'setIcon',
 		value: function setIcon() {
 			if (this.isFullscreen()) {
-				this.el.classList.remove('fullscreen-exit');
-				this.el.classList.add('fullscreen-exit');
+				this.el.classList.remove('lvcontrols__fullscreen--exit');
 			} else {
-				this.el.classList.remove('fullscreen-exit');
-				this.el.classList.add('fullscreen-exit');
+				this.el.classList.add('lvcontrols__fullscreen--exit');
 			}
 		}
 
@@ -330,6 +327,7 @@ var Fullscreen = function (_EventEmitter) {
 				} else if (document.msExitFullscreen) {
 					document.msExitFullscreen();
 				}
+				this.setIcon();
 				return;
 			}
 
@@ -345,6 +343,7 @@ var Fullscreen = function (_EventEmitter) {
 			} else if (this.livelyPlayer.el.webkitEnterFullscreen) {
 				this.livelyPlayer.el.webkitEnterFullscreen();
 			}
+			this.setIcon();
 		}
 	}]);
 
@@ -352,7 +351,7 @@ var Fullscreen = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Fullscreen;
-},{"../create-element":2,"events":48}],4:[function(require,module,exports){
+},{"../create-element":3,"events":54}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -394,7 +393,7 @@ function getElPosition(el) {
 		right: left + rect.right
 	};
 }
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -420,7 +419,7 @@ function getPointerPosition(event) {
 		x: pageX
 	};
 }
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -428,6 +427,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _polyfills = require('./polyfills');
+
+var _polyfills2 = _interopRequireDefault(_polyfills);
 
 var _events = require('events');
 
@@ -444,6 +447,10 @@ var _getDefaultOptions2 = _interopRequireDefault(_getDefaultOptions);
 var _logger = require('@livelyvideo/player-core/lib/logger');
 
 var _logger2 = _interopRequireDefault(_logger);
+
+var _localization = require('@livelyvideo/localization');
+
+var _localization2 = _interopRequireDefault(_localization);
 
 var _fullscreen = require('./fullscreen');
 
@@ -464,6 +471,10 @@ var _playpause2 = _interopRequireDefault(_playpause);
 var _progress = require('./progress');
 
 var _progress2 = _interopRequireDefault(_progress);
+
+var _keyboard = require('./keyboard');
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
 
 var _qualitySelector = require('./quality-selector');
 
@@ -486,7 +497,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var DefaultOptions = {
-	controls: ['overlay', 'playpause', 'fullscreen', 'popout', 'progress', 'quality-selector', 'volume'],
+	controls: ['overlay', 'playpause', 'fullscreen', 'popout', 'progress', 'quality-selector', 'volume', 'keyboard'],
 	popout: {
 		url: '',
 		width: 480,
@@ -528,6 +539,9 @@ var Controls = function (_EventEmitter) {
 		_this.el.appendChild(_this.bar);
 
 		_this.options = (0, _getDefaultOptions2.default)(options, DefaultOptions);
+		var livelyLocalization = new _localization2.default(null, _this.options.messages);
+		_this.localize = livelyLocalization.localize.bind(livelyLocalization);
+
 		if (_this.options.livelyPlayer) {
 			_this.attach(_this.options.livelyPlayer);
 		}
@@ -594,6 +608,9 @@ var Controls = function (_EventEmitter) {
 					case 'quality-selector':
 						_this2.controls.push(new _qualitySelector2.default(_this2));
 						break;
+					case 'keyboard':
+						_this2.controls.push(new _keyboard2.default(_this2));
+						break;
 					case 'volume':
 						_this2.controls.push(new _volume2.default(_this2));
 						break;
@@ -607,12 +624,12 @@ var Controls = function (_EventEmitter) {
 				attachControl(this.options.controls[i]);
 			}
 
-			this.screenInteraction = new _screenInteraction2.default(this.livelyPlayer.el);
+			this.screenInteraction = new _screenInteraction2.default(this.el);
 			this.screenInteraction.on('user-active', function () {
-				_this2.bar.classList.add('interacting');
+				_this2.bar.classList.add('lvcontrols__bar--interacting');
 			});
 			this.screenInteraction.on('user-idle', function () {
-				_this2.bar.classList.remove('interacting');
+				_this2.bar.classList.remove('lvcontrols__bar--interacting');
 			});
 		}
 	}]);
@@ -621,7 +638,7 @@ var Controls = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Controls;
-},{"./fullscreen":3,"./overlay":7,"./playpause":8,"./popout":9,"./progress":10,"./quality-selector":11,"./screen-interaction":12,"./volume":13,"@livelyvideo/player-core/lib/detect":16,"@livelyvideo/player-core/lib/get-default-options":20,"@livelyvideo/player-core/lib/logger":21,"events":48}],7:[function(require,module,exports){
+},{"./fullscreen":4,"./keyboard":8,"./overlay":9,"./playpause":10,"./polyfills":11,"./popout":12,"./progress":13,"./quality-selector":14,"./screen-interaction":15,"./volume":16,"@livelyvideo/localization":2,"@livelyvideo/player-core/lib/detect":18,"@livelyvideo/player-core/lib/get-default-options":22,"@livelyvideo/player-core/lib/logger":23,"events":54}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -633,6 +650,62 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _events = require('events');
 
 var _events2 = _interopRequireDefault(_events);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import createElement from '../create-element';
+
+var Keyboard = function (_EventEmitter) {
+	_inherits(Keyboard, _EventEmitter);
+
+	function Keyboard(controls) {
+		_classCallCheck(this, Keyboard);
+
+		var _this = _possibleConstructorReturn(this, (Keyboard.__proto__ || Object.getPrototypeOf(Keyboard)).call(this));
+
+		_this.livelyPlayer = controls.livelyPlayer;
+		_this.livelyPlayer.el.addEventListener('keypress', _this.handleKeyPress.bind(_this));
+		return _this;
+	}
+
+	_createClass(Keyboard, [{
+		key: 'handleKeyPress',
+		value: function handleKeyPress() {
+			//
+		}
+	}, {
+		key: 'destroy',
+		value: function destroy() {
+			this.livelyPlayer.el.removeEventListener('keypress', this.handleKeyPress);
+		}
+	}]);
+
+	return Keyboard;
+}(_events2.default);
+
+exports.default = Keyboard;
+},{"events":54}],9:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
+var _textContent = require('text-content');
+
+var _textContent2 = _interopRequireDefault(_textContent);
 
 var _createElement = require('../create-element');
 
@@ -646,6 +719,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var RESTART_TIMEOUT = 5000;
+
 var Overlay = function (_EventEmitter) {
 	_inherits(Overlay, _EventEmitter);
 
@@ -657,19 +732,55 @@ var Overlay = function (_EventEmitter) {
 		_this.controls = controls;
 		_this.livelyPlayer = controls.livelyPlayer;
 		_this.bar = controls.bar;
-		_this.el = (0, _createElement2.default)('div', ['big-button']);
-		_this.el.setAttribute('title', 'Full Screen');
+		_this.el = (0, _createElement2.default)('div', ['lvcontrols__big-button']);
+		_this.el.setAttribute('title', _this.controls.localize('Play'));
 		_this.controls.el.appendChild(_this.el);
 		_this.el.addEventListener('click', _this.togglePlaying.bind(_this));
+		_this.showRestarter = 0;
 
-		_this.livelyPlayer.on('play', _this.setIcon.bind(_this));
-		_this.livelyPlayer.on('pause', _this.setIcon.bind(_this));
-		_this.livelyPlayer.on('stop', _this.setIcon.bind(_this));
+		_this.livelyPlayer.on('play', function () {
+			_this.setIcon();
+			_this.resetRestarter();
+		});
+		_this.livelyPlayer.on('pause', function () {
+			_this.setIcon();
+			_this.stopRestarter();
+		});
+		_this.livelyPlayer.on('stop', function () {
+			_this.setIcon();
+			_this.stopRestarter();
+		});
+		_this.livelyPlayer.on('ended', _this.setIcon.bind(_this));
 		_this.livelyPlayer.on('offline', _this.setIcon.bind(_this));
+		_this.livelyPlayer.on('timeupdate', function () {
+			_this.setIcon();
+			_this.showRestarter = 0;
+			_this.resetRestarter();
+		});
+		_this.livelyPlayer.once('manifest', _this.setIcon.bind(_this));
 		return _this;
 	}
 
 	_createClass(Overlay, [{
+		key: 'resetRestarter',
+		value: function resetRestarter() {
+			var _this2 = this;
+
+			if (this.livelyPlayer.vod) {
+				return;
+			}
+			this.stopRestarter();
+			this.restarter = setTimeout(function () {
+				_this2.showRestarter = 1;
+			}, RESTART_TIMEOUT);
+		}
+	}, {
+		key: 'stopRestarter',
+		value: function stopRestarter() {
+			clearTimeout(this.restarter);
+			this.showRestarter = 0;
+		}
+	}, {
 		key: 'destroy',
 		value: function destroy() {
 			this.el.remove();
@@ -678,25 +789,39 @@ var Overlay = function (_EventEmitter) {
 		key: 'setIcon',
 		value: function setIcon() {
 			if (this.livelyPlayer.getState() === 'offline') {
-				this.el.classList.remove('stopped');
-				this.el.classList.remove('playing');
-				this.el.classList.add('offline');
+				this.el.classList.remove('lvcontrols__big-button--stopped');
+				this.el.classList.remove('lvcontrols__big-button--playing');
+				this.el.classList.add('lvcontrols__big-button--offline');
+				(0, _textContent2.default)(this.el, this.controls.localize('Stream is currently offline'));
 			} else if (this.livelyPlayer.tryingToPlay) {
-				this.el.classList.remove('stopped');
-				this.el.classList.remove('offline');
-				this.el.classList.add('playing');
+				if (this.showRestarter) {
+					this.el.classList.remove('lvcontrols__big-button--playing');
+					this.el.classList.remove('lvcontrols__big-button--offline');
+					this.el.classList.add('lvcontrols__big-button--stopped');
+					(0, _textContent2.default)(this.el, '');
+				} else {
+					this.el.classList.remove('lvcontrols__big-button--stopped');
+					this.el.classList.remove('lvcontrols__big-button--offline');
+					this.el.classList.add('lvcontrols__big-button--playing');
+					(0, _textContent2.default)(this.el, '');
+				}
 			} else {
-				this.el.classList.remove('playing');
-				this.el.classList.remove('offline');
-				this.el.classList.add('stopped');
+				this.el.classList.remove('lvcontrols__big-button--playing');
+				this.el.classList.remove('lvcontrols__big-button--offline');
+				this.el.classList.add('lvcontrols__big-button--stopped');
+				(0, _textContent2.default)(this.el, '');
 			}
 		}
 	}, {
 		key: 'togglePlaying',
 		value: function togglePlaying() {
-			if (this.livelyPlayer.tryingToPlay) {
+			if (this.showRestarter) {
+				this.livelyPlayer.restart();
+			} else if (this.livelyPlayer.tryingToPlay) {
+				this.el.setAttribute('title', this.controls.localize('Pause'));
 				this.livelyPlayer.stop();
 			} else {
+				this.el.setAttribute('title', this.controls.localize('Play'));
 				this.livelyPlayer.play();
 			}
 		}
@@ -706,7 +831,7 @@ var Overlay = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Overlay;
-},{"../create-element":2,"events":48}],8:[function(require,module,exports){
+},{"../create-element":3,"events":54,"text-content":62}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -731,30 +856,31 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Overlay = function (_EventEmitter) {
-	_inherits(Overlay, _EventEmitter);
+var PlayPause = function (_EventEmitter) {
+	_inherits(PlayPause, _EventEmitter);
 
-	function Overlay(controls) {
-		_classCallCheck(this, Overlay);
+	function PlayPause(controls) {
+		_classCallCheck(this, PlayPause);
 
-		var _this = _possibleConstructorReturn(this, (Overlay.__proto__ || Object.getPrototypeOf(Overlay)).call(this));
+		var _this = _possibleConstructorReturn(this, (PlayPause.__proto__ || Object.getPrototypeOf(PlayPause)).call(this));
 
 		_this.controls = controls;
 		_this.livelyPlayer = controls.livelyPlayer;
 		_this.bar = controls.bar;
-		_this.el = (0, _createElement2.default)('div', ['play-button']);
-		_this.el.setAttribute('title', 'Toggle play/pause');
+		_this.el = (0, _createElement2.default)('div', ['lvcontrols__play-button']);
+		_this.el.setAttribute('title', _this.controls.localize('Toggle play/pause'));
 		_this.bar.appendChild(_this.el);
 		_this.el.addEventListener('click', _this.togglePlaying.bind(_this));
 
 		_this.livelyPlayer.on('play', _this.setIcon.bind(_this));
 		_this.livelyPlayer.on('pause', _this.setIcon.bind(_this));
 		_this.livelyPlayer.on('stop', _this.setIcon.bind(_this));
+		_this.livelyPlayer.on('ended', _this.setIcon.bind(_this));
 		_this.setIcon();
 		return _this;
 	}
 
-	_createClass(Overlay, [{
+	_createClass(PlayPause, [{
 		key: 'destroy',
 		value: function destroy() {
 			this.el.remove();
@@ -763,13 +889,13 @@ var Overlay = function (_EventEmitter) {
 		key: 'setIcon',
 		value: function setIcon() {
 			if (this.livelyPlayer.tryingToPlay) {
-				this.el.classList.remove('stopped');
-				this.el.classList.add('playing');
-				this.el.setAttribute('title', 'Pause');
+				this.el.classList.remove('lvcontrols__play-button--stopped');
+				this.el.classList.add('lvcontrols__play-button--playing');
+				this.el.setAttribute('title', this.controls.localize('Pause'));
 			} else {
-				this.el.classList.remove('playing');
-				this.el.classList.add('stopped');
-				this.el.setAttribute('title', 'Play');
+				this.el.classList.remove('lvcontrols__play-button--playing');
+				this.el.classList.add('lvcontrols__play-button--stopped');
+				this.el.setAttribute('title', this.controls.localize('Play'));
 			}
 		}
 	}, {
@@ -787,11 +913,42 @@ var Overlay = function (_EventEmitter) {
 		}
 	}]);
 
-	return Overlay;
+	return PlayPause;
 }(_events2.default);
 
-exports.default = Overlay;
-},{"../create-element":2,"events":48}],9:[function(require,module,exports){
+exports.default = PlayPause;
+},{"../create-element":3,"events":54}],11:[function(require,module,exports){
+'use strict';
+
+if (typeof Object.assign != 'function') {
+  Object.assign = function (target, varArgs) {
+    // .length of function is 2
+    'use strict';
+
+    if (target == null) {
+      // TypeError if undefined or null
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    var to = Object(target);
+
+    for (var index = 1; index < arguments.length; index++) {
+      var nextSource = arguments[index];
+
+      if (nextSource != null) {
+        // Skip over if undefined or null
+        for (var nextKey in nextSource) {
+          // Avoid bugs when hasOwnProperty is shadowed
+          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+            to[nextKey] = nextSource[nextKey];
+          }
+        }
+      }
+    }
+    return to;
+  };
+}
+},{}],12:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -849,9 +1006,9 @@ var Popout = function (_EventEmitter) {
 		_this.popoutOptions = 'width=' + controls.options.popout.width + ', height=' + controls.options.popout.height + ', resizable=yes, scrollbars=no, titlebar=no';
 		_this.poppedoutPlayer = null;
 
-		_this.el = (0, _createElement2.default)('div', ['popout-button']);
+		_this.el = (0, _createElement2.default)('div', ['lvcontrols__popout-button']);
 		_this.el.setAttribute('target', '_blank');
-		_this.el.setAttribute('title', 'Popout');
+		_this.el.setAttribute('title', _this.controls.localize('Popout'));
 		_this.el.addEventListener('click', _this.openPopout.bind(_this));
 		_this.bar.appendChild(_this.el);
 
@@ -949,7 +1106,7 @@ var Popout = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Popout;
-},{"../create-element":2,"@livelyvideo/player-core/lib/logger":21,"@livelyvideo/player-core/lib/parse-url":24,"events":48}],10:[function(require,module,exports){
+},{"../create-element":3,"@livelyvideo/player-core/lib/logger":23,"@livelyvideo/player-core/lib/parse-url":26,"events":54}],13:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -973,6 +1130,10 @@ var _getElPosition2 = _interopRequireDefault(_getElPosition);
 var _getPointerPosition = require('../get-pointer-position');
 
 var _getPointerPosition2 = _interopRequireDefault(_getPointerPosition);
+
+var _textContent = require('text-content');
+
+var _textContent2 = _interopRequireDefault(_textContent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1020,22 +1181,24 @@ var Progress = function (_EventEmitter) {
 			this.livelyPlayer.removeListener('manifest', this.renderIfNotRendered);
 			this.el = document.createElement('div');
 
-			var cn = this.controls.screenInteraction.userInteraction ? 'progress interacting' : 'progress';
+			var cn = this.controls.screenInteraction.userInteraction ? 'lvcontrols__progress lvcontrols__progress--interacting' : 'lvcontrols__progress';
 			this.el.setAttribute('class', cn);
 			this.progressBarEl = document.createElement('div');
-			this.progressBarEl.setAttribute('class', 'progress-bar');
-			this.sliderEl = document.createElement('div');
-			this.sliderEl.setAttribute('class', 'progress-slider');
+			this.progressBarEl.setAttribute('class', 'lvcontrols__progress-bar');
 			this.sliderBufferEl = document.createElement('div');
-			this.sliderBufferEl.setAttribute('class', 'progress-slider-buffer');
+			this.sliderBufferEl.setAttribute('class', 'lvcontrols__progress-slider-buffer');
 			this.sliderValueEl = document.createElement('div');
-			this.sliderValueEl.setAttribute('class', 'progress-slider-value');
+			this.sliderValueEl.setAttribute('class', 'lvcontrols__progress-slider-value');
+			this.durationEl = document.createElement('div');
+			this.durationEl.setAttribute('class', 'lvcontrols__duration');
+			this.currentTimeEl = document.createElement('div');
+			this.currentTimeEl.setAttribute('class', 'lvcontrols__current-time');
 
 			this.controls.screenInteraction.on('user-active', function () {
-				_this2.el.classList.add('interacting');
+				_this2.el.classList.add('lvcontrols__progress--interacting');
 			});
 			this.controls.screenInteraction.on('user-idle', function () {
-				_this2.el.classList.remove('interacting');
+				_this2.el.classList.remove('lvcontrols__progress--interacting');
 			});
 
 			this.nextTime = 0;
@@ -1050,9 +1213,10 @@ var Progress = function (_EventEmitter) {
 			});
 
 			this.el.appendChild(this.progressBarEl);
-			this.el.appendChild(this.sliderEl);
 			this.el.appendChild(this.sliderBufferEl);
 			this.el.appendChild(this.sliderValueEl);
+			this.el.appendChild(this.durationEl);
+			this.el.appendChild(this.currentTimeEl);
 			this.controls.el.appendChild(this.el);
 
 			this.livelyPlayer.on('timeupdate', function (e) {
@@ -1103,7 +1267,37 @@ var Progress = function (_EventEmitter) {
 			} else {
 				this.sliderBufferEl.style.width = 0;
 			}
-			this.sliderValueEl.style.left = currentPosition * 100 + '%';
+			this.sliderValueEl.style.width = currentPosition * 100 + '%';
+
+			(0, _textContent2.default)(this.durationEl, '' + this.formatHHMMSS(a.duration));
+			(0, _textContent2.default)(this.currentTimeEl, '' + this.formatHHMMSS(a.currentTime));
+		}
+	}, {
+		key: 'formatHHMMSS',
+		value: function formatHHMMSS(s) {
+			var secNum = parseInt(s, 10); // don't forget the second param
+			var hours = Math.floor(secNum / 3600);
+			var minutes = Math.floor((secNum - hours * 3600) / 60);
+			var seconds = secNum - hours * 3600 - minutes * 60;
+
+			function appendTime(times, t) {
+				if (isNaN(t)) {
+					return;
+				}
+
+				if (t < 10) {
+					times.push('0' + t);
+				} else {
+					times.push(t);
+				}
+			}
+
+			var times = [];
+			appendTime(times, hours);
+			appendTime(times, minutes);
+			appendTime(times, seconds);
+
+			return times.join(':');
 		}
 	}, {
 		key: 'moveSlider',
@@ -1111,7 +1305,16 @@ var Progress = function (_EventEmitter) {
 			if (!this.dragging) {
 				return;
 			}
-			this.sliderValueEl.style.left = (0, _getPointerPosition2.default)(e).x - (0, _getElPosition2.default)(this.el).left + 'px';
+
+			var val = (0, _getPointerPosition2.default)(e).x - (0, _getElPosition2.default)(this.el).left;
+
+			if (val < 0) {
+				val = 0;
+			} else if (val > this.el.clientWidth) {
+				val = this.el.clientWidth;
+			}
+
+			this.sliderValueEl.style.width = val + 'px';
 		}
 
 		/**
@@ -1160,7 +1363,6 @@ var Progress = function (_EventEmitter) {
 			this.rendered = false;
 			this.el.remove();
 			this.progressBarEl.remove();
-			this.sliderEl.remove();
 			this.sliderBufferEl.remove();
 			this.sliderValueEl.remove();
 			document.removeEventListener('mouseup', this.stopDrag.bind(this));
@@ -1171,7 +1373,7 @@ var Progress = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Progress;
-},{"../get-el-position":4,"../get-pointer-position":5,"@livelyvideo/player-core/lib/logger":21,"events":48}],11:[function(require,module,exports){
+},{"../get-el-position":5,"../get-pointer-position":6,"@livelyvideo/player-core/lib/logger":23,"events":54,"text-content":62}],14:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1212,12 +1414,11 @@ var QualitySelector = function (_EventEmitter) {
 		_this.encodings = [];
 
 		_this.el = document.createElement('div');
-		_this.el.setAttribute('title', 'Quality Selector');
+		_this.el.setAttribute('title', _this.controls.localize('Quality Selector'));
 		_this.qualitiesEl = document.createElement('div');
-		_this.qualitiesEl.setAttribute('class', 'qualities hidden');
-
-		_this.el.appendChild(_this.qualitiesEl);
+		_this.qualitiesEl.setAttribute('class', 'lvcontrols__qualities lvcontrols__qualities--hidden');
 		_this.el.addEventListener('click', _this.openQualitySelector.bind(_this));
+
 		_this.livelyPlayer.on('progress', function () {
 			_this.reclass();
 		});
@@ -1225,6 +1426,8 @@ var QualitySelector = function (_EventEmitter) {
 			// check to see if needs to render
 			_this.render();
 		});
+
+		_this.controls.bar.appendChild(_this.qualitiesEl);
 		_this.controls.bar.appendChild(_this.el);
 		return _this;
 	}
@@ -1237,11 +1440,11 @@ var QualitySelector = function (_EventEmitter) {
 	_createClass(QualitySelector, [{
 		key: 'openQualitySelector',
 		value: function openQualitySelector(e) {
-			if (this.qualitiesEl.getAttribute('class') === 'qualities') {
+			if (this.qualitiesEl.getAttribute('class') === 'lvcontrols__qualities') {
 				return;
 			}
 			this.controls.screenInteraction.lockOpen();
-			this.qualitiesEl.setAttribute('class', 'qualities');
+			this.qualitiesEl.setAttribute('class', 'lvcontrols__qualities');
 			e.stopPropagation();
 			document.addEventListener('click', this.closeQualitySelector.bind(this));
 		}
@@ -1255,7 +1458,7 @@ var QualitySelector = function (_EventEmitter) {
 		value: function closeQualitySelector() {
 			this.controls.screenInteraction.releaseLockOpen();
 			document.removeEventListener('click', this.closeQualitySelector.bind(this));
-			this.qualitiesEl.setAttribute('class', 'qualities hidden');
+			this.qualitiesEl.setAttribute('class', 'lvcontrols__qualities lvcontrols__qualities--hidden');
 		}
 
 		/**
@@ -1288,14 +1491,14 @@ var QualitySelector = function (_EventEmitter) {
 				encoding = this.qualitiesEl.children[i];
 
 				if (i === currentLevel || currentEncoding && this.qualitiesEl.children[i].getAttribute('data-location') === currentEncoding.location) {
-					encoding.classList.add('current-level');
+					encoding.classList.add('lvcontrols__quality--current-level');
 				} else {
-					encoding.classList.remove('current-level');
+					encoding.classList.remove('lvcontrols__quality--current-level');
 				}
 				if (i === nextLevel) {
-					encoding.classList.add('next-level');
+					encoding.classList.add('lvcontrols__quality--next-level');
 				} else {
-					encoding.classList.remove('next-level');
+					encoding.classList.remove('lvcontrols__quality--next-level');
 				}
 			}
 		}
@@ -1317,9 +1520,9 @@ var QualitySelector = function (_EventEmitter) {
 
 			this.mediaData = this.livelyPlayer.mediaData;
 			if (this.mediaData && this.mediaData.encodings && this.mediaData.encodings.length) {
-				this.el.setAttribute('class', 'quality-selector');
+				this.el.setAttribute('class', 'lvcontrols__quality-selector');
 			} else {
-				this.el.setAttribute('class', 'quality-selector hidden');
+				this.el.setAttribute('class', 'lvcontrols__quality-selector lvcontrols__quality-selector--hidden');
 				return;
 			}
 
@@ -1330,7 +1533,7 @@ var QualitySelector = function (_EventEmitter) {
 
 			var appendEncoding = function appendEncoding(e, k) {
 				var encoding = document.createElement('div');
-				var cn = 'quality';
+				var cn = 'lvcontrols__quality';
 				var bitrate = void 0;
 
 				if (!e.videoKbps) {
@@ -1341,23 +1544,27 @@ var QualitySelector = function (_EventEmitter) {
 					currentLevel--;
 					chosenLevel--;
 					nextLevel--;
-					(0, _textContent2.default)(encoding, 'Auto');
+					(0, _textContent2.default)(encoding, _this2.controls.localize('Auto'));
 					bitrate = null;
 					if (currentEncoding === null) {
-						cn += ' selected';
+						cn += ' lvcontrols__quality--selected';
 					}
 				} else {
-					(0, _textContent2.default)(encoding, e.videoHeight + 'p - ' + (e.videoKbps + e.audioKbps) + 'Kbps');
+					var kbps = document.createElement('span');
+					kbps.setAttribute('class', 'lvcontrols__kbps');
+					(0, _textContent2.default)(encoding, e.videoHeight + 'p');
+					(0, _textContent2.default)(kbps, e.videoKbps + e.audioKbps + 'Kbps');
+					encoding.insertBefore(kbps, encoding.firstChild);
 					bitrate = e.videoKbps + e.audioKbps;
 
 					if (chosenLevel !== null && typeof k !== 'undefined' && k === chosenLevel) {
-						cn += ' selected';
+						cn += ' lvcontrols__quality--selected';
 					}
 					if (currentLevel !== null && typeof k !== 'undefined' && k === currentLevel) {
-						cn += ' current-level';
+						cn += ' lvcontrols__quality--current-level';
 					}
 					if (nextLevel !== null && typeof k !== 'undefined' && k === nextLevel) {
-						cn += ' next-level';
+						cn += ' lvcontrols__quality--next-level';
 					}
 				}
 
@@ -1387,7 +1594,7 @@ var QualitySelector = function (_EventEmitter) {
 	}, {
 		key: 'chosenLevel',
 		get: function get() {
-			if (!this.mediaData.encodings) {
+			if (!this.mediaData || !this.mediaData.encodings) {
 				return null;
 			}
 
@@ -1400,7 +1607,7 @@ var QualitySelector = function (_EventEmitter) {
 	}, {
 		key: 'currentLevel',
 		get: function get() {
-			if (!this.mediaData.encodings) {
+			if (!this.mediaData || !this.mediaData.encodings) {
 				return null;
 			}
 
@@ -1413,7 +1620,7 @@ var QualitySelector = function (_EventEmitter) {
 	}, {
 		key: 'nextLevel',
 		get: function get() {
-			if (!this.mediaData.encodings) {
+			if (!this.mediaData || !this.mediaData.encodings) {
 				return null;
 			}
 			if (!this.livelyPlayer.nextLevel) {
@@ -1427,7 +1634,7 @@ var QualitySelector = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = QualitySelector;
-},{"events":48,"text-content":56}],12:[function(require,module,exports){
+},{"events":54,"text-content":62}],15:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1469,7 +1676,7 @@ var ScreenInteraction = function (_EventEmitter) {
 		var _this = _possibleConstructorReturn(this, (ScreenInteraction.__proto__ || Object.getPrototypeOf(ScreenInteraction)).call(this));
 
 		_this.targetEl = targetEl;
-		_this.limit = limit || 250;
+		_this.limit = limit || 500;
 		_this.mobileControls = _detect2.default.any();
 
 		_this.userInteraction = null;
@@ -1507,7 +1714,7 @@ var ScreenInteraction = function (_EventEmitter) {
 				return;
 			}
 
-			this.targetEl.addEventListener('mousemove', function (e) {
+			this.targetEl.addEventListener('mouseover', function (e) {
 				_this2.resetUserInteraction();
 				_this2.throttledSetUserInteraction(e);
 			});
@@ -1582,7 +1789,7 @@ var ScreenInteraction = function (_EventEmitter) {
 				return;
 			}
 
-			this.targetEl.removeEventListener('mousemove', this.throttledSetUserInteraction.bind(this));
+			this.targetEl.removeEventListener('mouseover', this.throttledSetUserInteraction.bind(this));
 			this.targetEl.removeEventListener('mousedown', this.forceInteraction.bind(this));
 			this.targetEl.removeEventListener('mouseup', this.forceInteractionEnd.bind(this));
 			this.targetEl.removeEventListener('mouseout', this.forceInteractionEnd.bind(this));
@@ -1593,7 +1800,7 @@ var ScreenInteraction = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = ScreenInteraction;
-},{"@livelyvideo/player-core/lib/detect":16,"@livelyvideo/player-core/lib/events":18,"events":48,"lodash.throttle":53}],13:[function(require,module,exports){
+},{"@livelyvideo/player-core/lib/detect":18,"@livelyvideo/player-core/lib/events":20,"events":54,"lodash.throttle":59}],16:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1636,13 +1843,13 @@ var Volume = function (_EventEmitter) {
 
 		_this.el = document.createElement('div');
 		_this.indicatorEl = document.createElement('div');
-		_this.indicatorEl.setAttribute('title', 'Mute');
+		_this.indicatorEl.setAttribute('title', _this.controls.localize('Mute'));
 		_this.sliderEl = document.createElement('div');
 		_this.sliderValueEl = document.createElement('div');
 		_this.showingSlider = false;
 		_this.hideSlider();
-		_this.indicatorEl.setAttribute('class', 'indicator');
-		_this.sliderValueEl.setAttribute('class', 'slider-value');
+		_this.indicatorEl.setAttribute('class', 'lvcontrols__volume-indicator');
+		_this.sliderValueEl.setAttribute('class', 'lvcontrols__volume-slider-value');
 		_this.sliderEl.appendChild(_this.sliderValueEl);
 
 		_this.setMutedClass();
@@ -1672,7 +1879,7 @@ var Volume = function (_EventEmitter) {
 
 		_this.el.appendChild(_this.indicatorEl);
 		_this.el.appendChild(_this.sliderEl);
-		_this.el.setAttribute('class', 'volume-bar');
+		_this.el.setAttribute('class', 'lvcontrols__volume-bar');
 		_this.bar.appendChild(_this.el);
 
 		_this.livelyPlayer.on('mute', function (e) {
@@ -1712,10 +1919,22 @@ var Volume = function (_EventEmitter) {
 	}, {
 		key: 'setMutedClass',
 		value: function setMutedClass() {
-			var k = this.livelyPlayer.muted ? 'muted' : 'unmuted';
-			this.indicatorEl.setAttribute('class', 'indicator ' + k);
+			var k = this.livelyPlayer.muted ? 'lvcontrols__volume-indicator--muted' : 'lvcontrols__volume-indicator--unmuted';
+			var v = this.livelyPlayer.volume * 100;
+			var m = '';
 
-			var title = this.livelyPlayer.muted ? 'Unmute' : 'Mute';
+			// Class modifier for volume
+			if (!this.livelyPlayer.muted) {
+				if (v === 0) {
+					m = 'lvcontrols__volume-indicator--off';
+				} else {
+					m = this.livelyPlayer.volume * 100 > 50 ? 'lvcontrols__volume-indicator--high' : 'lvcontrols__volume-indicator--low';
+				}
+			}
+
+			this.indicatorEl.setAttribute('class', 'lvcontrols__volume-indicator ' + k + ' ' + m);
+
+			var title = this.livelyPlayer.muted ? this.controls.localize('Unmute') : this.controls.localize('Mute');
 			this.indicatorEl.setAttribute('title', title);
 		}
 
@@ -1815,7 +2034,7 @@ var Volume = function (_EventEmitter) {
 	}, {
 		key: 'showSlider',
 		value: function showSlider() {
-			this.sliderEl.setAttribute('class', 'slider');
+			this.sliderEl.setAttribute('class', 'lvcontrols__volume-slider lvcontrols__volume-slider--interacting');
 		}
 
 		/**
@@ -1829,7 +2048,7 @@ var Volume = function (_EventEmitter) {
 			if (this.dragging || this.showingSlider) {
 				return;
 			}
-			this.sliderEl.setAttribute('class', 'slider hidden');
+			this.sliderEl.setAttribute('class', 'lvcontrols__volume-slider ');
 		}
 
 		/**
@@ -1855,13 +2074,8 @@ var Volume = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Volume;
-},{"../get-el-position":4,"../get-pointer-position":5,"events":48}],14:[function(require,module,exports){
-(function (global){
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.LivelyPlayerCore=e()}}(function(){return function e(t,r,n){function i(s,u){if(!r[s]){if(!t[s]){var a="function"==typeof require&&require;if(!u&&a)return a(s,!0);if(o)return o(s,!0);var l=new Error("Cannot find module '"+s+"'");throw l.code="MODULE_NOT_FOUND",l}var f=r[s]={exports:{}};t[s][0].call(f.exports,function(e){var r=t[s][1][e];return i(r?r:e)},f,f.exports,e,t,r,n)}return r[s].exports}for(var o="function"==typeof require&&require,s=0;s<n.length;s++)i(n[s]);return i}({1:[function(e,t){function r(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function n(e){return"function"==typeof e}function i(e){return"number"==typeof e}function o(e){return"object"==typeof e&&null!==e}function s(e){return void 0===e}t.exports=r,r.EventEmitter=r,r.prototype._events=void 0,r.prototype._maxListeners=void 0,r.defaultMaxListeners=10,r.prototype.setMaxListeners=function(e){if(!i(e)||0>e||isNaN(e))throw TypeError("n must be a positive number");return this._maxListeners=e,this},r.prototype.emit=function(e){var t,r,i,u,a,l;if(this._events||(this._events={}),"error"===e&&(!this._events.error||o(this._events.error)&&!this._events.error.length)){if(t=arguments[1],t instanceof Error)throw t;var f=new Error('Uncaught, unspecified "error" event. ('+t+")");throw f.context=t,f}if(r=this._events[e],s(r))return!1;if(n(r))switch(arguments.length){case 1:r.call(this);break;case 2:r.call(this,arguments[1]);break;case 3:r.call(this,arguments[1],arguments[2]);break;default:u=Array.prototype.slice.call(arguments,1),r.apply(this,u)}else if(o(r))for(u=Array.prototype.slice.call(arguments,1),l=r.slice(),i=l.length,a=0;i>a;a++)l[a].apply(this,u);return!0},r.prototype.addListener=function(e,t){var i;if(!n(t))throw TypeError("listener must be a function");return this._events||(this._events={}),this._events.newListener&&this.emit("newListener",e,n(t.listener)?t.listener:t),this._events[e]?o(this._events[e])?this._events[e].push(t):this._events[e]=[this._events[e],t]:this._events[e]=t,o(this._events[e])&&!this._events[e].warned&&(i=s(this._maxListeners)?r.defaultMaxListeners:this._maxListeners,i&&i>0&&this._events[e].length>i&&(this._events[e].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[e].length),"function"==typeof console.trace&&console.trace())),this},r.prototype.on=r.prototype.addListener,r.prototype.once=function(e,t){function r(){this.removeListener(e,r),i||(i=!0,t.apply(this,arguments))}if(!n(t))throw TypeError("listener must be a function");var i=!1;return r.listener=t,this.on(e,r),this},r.prototype.removeListener=function(e,t){var r,i,s,u;if(!n(t))throw TypeError("listener must be a function");if(!this._events||!this._events[e])return this;if(r=this._events[e],s=r.length,i=-1,r===t||n(r.listener)&&r.listener===t)delete this._events[e],this._events.removeListener&&this.emit("removeListener",e,t);else if(o(r)){for(u=s;u-->0;)if(r[u]===t||r[u].listener&&r[u].listener===t){i=u;break}if(0>i)return this;1===r.length?(r.length=0,delete this._events[e]):r.splice(i,1),this._events.removeListener&&this.emit("removeListener",e,t)}return this},r.prototype.removeAllListeners=function(e){var t,r;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[e]&&delete this._events[e],this;if(0===arguments.length){for(t in this._events)"removeListener"!==t&&this.removeAllListeners(t);return this.removeAllListeners("removeListener"),this._events={},this}if(r=this._events[e],n(r))this.removeListener(e,r);else if(r)for(;r.length;)this.removeListener(e,r[r.length-1]);return delete this._events[e],this},r.prototype.listeners=function(e){var t;return t=this._events&&this._events[e]?n(this._events[e])?[this._events[e]]:this._events[e].slice():[]},r.prototype.listenerCount=function(e){if(this._events){var t=this._events[e];if(n(t))return 1;if(t)return t.length}return 0},r.listenerCount=function(e,t){return e.listenerCount(t)}},{}],2:[function(e,t){function r(e,t,r){if(!s(t))throw new TypeError("iterator must be a function");arguments.length<3&&(r=this),"[object Array]"===u.call(e)?n(e,t,r):"string"==typeof e?i(e,t,r):o(e,t,r)}function n(e,t,r){for(var n=0,i=e.length;i>n;n++)a.call(e,n)&&t.call(r,e[n],n,e)}function i(e,t,r){for(var n=0,i=e.length;i>n;n++)t.call(r,e.charAt(n),n,e)}function o(e,t,r){for(var n in e)a.call(e,n)&&t.call(r,e[n],n,e)}var s=e("is-function");t.exports=r;var u=Object.prototype.toString,a=Object.prototype.hasOwnProperty},{"is-function":4}],3:[function(e,t){(function(e){t.exports="undefined"!=typeof window?window:"undefined"!=typeof e?e:"undefined"!=typeof self?self:{}}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}],4:[function(e,t){function r(e){var t=n.call(e);return"[object Function]"===t||"function"==typeof e&&"[object RegExp]"!==t||"undefined"!=typeof window&&(e===window.setTimeout||e===window.alert||e===window.confirm||e===window.prompt)}t.exports=r;var n=Object.prototype.toString},{}],5:[function(e,t){var r=e("trim"),n=e("for-each"),i=function(e){return"[object Array]"===Object.prototype.toString.call(e)};t.exports=function(e){if(!e)return{};var t={};return n(r(e).split("\n"),function(e){var n=e.indexOf(":"),o=r(e.slice(0,n)).toLowerCase(),s=r(e.slice(n+1));"undefined"==typeof t[o]?t[o]=s:i(t[o])?t[o].push(s):t[o]=[t[o],s]}),t}},{"for-each":2,trim:6}],6:[function(e,t,r){function n(e){return e.replace(/^\s*|\s*$/g,"")}r=t.exports=n,r.left=function(e){return e.replace(/^\s*/,"")},r.right=function(e){return e.replace(/\s*$/,"")}},{}],7:[function(e,t){"use strict";function r(e,t){for(var r=0;r<e.length;r++)t(e[r])}function n(e){for(var t in e)if(e.hasOwnProperty(t))return!1;return!0}function i(e,t,r){var n=e;return f(t)?(r=t,"string"==typeof e&&(n={uri:e})):n=d(t,{uri:e}),n.callback=r,n}function o(e,t,r){return t=i(e,t,r),s(t)}function s(e){function t(){4===d.readyState&&s()}function r(){var e=void 0;if(e=d.response?d.response:d.responseText||u(d),_)try{e=JSON.parse(e)}catch(t){}return e}function i(e){return clearTimeout(v),e instanceof Error||(e=new Error(""+(e||"Unknown XMLHttpRequest Error"))),e.statusCode=0,l(e,f)}function s(){if(!p){var t;clearTimeout(v),t=e.useXDR&&void 0===d.status?200:1223===d.status?204:d.status;var n=f,i=null;return 0!==t?(n={body:r(),statusCode:t,method:m,headers:{},url:y,rawRequest:d},d.getAllResponseHeaders&&(n.headers=c(d.getAllResponseHeaders()))):i=new Error("Internal XMLHttpRequest Error"),l(i,n,n.body)}}if("undefined"==typeof e.callback)throw new Error("callback argument missing");var a=!1,l=function(t,r,n){a||(a=!0,e.callback(t,r,n))},f={body:void 0,headers:{},statusCode:0,method:m,url:y,rawRequest:d},d=e.xhr||null;d||(d=e.cors||e.useXDR?new o.XDomainRequest:new o.XMLHttpRequest);var h,p,v,y=d.url=e.uri||e.url,m=d.method=e.method||"GET",g=e.body||e.data||null,b=d.headers=e.headers||{},w=!!e.sync,_=!1;if("json"in e&&(_=!0,b.accept||b.Accept||(b.Accept="application/json"),"GET"!==m&&"HEAD"!==m&&(b["content-type"]||b["Content-Type"]||(b["Content-Type"]="application/json"),g=JSON.stringify(e.json))),d.onreadystatechange=t,d.onload=s,d.onerror=i,d.onprogress=function(){},d.ontimeout=i,d.open(m,y,!w,e.username,e.password),w||(d.withCredentials=!!e.withCredentials),!w&&e.timeout>0&&(v=setTimeout(function(){p=!0,d.abort("timeout");var e=new Error("XMLHttpRequest timeout");e.code="ETIMEDOUT",i(e)},e.timeout)),d.setRequestHeader)for(h in b)b.hasOwnProperty(h)&&d.setRequestHeader(h,b[h]);else if(e.headers&&!n(e.headers))throw new Error("Headers cannot be set on an XDomainRequest object");return"responseType"in e&&(d.responseType=e.responseType),"beforeSend"in e&&"function"==typeof e.beforeSend&&e.beforeSend(d),d.send(g),d}function u(e){if("document"===e.responseType)return e.responseXML;var t=204===e.status&&e.responseXML&&"parsererror"===e.responseXML.documentElement.nodeName;return""!==e.responseType||t?null:e.responseXML}function a(){}var l=e("global/window"),f=e("is-function"),c=e("parse-headers"),d=e("xtend");t.exports=o,o.XMLHttpRequest=l.XMLHttpRequest||a,o.XDomainRequest="withCredentials"in new o.XMLHttpRequest?o.XMLHttpRequest:l.XDomainRequest,r(["get","put","post","patch","head","delete"],function(e){o["delete"===e?"del":e]=function(t,r,n){return r=i(t,r,n),r.method=e.toUpperCase(),s(r)}})},{"global/window":3,"is-function":4,"parse-headers":5,xtend:8}],8:[function(e,t){function r(){for(var e={},t=0;t<arguments.length;t++){var r=arguments[t];for(var i in r)n.call(r,i)&&(e[i]=r[i])}return e}t.exports=r;var n=Object.prototype.hasOwnProperty},{}],9:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(r,"__esModule",{value:!0});var u=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),a=e("events"),l=n(a),f=e("./logger"),c=n(f),d=e("./detect"),h=n(d),p=e("./errors"),v=n(p),y=e("./events"),m=n(y),g=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return s.resetCounts(),s.errors={},s.livelyPlayer=e,s.mediaLoader=r,s.options=n,s.onceHandlerLock=!1,s}return s(t,e),u(t,[{key:"resetCounts",value:function(){this.fragCounts=0,this.fragSize=0,this.fragDuration=0,this.fragDownloadTime=0,this.fragMaxTime=0,this.fragMinTime=0,this.bufferOverflowCount=0,this.bufferUnderflowCount=0,this.upshift=0,this.downshift=0,this.lastProgress=0,this.currentErrorCount=0,this.recentErrorCount=0}},{key:"pickEncoding",value:function(e){if(e&&(this.options.bitrate=e),!this.options.bitrate)return null;var t=this.data.encodings;return t.length?t[this.chosenLevel]:void 0}},{key:"whenReady",value:function(e){var t=this;if(!this.onceHandlerLock){var r=this.manifest;return r?void(e&&e()):this.mediaLoader.currentState===m["default"].ONLINE?void this.emit(m["default"].ERROR,v["default"].DRIVER_NOT_SUPPORTED):(this.onceHandlerLock=!0,void this.mediaLoader.once(m["default"].MANIFEST,function(){t.onceHandlerLock=!1,t.whenReady(e)}))}}},{key:"setOption",value:function(e,t){switch(this.options[e]=t,e){case"posterURI":this.el&&this.el.setAttribute("poster",t)}}},{key:"elementPlay",value:function(){if(this.el&&this.el.play){var e=this.el.play();"undefined"!=typeof Promise&&e instanceof Promise&&e["catch"](function(){})}}},{key:"attachListeners",value:function(){var e=this;this.el.onprogress=function(){e.emitProgress()},this.el.ontimeupdate=function(){e.fragCounts++,e.emitTimeupdate()}}},{key:"play",value:function(e){var t=this,r=e||function(){};return this.mediaLoader.vod&&this.manifest&&this.manifest===this.el.getAttribute("src")?(this.elementPlay(),void r(!this.el.paused)):(h["default"].any()&&this.elementPlay(),void this.whenReady(function(){var e=t.manifest;if(c["default"].setPlayer(t.mediaLoader.host,t.mediaLoader.publicId,t.format,e,t),h["default"].iOS())return t.el.getAttribute("src")!==e&&t.el.setAttribute("src",e),void t.el.play().then(function(){t.attachListeners(),r(!0)})["catch"](function(){r(!1)});t.el.oncanplay=function(){t.el.oncanplay=null;var e=t.el.play();return"undefined"!=typeof Promise&&e instanceof Promise?void e.then(function(){t.attachListeners(),r&&r(!0)})["catch"](function(){r&&r(!1)}):(t.attachListeners(),void setTimeout(function(){r&&r(!t.el.paused)},20))},t.el.setAttribute("src",e);var n=t.el.play();"undefined"!=typeof Promise&&n instanceof Promise?n.then(function(){r(!0)})["catch"](function(){r(!1)}):setTimeout(function(){r(!t.el.paused)},20)}))}},{key:"stop",value:function(){this.el.setAttribute("src","")}},{key:"destroy",value:function(){this.el.remove(),this.stop()}},{key:"pause",value:function(){this.el.pause()}},{key:"unmute",value:function(){return this.el.muted=!1,this.el.muted}},{key:"mute",value:function(){return this.el.muted=!0,this.el.muted}},{key:"supportsFullscreen",value:function(){var e=document.createElement("video");return!!(document.fullscreenEnabled||document.mozFullScreenEnabled||document.msFullscreenEnabled||document.webkitSupportsFullscreen||document.webkitFullscreenEnabled||e.webkitRequestFullScreen||e.webkitEnterFullScreen)}},{key:"restart",value:function(){var e=this;this.lockRestart||(this.lockRestart=!0,this.currentErrorCount=0,this.recentErrorCount=0,this.stop(),this.play(function(){e.lockRestart=!1}))}},{key:"checkRestart",value:function(e){var t=this,r=e;this.recentErrorCount++,setTimeout(function(){t.recentErrorCount--,t.recentErrorCount=Math.max(t.recentErrorCount,0)},1e4),this.recentErrorCount>=this.options.recoverErrorCount&&(r.fatal=!0),this.currentErrorCount>=this.options.recoverErrorCount&&(r.fatal=!0),r.fatal&&!this.mediaLoader.vod&&this.restart()}},{key:"handleError",value:function(e,t,r){var n=t+":"+r.details;this.errors[n]||(this.errors[n]=0),this.errors[n]++;for(var i=arguments.length,o=Array(i>3?i-3:0),s=3;i>s;s++)o[s-3]=arguments[s];this.emit.apply(this,[e,t,r].concat(o))}},{key:"emitProgress",value:function(){this.lastProgress=window.performance.now(),this.emit(m["default"].MEDIA_PROGRESS)}},{key:"emitTimeupdate",value:function(){this.emit(m["default"].MEDIA_TIMEUPDATE)}},{key:"format",get:function(){return this.constructor.format}},{key:"driver",get:function(){return this.constructor.driver}},{key:"duration",get:function(){return this.el&&this.el.duration?this.el.duration:1/0}},{key:"bufferTimes",get:function(){for(var e=[],t=this.el.buffered.length,r=0;t>r;r++)e.push([this.el.buffered.start(r),this.el.buffered.end(r)]);return e}},{key:"volume",get:function(){return this.el.volume},set:function(e){return"undefined"!=typeof e&&(this.el.volume=e),this.el.muted&&e&&e>0&&this.unmute(),this.el.volume}},{key:"supportsAutoplay",get:function(){return!h["default"].any()}},{key:"supportsMobileAutoplay",get:function(){return!1}},{key:"supportsVolume",get:function(){return!0}},{key:"data",get:function(){var e=this.mediaLoader.get(this.format);return e.auto=!0,e}},{key:"chosenLevel",get:function(){if(!this.options.bitrate)return null;var e=this.data.encodings;if(!e.length)return void 0;var t=void 0;for(t=0;t<e.length&&!(e[t].videoWidth&&e[t].videoKbps+e[t].audioKbps>this.options.bitrate);t++);return t=Math.max(t-1,0)}},{key:"currentLevel",get:function(){return this.chosenLevel}},{key:"nextLevel",get:function(){return null}},{key:"manifest",get:function(){var e=this.pickEncoding(),t=void 0;if(t=e?e.location:this.data.manifest,!t)return null;var r=-1===t.indexOf("?")?"?":"&";return null===this.options.preset||(this.options.preset?t=""+t+r+"preset="+this.options.preset:h["default"].any()||(t=""+t+r+"preset=desktop")),t}},{key:"currentTime",get:function(){return this.el.currentTime},set:function(e){this.el.currentTime=e}},{key:"stopped",get:function(){return!!this.el.getAttribute("src","")}},{key:"bitrate",set:function(e){var t=this,r=this.el.currentTime;this.stop(),this.options.bitrate=e,this.mediaLoader.vod&&(this.el.onloadedmetadata=function(){t.el.onloadedmetadata=null,t.el.currentTime=r},this.el.oncanplay=function(){t.el.oncanplay=null,t.el.currentTime>=r||(t.el.currentTime=r)}),this.play(function(){t.emit(m["default"].BITRATE_SWITCH)})}},{key:"muted",get:function(){return!!this.el.muted}},{key:"paused",get:function(){return this.el.paused}},{key:"details",get:function(){return{bufferOverflowCount:this.bufferOverflowCount||0,bufferUnderflowCount:this.bufferUnderflowCount||0,downshift:this.downshift||0,errors:this.errors||{},muted:this.el&&this.el.muted,segments:this.fragCounts||0,segmentsSize:this.fragSize||0,segmentsDuration:this.fragDuration||0,segmentTotalDownloadTime:this.fragDownloadTime||0,segMaxTime:this.fragMaxTime||0,segMinTime:this.fragMinTime||0,upshift:this.upshift||0,volume:this.el&&this.el.volume?this.el.volume:0}}}],[{key:"isSupported",value:function(){c["default"].error("an abstract method has been called")}},{key:"defaultOptions",get:function(){return{adaptive:null,bitrate:null,muted:!1,volume:.75}}}]),t}(l["default"]);r["default"]=g},{"./detect":10,"./errors":11,"./events":12,"./logger":16,events:1}],10:[function(e,t,r){"use strict";function n(e,t){return function(){return"undefined"==typeof i[e]&&(i[e]=t()),i[e]}}Object.defineProperty(r,"__esModule",{value:!0});var i={},o={winChrome51:n("winChrome51",function(){if(!o.windowsDesktop())return!1;if(!o.chrome())return!1;for(var e=navigator.userAgent.split(/\s*[;)(]\s*/),t=void 0,r=0;r<e.length;r++)if("Chrome"===e[r].slice(0,6)){t=e[r];break}if(!t)return!1;var n=t.split("/"),i=n[1].split(".");return parseInt(i[0],10)<52?!0:!1}),iPhone9:n("iPhone9",function(){if(!o.iPhone())return!1;for(var e=navigator.userAgent.split(/\s*[;)(]\s*/),t=void 0,r=void 0,n=0;n<e.length;n++){if("Version"===e[n].slice(0,7)){t=e[n];break}if(e.length>0&&"OS"===e[n]&&"iPhone"===e[n-1]){r=e[n+1];break}}if(!t&&!r)return!1;var i=r?r.split("_"):t.split("/");return parseFloat(i[1])<10?!0:!1}),windowsDesktop:n("windowsDesktop",function(){return/Windows/i.test(navigator.userAgent)}),chrome:n("chrome",function(){return/Chrome/i.test(navigator.userAgent)}),firefox:n("firefox",function(){return/Firefox/i.test(navigator.userAgent)}),ie:n("ie",function(){return/Trident/i.test(navigator.userAgent)}),edge:n("edge",function(){return/Edge\/\d+/.test(navigator.userAgent)}),safari:n("safari",function(){return/Safari/i.test(navigator.userAgent)}),windows:n("windows",function(){return/IEMobile/i.test(navigator.userAgent)}),android:n("android",function(){return/Android/i.test(navigator.userAgent)}),blackBerry:n("blackBerry",function(){return/BlackBerry/i.test(navigator.userAgent)}),iOS:n("iOS",function(){return/iPhone|iPad|iPod/i.test(navigator.userAgent)}),iPhone:n("iPhone",function(){return/iPhone/i.test(navigator.userAgent)}),any:n("any",function(){return o.android()||o.blackBerry()||o.iOS()||o.windows()})};r["default"]=o},{}],11:[function(e,t,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0});var n={BAD_INPUT:"bad-input",DRIVER_NOT_SUPPORTED:"driver-not-supported",ELEMENT_REQUIRED:"element-required",EMBED_SWF_FAILED:"embedding-flash-swf-failed",GET_USER_MEDIA_FAILED:"get-user-media-failed",HTTP_SERVER_INTERNAL_ERROR:"http-server-internal-error",HTTP_SERVER_NOT_FOUND:"http-server-not-found",MANIFEST:"http-response",INVALID_CONTROLS:"invalid-controls-parent",INVALID_MEDIA_URL:"invalid-media-url",INVALID_POPOUT_URL:"invalid-popout-url",INVALID_EL:"invalid-element",WS_NETWORK_ERROR:"websocket-network-error",NETWORK_ERROR:"network-error",NO_DRIVERS:"no-valid-drivers",PLAYBACK_ERROR:"playback-error",UNKNOWN_DRIVER:"unknown-driver",UNKNOWN_ERROR:"unknown-error",UNRECOGNIZED_DRIVER:"unrecognized-driver",USER_REQUIRED:"user-required"};r["default"]=n},{}],12:[function(e,t,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0});var n={EXIT_FULLSCREEN:"exit-fullscreen",ENTER_FULLSCREEN:"enter-fullscreen",ERROR:"error",BITRATE_SWITCH:"bitrate-switch",SELECT_DRIVER:"select-driver",MANIFEST:"manifest",MEDIA_PLAY:"play",MEDIA_STOP:"stop",MEDIA_PAUSE:"pause",MEDIA_STALL:"stall",MEDIA_PROGRESS:"progress",MEDIA_TIMEUPDATE:"timeupdate",MEDIA_MUTE:"mute",MEDIA_UNMUTE:"unmute",MEDIA_VOLUME:"volume",ONLINE:"online",OFFLINE:"offline",ESTIMATED_BW:"estimated-bw",USER_ACTIVE:"user-active",USER_IDLE:"user-idle"};r["default"]=n},{}],13:[function(e,t,r){"use strict";function n(e,t){return 0===t?e:n(t,e%t)}Object.defineProperty(r,"__esModule",{value:!0}),r["default"]=n},{}],14:[function(e,t,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0}),r["default"]=function(e,t){var r=e?Object.create(e):{};if(!t)return r;for(var n in t)"undefined"==typeof r[n]&&(r[n]=t[n]);return r}},{}],15:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(r,"__esModule",{value:!0}),r.parseUrl=r.getDefaultOptions=r.STORAGE_VALUES=r.EVENTS=r.ERRORS=r.detect=r.Store=r.stats=r.logger=r.BaseDriver=void 0;var i=e("./base-driver"),o=n(i),s=e("./logger"),u=n(s),a=e("./stats"),l=n(a),f=e("./store"),c=n(f),d=e("./detect"),h=n(d),p=e("./errors"),v=n(p),y=e("./events"),m=n(y),g=e("./storage-values"),b=n(g),w=e("./get-default-options"),_=n(w),E=e("./parse-url"),T=n(E),O=e("./player"),k=n(O);r.BaseDriver=o["default"],r.logger=u["default"],r.stats=l["default"],r.Store=c["default"],r.detect=h["default"],r.ERRORS=v["default"],r.EVENTS=m["default"],r.STORAGE_VALUES=b["default"],r.getDefaultOptions=_["default"],r.parseUrl=T["default"],r["default"]=k["default"]},{"./base-driver":9,"./detect":10,"./errors":11,"./events":12,"./get-default-options":14,"./logger":16,"./parse-url":19,"./player":20,"./stats":23,"./storage-values":25,"./store":30}],16:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(r,"__esModule",{value:!0});var i=e("./logger"),o=n(i),s=new o["default"];r["default"]=s},{"./logger":17}],17:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(r,"__esModule",{value:!0});var o=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),s=e("../uuidv4"),u=n(s),a=["debug","error","info","warn","timing","deprecated"],l=function(){function e(){i(this,e),this.sessionKey=u["default"](),this.sessionQueryString="sessionId="+this.sessionKey,this.host=null,this.setLevels(),this.publicKey=null,this.format=null,this.encoding=null,this.disable(),this.enable(),this.logEntries=[]}return o(e,[{key:"setLevels",value:function(e){var t=e||{};this.levels={debug:t.debug||!1,error:t.error||1,warn:t.warn||1,info:t.info||1,timing:t.timing||0}}},{key:"setPlayer",value:function(e,t,r,n,i){this.host=e,this.publicKey=t,this.format=r,this.encoding=n,this.driver=i}},{key:"checkSet",value:function(){return!this.host||!this.publicKey||!this.format}},{key:"levelIsSupported",value:function(e){return-1!==a.indexOf(e)}},{key:"log",value:function(e){var t;if(!this.levelIsSupported(e))return void this.log("error","unsupported log level",{level:e});if(this.levels[e]&&this.writer[e]&&this.writer[e].apply){for(var r=arguments.length,n=Array(r>1?r-1:0),i=1;r>i;i++)n[i-1]=arguments[i];(t=this.writer)[e].apply(t,n),this.apiLogging&&this.host&&this.publicKey&&this.pushBatch(n)}}},{key:"disable",value:function(){this.writer={};for(var e=0;e<a.length;e++)this.writer[a[e]]=function(){}}},{key:"enable",value:function(){window.console&&(this.writer=window.console,this.writer.timing=this.writer.info,this.writer.deprecated=this.writer.info)}},{key:"argJoin",value:function(e,t){for(var r=[e],n=0;n<t.length;n++)r.push(t[n]);return r}},{key:"debug",value:function(){for(var e=arguments.length,t=Array(e),r=0;e>r;r++)t[r]=arguments[r];this.log.apply(this,["debug"].concat(t))}},{key:"error",value:function(){for(var e=arguments.length,t=Array(e),r=0;e>r;r++)t[r]=arguments[r];this.log.apply(this,["error"].concat(t))}},{key:"timing",value:function(){for(var e=arguments.length,t=Array(e),r=0;e>r;r++)t[r]=arguments[r];this.log.apply(this,["timing"].concat(t))}},{key:"info",value:function(){for(var e=arguments.length,t=Array(e),r=0;e>r;r++)t[r]=arguments[r];this.log.apply(this,["info"].concat(t))}},{key:"warn",value:function(){for(var e=arguments.length,t=Array(e),r=0;e>r;r++)t[r]=arguments[r];this.log.apply(this,["warn"].concat(t))}},{key:"deprecated",value:function(){for(var e=arguments.length,t=Array(e),r=0;e>r;r++)t[r]=arguments[r];this.log.apply(this,["deprecated"].concat(t))}}]),e}();r["default"]=l},{"../uuidv4":31}],18:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(r,"__esModule",{value:!0});var u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),l=e("events"),f=n(l),c=e("xhr"),d=n(c),h=e("./errors"),p=n(h),v=e("./events"),y=n(v),m=e("./parse-url"),g=n(m),b=e("./logger"),w=n(b),_=3e4,E=function(e){function t(e,r){i(this,t);var n=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return n.currentState=y["default"].OFFLINE,n.formats={},n.options=r,n.host=n.options.host||window.location.host,n.setPublicId(e),n.publicId&&(n.options.pollingInterval=parseInt(n.options.pollingInterval,10)),n.options.viewUri&&(n.viewInteral=setInterval(n.trackView.bind(n),_)),n.setUri(e)?(n.trackView(),n.options.pollingInterval?n:o(n)):o(n)}return s(t,e),a(t,[{key:"load",value:function(){var e=this,t=void 0,r=void 0;return"function"==typeof(arguments.length<=0?void 0:arguments[0])?r=arguments.length<=0?void 0:arguments[0]:(t=arguments.length<=0?void 0:arguments[0],r=arguments.length<=1?void 0:arguments[1]),r||(r=function(){}),this.manifest||this.vod?(this.emit(y["default"].MANIFEST,this.currentState),void r()):t||this.uri?("string"!=typeof t||"http://"!==t.slice(0,7)&&"https://"!==t.slice(0,8)||(this.options.mediaLoaderUri=t),this.setUri(t)?void d["default"]({method:"GET",uri:this.uri,json:!0,useXDR:!0},function(t,n,i){var o=void 0;t?o=new Error(p["default"].HTTP_SERVER_INTERNAL_ERROR):n.statusCode>499?o=new Error(p["default"].HTTP_SERVER_INTERNAL_ERROR):n.statusCode>399?o=new Error(p["default"].HTTP_SERVER_NOT_FOUND):e.validateResponse(i)||(o=new Error(p["default"].HTTP_SERVER_UNEXPECTED_RESPONSE)),o&&e.emit(y["default"].ERROR,o.message);var s=void 0;404!==n.statusCode&&i&&i.formats?200===n.statusCode&&(e.uri=i.self):s=y["default"].OFFLINE,s||(e.formats=i.formats,s=Object.keys(i.formats).length?y["default"].ONLINE:y["default"].OFFLINE),e.type=i&&i.type?i.type:"live",e.vod&&clearInterval(e.pollingSetInterval),s!==e.currentState&&e.emit(s),e.currentState=s,e.emit(y["default"].MANIFEST,e.currentState),r()}):void r(new Error(p["default"].INVALID_MEDIA_URL))):void 0}},{key:"trackView",value:function(){this.options.viewUri&&d["default"]({method:"POST",uri:this.options.viewUri},function(e,t,r){e?w["default"].warn("track view failed",e):t.statusCode>399&&w["default"].warn("track view failed",{code:t.statusCode,body:r})})}},{key:"setPublicId",value:function(e){this.type=null,this.formats={},"string"==typeof e?this.publicId=e:"object"===("undefined"==typeof e?"undefined":u(e))&&(this.manifest=e,this.currentState=y["default"].ONLINE,this.type=this.manifest.type,this.formats=this.manifest.formats)}},{key:"validateResponse",value:function(e){return e&&"object"===("undefined"==typeof e?"undefined":u(e))?"object"!==u(e.formats)?!1:!0:!1}},{key:"setUri",value:function(e){return e?this.options.mediaLoaderUri?(this.uri=this.options.mediaLoaderUri,!0):(this.uri=g["default"](this.host).href,this.uri?(this.uri=""+this.uri+this.options.apiPrefix+"/"+e+this.options.apiSuffix,!0):(this.emit(y["default"].ERROR,p["default"].INVALID_MEDIA_URL),!1)):!!this.uri}},{key:"get",value:function(e){if(!this.formats[e])return{type:null,encodings:[],manifest:null,state:y["default"].ONLINE};var t=[];if(this.formats[e].encodings)t=this.formats[e].encodings.sort(function(e,t){return e.videoKbps+e.audioKbps>t.videoKbps+t.audioKbps?1:-1});else for(var r=Object.keys(this.formats[e]).filter(function(e){return!isNaN(e)}).sort(),n=0;n<r.length;n++)t.push(this.formats[e][r[n]]);return{type:this.type,encodings:t,manifest:this.formats[e].manifest,state:y["default"].ONLINE}}},{key:"destroy",value:function(){clearInterval(this.pollingSetInterval)}},{key:"startInterval",value:function(){var e=this;!this.options.pollingInterval||this.manifest||this.vod||(this.pollingSetInterval=setInterval(function(){e.load(e.publicId)},this.options.pollingInterval))}},{key:"vod",get:function(){return"recorded"===this.type}}]),t}(f["default"]);r["default"]=E},{"./errors":11,"./events":12,"./logger":16,"./parse-url":19,events:1,xhr:7}],19:[function(e,t,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0}),r["default"]=function(e){var t=document.createElement("a");return t.href=e,t.pathname?{href:t.href,protocol:t.protocol,port:t.port,pathname:t.pathname,search:t.search,host:t.host||window.location.host}:!1}},{}],20:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(r,"__esModule",{value:!0});var u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),l=e("events"),f=n(l),c=e("./logger"),d=n(c),h=e("./store"),p=n(h),v=e("./stats"),y=e("./media-loader"),m=n(y),g=e("./errors"),b=n(g),w=e("./events"),_=n(w),E=e("./gcd"),T=n(E),O=e("./get-default-options"),k=n(O);e("./polyfills");var D=e("./storage-values"),L=n(D),R=1800,P=600,S={apiPrefix:"/live",apiSuffix:".json",autoplay:!0,bitrate:void 0,debug:!1,flashWmode:"transparent",flashFrameRate:60,fullscreenEl:"parent",forceDrivers:!1,formats:null,maxBufferLength:30,maxBufferSize:6e7,muted:void 0,pollingInterval:1e4,posterURI:null,preset:void 0,recoverErrorCount:10,recoverTimeout:4e3,startTime:0,viewUri:null,volume:.75,flashlsPath:"../dist/flashlsChromeless.swf",strobeSwfPath:"../dist/StrobeMediaPlayback.swf",tfSwfPath:"../dist/thin.swf",avpPath:"../dist/avp.swf",hlsjsPath:null},A=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));
-
-switch(s.availableDrivers=[],"undefined"==typeof e?"undefined":u(e)){case"string":s.el=document.querySelector(e);break;case"object":s.el=e;break;default:s.error(b["default"].INVALID_EL)}if(s.options=k["default"](n,S),s.store=new p["default"],s.firstPlay=!0,"undefined"==typeof s.options.muted){var a=s.store.get(L["default"].muted);s.options.muted=null!==a?"true"===a:s.options.muted}var l=s.store.get(L["default"].volume);s.options.volume=isNaN(parseFloat(l))?s.options.volume:parseFloat(l),s.options.bitrate&&!parseInt(s.options.bitrate,10)&&(s.error(b["default"].INVALD_BITRATE),s.options.bitrate=void 0),"undefined"!=typeof s.options.bitrate&&s.storeBitrate(s.options.bitrate);var f=parseInt(s.store.get(L["default"].lockedKbps),10);if(s.options.bitrate=f||parseInt(s.options.bitrate,10)||null,s.estimatedKbps=parseInt(s.store.get(L["default"].estimatedKbps),10)||R,s.isTryingToPlay=!1,s.shouldTryToPlay=s.options.autoplay,s.options.debug?d["default"].setLevels({debug:!0,error:1,warn:1,info:1,timing:1}):d["default"].setLevels(),s.trackFirstProgress(),s.options.mediaLoaderUri&&d["default"].deprecated("mediaLoaderUri","second argument may now take a uri or publicId"),r)if("string"==typeof r)("http://"===r.slice(0,7)||"https://"===r.slice(0,8))&&(s.options.mediaLoaderUri=r);else if("object"===("undefined"==typeof r?"undefined":u(r)))s.options.mediaLoaderUri=r;else if(null!==r)return d["default"].error("invalid manifest",r),o(s);if(!Array.isArray(s.options.drivers))return d["default"].error("invalid drivers, must be an array",s.options.drivers),o(s);for(var c=0;c<s.options.drivers.length;c++)if("function"!=typeof s.options.drivers[c])return d["default"].error("invalid drivers, each driver must type function, check driver at index "+c),o(s);return s.mediaLoader=s.options.mediaLoader||new m["default"](r,s.options),s.setDrivers(s.options.drivers),s.mediaLoader.on(_["default"].ERROR,s.eventHandler(_["default"].ERROR).bind(s)),s.mediaLoader.on(_["default"].MANIFEST,s.eventHandler(_["default"].MANIFEST).bind(s)),s.mediaLoader.on(_["default"].MANIFEST,function(){return s.mediaLoader.currentState!==_["default"].ONLINE?void s.stop():void(s.shouldTryToPlay&&s.currentDriver&&(s.play(),s.currentDriver.supportsAutoplay||(s.shouldTryToPlay=!1)))}),s.mediaLoader.on(_["default"].ONLINE,function(){s.emit(_["default"].ONLINE)}),s.mediaLoader.on(_["default"].OFFLINE,function(){s.tryingToPlay&&(s.shouldTryToPlay=!0),s.emit(_["default"].OFFLINE)}),s.mediaLoader.load(),s.mediaLoader.startInterval&&s.mediaLoader.startInterval(),s.options.autoplay&&s.currentDriver&&s.currentDriver.elementPlay&&s.currentDriver.elementPlay(),s}return s(t,e),a(t,[{key:"trackFirstProgress",value:function(){var e=this;this.options.autoplay&&(this.autoplayProgressId=v.stats.start(v.STATS_EVENTS.AUTOPLAY_PROGRESS),this.once(_["default"].MEDIA_PROGRESS,function(){v.stats.stop(e.autoplayProgressId,{driver:e.currentDriver.driver})}))}},{key:"setOption",value:function(e,t){this.options[e]=t,this.currentDriver&&this.currentDriver.setOption(e,t)}},{key:"load",value:function(e,t){this.stop(),this.mediaLoader.setPublicId(e),this.mediaLoader.load(e,t)}},{key:"destroy",value:function(){this.mediaLoader.destroy&&(this.mediaLoader.removeAllListeners(_["default"].MANIFEST),this.mediaLoader.removeAllListeners(_["default"].ERROR),this.mediaLoader.destroy());var e=void 0;if(this.currentDriver){this.currentDriver.destroy();for(e in _["default"])this.currentDriver.removeAllListeners(_["default"][e]);this.currentDriver.removeAllListeners(_["default"][e],this.eventHandler(_["default"][e])),this.currentDriver.destroy()}this.removeAllListeners(_["default"].MEDIA_PROGRESS),this.emit(_["default"].DESTROY)}},{key:"storeBitrate",value:function(e){this.store.set(L["default"].lockedKbps,e)}},{key:"restart",value:function(){var e=this.tryingToPlay;this.stop(),this.shouldTryToPlay=e,this.mediaLoader.load()}},{key:"switchDrivers",value:function(e){this.options.drivers=e,this.setDrivers(e),this.restart()}},{key:"getState",value:function(){return this.mediaLoader.currentState}},{key:"eventHandler",value:function(e){var t=this;return function(){for(var r=arguments.length,n=Array(r),i=0;r>i;i++)n[i]=arguments[i];("error"!==e||t._events&&t._events.hasOwnProperty("error"))&&t.emit.apply(t,[e].concat(n))}}},{key:"error",value:function(e,t){(!this._events||this._events.hasOwnProperty("error"))&&this.emit(_["default"].ERROR,e,t),d["default"].warn(e)}},{key:"setDrivers",value:function(e){var t=void 0;this.availableDrivers=[];for(var r=0;r<e.length;r++)t=e[r],t&&t.isSupported()?(this.options.forceDrivers||t.isSupported())&&this.availableDrivers.push(t):d["default"].debug("driver at index "+r+" is not supported");return this.availableDrivers.length?void(this.driver=0):void this.noDrivers()}},{key:"pause",value:function(){this.isTryingToPlay=!1,this.currentDriver&&this.currentDriver.pause(),this.emit(_["default"].MEDIA_PAUSE)}},{key:"noDrivers",value:function(){this.mediaLoader.currentState===_["default"].ONLINE&&this.error(b["default"].NO_DRIVERS)}},{key:"play",value:function(){var e=this;return this.currentDriver?(this.isTryingToPlay=!0,void this.currentDriver.play(function(t){return t?(e.shouldTryToPlay=!1,"true"===e.store.get(L["default"].muted)&&e.currentDriver.mute(),e.firstPlay&&e.vod&&e.options.startTime&&(e.currentDriver.currentTime=e.options.startTime),e.isTryingToPlay=!0,void(e.mediaLoader.state!==_["default"].OFFLINE&&(e.emit(_["default"].MEDIA_PLAY),e.firstPlay=!1))):void(e.isTryingToPlay=!1)})):void this.noDrivers()}},{key:"stop",value:function(){this.isTryingToPlay=!1,this.currentDriver&&this.currentDriver.stop(),this.emit(_["default"].MEDIA_STOP)}},{key:"isTryingToPlayAudio",value:function(){return this.currentDriver?this.currentDriver.isTryingToPlayAudio(this.tryingToPlay):this.tryingToPlay}},{key:"mute",value:function(){if(!this.currentDriver)return this.noDrivers(),null;var e=this.currentDriver.mute();return this.store.set(L["default"].muted,String(e)),this.emit(_["default"].MEDIA_MUTE),e}},{key:"unmute",value:function(){if(!this.currentDriver)return this.noDrivers(),null;var e=this.currentDriver.unmute();return this.store.set(L["default"].muted,String(e)),this.emit(_["default"].MEDIA_UNMUTE),e}},{key:"currentEncoding",value:function(){return this.currentDriver?this.currentDriver.pickEncoding():void 0}},{key:"supportsFullscreen",value:function(){return this.currentDriver?this.currentDriver.supportsFullscreen():null}},{key:"supportsVolume",value:function(){return this.currentDriver?this.currentDriver.supportsVolume():null}},{key:"bitrate",set:function(e){this.storeBitrate(e),this.currentDriver.bitrate=e}},{key:"driver",set:function(e){var t=this;if(!this.availableDrivers[e])return void this.noDrivers();var r=this.availableDrivers[e];this.currentDriver&&this.currentDriver.destroy(),this.currentDriver=new r(this,this.mediaLoader,{bitrate:this.options.bitrate,estimatedKbps:this.estimatedKbps,volume:this.options.volume,muted:this.options.muted,debug:this.options.debug,recoverTimeout:this.options.recoverTimeout,recoverErrorCount:this.options.recoverErrorCount,maxBufferLength:this.options.maxBufferLength,maxBufferSize:this.options.maxBufferSize,preset:this.options.preset,flashlsPath:this.options.flashlsPath,tfSwfPath:this.options.tfSwfPath,strobeSwfPath:this.options.strobeSwfPath,avpPath:this.options.avpPath,hlsjsPath:this.options.hlsjsPath,posterURI:this.options.posterURI,flashFrameRate:this.options.flashFrameRate,flashWmode:this.options.flashWmode}),this.currentDriver.on(_["default"].ERROR,function(r){var n=function(){t.availableDrivers.length&&(t.currentDriver.destroy(),t.availableDrivers.splice(e,1),t.driver=e,t.tryingToPlay&&t.play())};switch(r){case b["default"].EMBED_SWF_FAILED:n();break;case b["default"].DRIVER_NOT_SUPPORTED:n()}}),this.emit(_["default"].SELECT_DRIVER,this.currentDriver),this.currentDriver.on(_["default"].ESTIMATED_BW,function(e){t.store.set(L["default"].estimatedKbps,parseInt(e,10)||P)});for(var n in _["default"])this.currentDriver.on(_["default"][n],this.eventHandler(_["default"][n]))}},{key:"duration",get:function(){return this.currentDriver?this.currentDriver.duration:1/0}},{key:"vod",get:function(){return this.mediaLoader?this.mediaLoader.vod:null}},{key:"bufferLength",get:function(){return this.currentDriver?this.currentDriver.bufferLength:0}},{key:"backBufferLength",get:function(){return this.currentDriver?this.currentDriver.backBufferLength:0}},{key:"currentTime",get:function(){return this.currentDriver?this.currentDriver.currentTime:0},set:function(e){this.currentDriver&&(this.currentDriver.currentTime=e)}},{key:"bufferTimes",get:function(){return this.currentDriver?this.currentDriver.bufferTimes:[]}},{key:"tryingToPlay",get:function(){return!!this.isTryingToPlay}},{key:"muted",get:function(){return this.currentDriver?this.currentDriver.muted:(this.noDrivers(),null)}},{key:"mediaData",get:function(){return this.currentDriver?this.currentDriver.data:null}},{key:"allMediaData",get:function(){for(var e=this.availableDrivers,t=[],r=void 0,n=0;n<e.length;n++)if(r=e[n],r.isSupported&&r.isSupported(this.el)){var i=this.mediaLoader.get(r.format);if(!i.manifest)continue;i.driver=r.driver,t.push(i)}return t}},{key:"volume",set:function(e){if(!this.currentDriver)return void 0;var t=this.currentDriver.volume=e;return this.store.set(L["default"].muted,0===t),this.store.set(L["default"].volume,t),this.emit(_["default"].MEDIA_VOLUME,t),t},get:function(){return this.currentDriver?this.currentDriver.volume:0}},{key:"details",get:function(){return this.currentDriver?this.currentDriver.details:{}}},{key:"chosenLevel",get:function(){return this.currentDriver?this.currentDriver.chosenLevel:void 0}},{key:"currentLevel",get:function(){return this.currentDriver?this.currentDriver.currentLevel:void 0}},{key:"nextLevel",get:function(){return this.currentDriver?this.currentDriver.nextLevel:void 0}},{key:"aspectRatio",get:function(){if(!this.currentDriver)return null;var e=this.currentDriver.data;if(!e)return null;if(!e.encodings||!e.encodings.length)return null;if(!e.encodings[0].videoWidth||!e.encodings[0].videoHeight)return null;var t=T["default"](e.encodings[0].videoWidth,e.encodings[0].videoHeight);return{width:e.encodings[0].videoWidth/t,height:e.encodings[0].videoHeight/t}}}]),t}(f["default"]);r["default"]=A},{"./errors":11,"./events":12,"./gcd":13,"./get-default-options":14,"./logger":16,"./media-loader":18,"./polyfills":21,"./stats":23,"./storage-values":25,"./store":30,events:1}],21:[function(){"use strict";var e="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};"remove"in window.Element.prototype||(window.Element.prototype.remove=function(){this.parentNode&&this.parentNode.removeChild(this)}),"function"!=typeof Object.create&&(Object.create=function(e){var t=function(){};return function(r,n){if(r!==Object(r)&&null!==r)throw TypeError("Argument must be an object, or null");t.prototype=r||{},n!==e&&Object.defineProperties(t.prototype,n);var i=new t;return t.prototype=null,i}}()),function(){for(var e=0,t=["ms","moz","webkit","o"],r=0;r<t.length&&!window.requestAnimationFrame;++r)window.requestAnimationFrame=window[t[r]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[t[r]+"CancelAnimationFrame"]||window[t[r]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(t){var r=(new Date).getTime(),n=Math.max(0,16-(r-e)),i=window.setTimeout(function(){t(r+n)},n);return e=r+n,i}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(e){clearTimeout(e)})}(),function(e){var t=Date.now?Date.now():+new Date;e.performance=e.performance||{},e.performance.now=e.performance.webkitNow||e.performance.mozNow||e.performance.msNow||function(){return(Date.now?Date.now():+new Date)-t}}(window),Object.keys||(Object.keys=function(){var t=Object.prototype.hasOwnProperty,r=!{toString:null}.propertyIsEnumerable("toString"),n=["toString","toLocaleString","valueOf","hasOwnProperty","isPrototypeOf","propertyIsEnumerable","constructor"],i=n.length;return function(o){if("object"!==("undefined"==typeof o?"undefined":e(o))&&("function"!=typeof o||null===o))throw new TypeError("Object.keys called on non-object");var s=[],u=void 0,a=void 0;for(u in o)t.call(o,u)&&s.push(u);if(r)for(a=0;i>a;a++)t.call(o,n[a])&&s.push(n[a]);return s}}()),"document"in self&&("classList"in document.createElement("_")&&(!document.createElementNS||"classList"in document.createElementNS("http://www.w3.org/2000/svg","g"))?!function(){var e=document.createElement("_");if(e.classList.add("c1","c2"),!e.classList.contains("c2")){var t=function(e){var t=DOMTokenList.prototype[e];DOMTokenList.prototype[e]=function(e){var r,n=arguments.length;for(r=0;n>r;r++)e=arguments[r],t.call(this,e)}};t("add"),t("remove")}if(e.classList.toggle("c3",!1),e.classList.contains("c3")){var r=DOMTokenList.prototype.toggle;DOMTokenList.prototype.toggle=function(e,t){return 1 in arguments&&!this.contains(e)==!t?t:r.call(this,e)}}e=null}():!function(e){if("Element"in e){var t="classList",r="prototype",n=e.Element[r],i=Object,o=String[r].trim||function(){return this.replace(/^\s+|\s+$/g,"")},s=Array[r].indexOf||function(e){for(var t=0,r=this.length;r>t;t++)if(t in this&&this[t]===e)return t;return-1},u=function(e,t){this.name=e,this.code=DOMException[e],this.message=t},a=function(e,t){if(""===t)throw new u("SYNTAX_ERR","An invalid or illegal string was specified");if(/\s/.test(t))throw new u("INVALID_CHARACTER_ERR","String contains an invalid character");return s.call(e,t)},l=function(e){for(var t=o.call(e.getAttribute("class")||""),r=t?t.split(/\s+/):[],n=0,i=r.length;i>n;n++)this.push(r[n]);this._updateClassName=function(){e.setAttribute("class",this.toString())}},f=l[r]=[],c=function(){return new l(this)};if(u[r]=Error[r],f.item=function(e){return this[e]||null},f.contains=function(e){return e+="",-1!==a(this,e)},f.add=function(){var e,t=arguments,r=0,n=t.length,i=!1;do e=t[r]+"",-1===a(this,e)&&(this.push(e),i=!0);while(++r<n);i&&this._updateClassName()},f.remove=function(){var e,t,r=arguments,n=0,i=r.length,o=!1;do for(e=r[n]+"",t=a(this,e);-1!==t;)this.splice(t,1),o=!0,t=a(this,e);while(++n<i);o&&this._updateClassName()},f.toggle=function(e,t){e+="";var r=this.contains(e),n=r?t!==!0&&"remove":t!==!1&&"add";return n&&this[n](e),t===!0||t===!1?t:!r},f.toString=function(){return this.join(" ")},i.defineProperty){var d={get:c,enumerable:!0,configurable:!0};try{i.defineProperty(n,t,d)}catch(h){-2146823252===h.number&&(d.enumerable=!1,i.defineProperty(n,t,d))}}else i[r].__defineGetter__&&n.__defineGetter__(t,c)}}(self))},{}],22:[function(e,t,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0});var n={AUTOPLAY_PROGRESS:"autoplay-first-progress",FIRST_LOAD:"first-load"};r["default"]=n},{}],23:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}Object.defineProperty(r,"__esModule",{value:!0}),r.STATS_EVENTS=r.stats=void 0;var i=e("./stats"),o=n(i),s=e("./events"),u=n(s),a=new o["default"];r.stats=a,r.STATS_EVENTS=u["default"]},{"./events":22,"./stats":24}],24:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(r,"__esModule",{value:!0});var o=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),s=e("../logger"),u=n(s),a=function(){function e(){i(this,e),this.eventCounter=0,this.timings={}}return o(e,[{key:"start",value:function(e){var t=this.eventCounter++;return this.timings[t]={ms:Date.now(),name:e},t}},{key:"stop",value:function(e,t){if(this.timings[e]){var r=t||{};r.ms=Date.now()-this.timings[e].ms,u["default"].timing(this.timings[e].name,r),delete this.timings[e]}}}]),e}();r["default"]=a},{"../logger":16}],25:[function(e,t,r){"use strict";Object.defineProperty(r,"__esModule",{value:!0});var n={muted:"aiw_muted",volume:"aiw_volume",lockedKbps:"aiw_locked_kbs",estimatedKbps:"aiw_estimated_kbs",hideSuggestion:"aiw_hide_suggestion"};r["default"]=n},{}],26:[function(e,t,r){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(r,"__esModule",{value:!0});var i=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),o=function(){function e(){n(this,e)}return i(e,[{key:"set",value:function(){console.error("an abstract method has been called")}},{key:"get",value:function(){console.error("an abstract method has been called")}}]),e}();r["default"]=o},{}],27:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(r,"__esModule",{value:!0});var u=function(){function e(e,t){var r=[],n=!0,i=!1,o=void 0;try{for(var s,u=e[Symbol.iterator]();!(n=(s=u.next()).done)&&(r.push(s.value),!t||r.length!==t);n=!0);}catch(a){i=!0,o=a}finally{try{!n&&u["return"]&&u["return"]()}finally{if(i)throw o}}return r}return function(t,r){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,r);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),l=e("./base-driver"),f=n(l),c=new RegExp("\\s*;\\s*"),d=function(e){function t(){return i(this,t),o(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return s(t,e),a(t,[{key:"parse",value:function(e){var t={};return e?(e.split(c).forEach(function(e){var r=e.split("="),n=u(r,2),i=n[0],o=n[1],s=decodeURIComponent(i),a=decodeURIComponent(o);t[s]=a}),t):t}},{key:"stringify",value:function(e){var t=[];for(var r in e)({}).hasOwnProperty.call(e,r)&&t.push(r+"="+e[r]);return t.join("; ")}},{key:"set",value:function(e,t){document.cookie=e+"="+t}},{key:"get",value:function(e){var t=this.parse(document.cookie);return t[e]||null}}]),t}(f["default"]);r["default"]=d},{"./base-driver":26}],28:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(r,"__esModule",{value:!0});var u=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),a=e("./base-driver"),l=n(a),f=function(e){function t(){return i(this,t),o(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return s(t,e),u(t,[{key:"set",value:function(e,t){try{window.localStorage.setItem(e,t)}catch(r){}}},{key:"get",value:function(e){var t=null;try{t=window.localStorage.getItem(e)||null}catch(r){}return t}}]),t}(l["default"]);r["default"]=f},{"./base-driver":26}],29:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(r,"__esModule",{value:!0});var u=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),a=e("./base-driver"),l=n(a),f={},c=function(e){function t(){return i(this,t),o(this,(t.__proto__||Object.getPrototypeOf(t)).apply(this,arguments))}return s(t,e),u(t,[{key:"set",value:function(e,t){f[e]=t}},{key:"get",value:function(e){return f[e]||null}}]),t}(l["default"]);r["default"]=c},{"./base-driver":26}],30:[function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{"default":e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(r,"__esModule",{value:!0});var o=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),s=e("./drivers/cookie"),u=n(s),a=e("./drivers/local-storage"),l=n(a),f=e("./drivers/memory"),c=n(f),d=function(){function e(){i(this,e);try{if(window.localStorage)return void(this.driver=new l["default"])}catch(t){}try{if("string"==typeof document.cookie)return void(this.driver=new u["default"])}catch(t){}this.driver=new c["default"]}return o(e,[{key:"set",value:function(e,t){this.driver&&this.driver.set(e,t)}},{key:"get",value:function(e){return this.driver?this.driver.get(e):void 0}}]),e}();r["default"]=d},{"./drivers/cookie":27,"./drivers/local-storage":28,"./drivers/memory":29}],31:[function(e,t,r){"use strict";function n(){for(var e,t=0;16>t;t++)0===(3&t)&&(e=4294967296*Math.random()),o[t]=e>>>((3&t)<<3)&255;return o}function i(e,t){var r=t||0,n=s;return n[e[r++]]+n[e[r++]]+n[e[r++]]+n[e[r++]]+"-"+n[e[r++]]+n[e[r++]]+"-"+n[e[r++]]+n[e[r++]]+"-"+n[e[r++]]+n[e[r++]]+"-"+n[e[r++]]+n[e[r++]]+n[e[r++]]+n[e[r++]]+n[e[r++]]+n[e[r++]]}Object.defineProperty(r,"__esModule",{value:!0}),r["default"]=function(){var e=n();return e[6]=15&e[6]|64,e[8]=63&e[8]|128,i(e)};for(var o=new Array(16),s=[],u={},a=0;256>a;a++)s[a]=(a+256).toString(16).substr(1),u[s[a]]=a},{}]},{},[15])(15)});
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],15:[function(require,module,exports){
+},{"../get-el-position":5,"../get-pointer-position":6,"events":54}],17:[function(require,module,exports){
+(function (process){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -1898,9 +2112,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var BACK_OFF = [0, 1000, 2000, 5000, 25000];
+
 /**
  * @class Base driver for all classes
  */
+
 var BaseDriver = function (_EventEmitter) {
 	_inherits(BaseDriver, _EventEmitter);
 
@@ -1947,6 +2164,7 @@ var BaseDriver = function (_EventEmitter) {
 			this.lastProgress = 0;
 			this.currentErrorCount = 0;
 			this.recentErrorCount = 0;
+			this.restartCount = 0;
 		}
 
 		/**
@@ -1986,6 +2204,32 @@ var BaseDriver = function (_EventEmitter) {
    */
 
 	}, {
+		key: 'reloadAndRestart',
+		value: function reloadAndRestart() {
+			var _this2 = this;
+
+			if (this.lockReload) {
+				return;
+			}
+			this.lockReload = true;
+			this.mediaLoader.load(function () {
+				if (_this2.mediaLoader.currentState === _events4.default.ONLINE) {
+					_this2.restart(function () {
+						_this2.lockReload = false;
+					});
+				} else {
+					_this2.lockReload = false;
+					_this2.stop();
+				}
+			});
+		}
+
+		/**
+   * Returns the chosen bitrate level.  Sometimes this is the same as the current bitrate level.  null if auto, undefined if unknown
+   * @return {number}
+   */
+
+	}, {
 		key: 'whenReady',
 
 
@@ -1996,7 +2240,7 @@ var BaseDriver = function (_EventEmitter) {
    * @return {void}
    */
 		value: function whenReady(cb) {
-			var _this2 = this;
+			var _this3 = this;
 
 			if (this.onceHandlerLock) {
 				return;
@@ -2011,8 +2255,8 @@ var BaseDriver = function (_EventEmitter) {
 
 				this.onceHandlerLock = true;
 				this.mediaLoader.once(_events4.default.MANIFEST, function () {
-					_this2.onceHandlerLock = false;
-					_this2.whenReady(cb);
+					_this3.onceHandlerLock = false;
+					_this3.whenReady(cb);
 				});
 				return;
 			}
@@ -2060,14 +2304,14 @@ var BaseDriver = function (_EventEmitter) {
 	}, {
 		key: 'attachListeners',
 		value: function attachListeners() {
-			var _this3 = this;
+			var _this4 = this;
 
 			this.el.onprogress = function () {
-				_this3.emitProgress();
+				_this4.emitProgress();
 			};
 			this.el.ontimeupdate = function () {
-				_this3.fragCounts++;
-				_this3.emitTimeupdate();
+				_this4.fragCounts++;
+				_this4.emitTimeupdate();
 			};
 		}
 
@@ -2080,7 +2324,7 @@ var BaseDriver = function (_EventEmitter) {
 	}, {
 		key: 'play',
 		value: function play(inputCb) {
-			var _this4 = this;
+			var _this5 = this;
 
 			var cb = inputCb || function noop() {};
 
@@ -2095,57 +2339,50 @@ var BaseDriver = function (_EventEmitter) {
 			}
 
 			this.whenReady(function () {
-				var m = _this4.manifest;
+				var m = _this5.manifest;
 
-				_logger2.default.setPlayer(_this4.mediaLoader.host, _this4.mediaLoader.publicId, _this4.format, m, _this4);
+				_logger2.default.setPlayer(_this5.mediaLoader.host, _this5.mediaLoader.publicId, _this5.format, m, _this5);
 
-				// Handle IOS Playback
-				if (_detect2.default.iOS()) {
-					if (_this4.el.getAttribute('src') !== m) {
-						_this4.el.setAttribute('src', m);
+				var attachHandlers = function attachHandlers() {
+					_this5.el.onprogress = function () {
+						_this5.emitProgress();
+					};
+					_this5.el.ontimeupdate = function () {
+						_this5.fragCounts++;
+						_this5.emitTimeupdate();
+					};
+				};
+
+				var setSrc = function setSrc() {
+					if (!_detect2.default.iOS() || _this5.el.getAttribute('src') !== m) {
+						_this5.el.setAttribute('src', m);
 					}
+				};
 
-					_this4.el.play().then(function () {
-						_this4.attachListeners();
-						cb(true);
-					}).catch(function () {
-						cb(false);
+				setSrc();
+				var p = _this5.el.play();
+				if (!p || !p.then) {
+					attachHandlers();
+					process.nextTick(function () {
+						if (cb) {
+							cb(!_this5.el.paused);
+						}
 					});
 					return;
 				}
 
-				_this4.el.oncanplay = function () {
-					_this4.el.oncanplay = null;
-					var p = _this4.el.play();
-					if (typeof Promise !== 'undefined' && p instanceof Promise) {
-						p.then(function () {
-							_this4.attachListeners();
-							cb && cb(true);
-						}).catch(function () {
-							cb && cb(false);
-						});
-					} else {
-						_this4.attachListeners();
-						setTimeout(function () {
-							cb && cb(!_this4.el.paused);
-						}, 20);
-						return;
-					}
-				};
-				_this4.el.setAttribute('src', m);
-
-				var p = _this4.el.play();
-				if (typeof Promise !== 'undefined' && p instanceof Promise) {
-					p.then(function () {
+				p.then(function () {
+					attachHandlers();
+					if (cb) {
 						cb(true);
-					}).catch(function () {
+					}
+				}).catch(function (e) {
+					_logger2.default.debug('video element play error caught', e.message);
+					_this5.emit('video-el-error', { err: e });
+					if (cb) {
 						cb(false);
-					});
-				} else {
-					setTimeout(function () {
-						cb(!_this4.el.paused);
-					}, 20);
-				}
+					}
+				});
 			});
 		}
 
@@ -2168,6 +2405,7 @@ var BaseDriver = function (_EventEmitter) {
 	}, {
 		key: 'destroy',
 		value: function destroy() {
+			this.destroyed = true;
 			this.el.remove();
 			this.stop();
 		}
@@ -2217,6 +2455,28 @@ var BaseDriver = function (_EventEmitter) {
 			var v = document.createElement('video');
 			return !!(document.fullscreenEnabled || document.mozFullScreenEnabled || document.msFullscreenEnabled || document.webkitSupportsFullscreen || document.webkitFullscreenEnabled || v.webkitRequestFullScreen || v.webkitEnterFullScreen);
 		}
+	}, {
+		key: 'restartTimeout',
+		value: function restartTimeout(cb) {
+			var _this6 = this;
+
+			setTimeout(function () {
+				if (_this6.destroyed) {
+					return;
+				}
+				_this6.stop();
+				_this6.play(function () {
+					for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+						args[_key] = arguments[_key];
+					}
+
+					_this6.lockRestart = false;
+					if (cb) {
+						cb.apply(cb, args);
+					}
+				});
+			}, BACK_OFF[Math.min(this.restartCount, BACK_OFF.length - 1)]);
+		}
 
 		/**
    * restarts the driver
@@ -2225,8 +2485,8 @@ var BaseDriver = function (_EventEmitter) {
 
 	}, {
 		key: 'restart',
-		value: function restart() {
-			var _this5 = this;
+		value: function restart(cb) {
+			var _this7 = this;
 
 			if (this.lockRestart) {
 				return;
@@ -2234,10 +2494,18 @@ var BaseDriver = function (_EventEmitter) {
 			this.lockRestart = true;
 			this.currentErrorCount = 0;
 			this.recentErrorCount = 0;
-			this.stop();
-			this.play(function () {
-				_this5.lockRestart = false;
+			this.restartCount++;
+
+			clearTimeout(this.clearRestartCount);
+			this.clearRestartCount = setTimeout(function () {
+				_this7.restartCount = 0;
+			}, BACK_OFF[BACK_OFF.length - 1] * 2);
+
+			this.emit(_events4.default.RESTART_DRIVER, {
+				timeout: BACK_OFF[Math.min(this.restartCount, BACK_OFF.length - 1)]
 			});
+
+			this.restartTimeout(cb);
 		}
 
 		/**
@@ -2248,7 +2516,7 @@ var BaseDriver = function (_EventEmitter) {
 	}, {
 		key: 'checkRestart',
 		value: function checkRestart(inputData) {
-			var _this6 = this;
+			var _this8 = this;
 
 			// In cases where a machine went to sleep and came back online,
 			// the player is in a state where it constantly emits the buffer-stalled
@@ -2257,8 +2525,8 @@ var BaseDriver = function (_EventEmitter) {
 			var data = inputData;
 			this.recentErrorCount++;
 			setTimeout(function () {
-				_this6.recentErrorCount--;
-				_this6.recentErrorCount = Math.max(_this6.recentErrorCount, 0);
+				_this8.recentErrorCount--;
+				_this8.recentErrorCount = Math.max(_this8.recentErrorCount, 0);
 			}, 10000);
 			if (this.recentErrorCount >= this.options.recoverErrorCount) {
 				data.fatal = true;
@@ -2286,11 +2554,17 @@ var BaseDriver = function (_EventEmitter) {
 
 			this.errors[k]++;
 
-			for (var _len = arguments.length, args = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-				args[_key - 3] = arguments[_key];
+			for (var _len2 = arguments.length, args = Array(_len2 > 3 ? _len2 - 3 : 0), _key2 = 3; _key2 < _len2; _key2++) {
+				args[_key2 - 3] = arguments[_key2];
 			}
 
 			this.emit.apply(this, [key, type, data].concat(args));
+		}
+	}, {
+		key: 'playOrigin',
+		value: function playOrigin(cb) {
+			this.options.origin = true;
+			this.restart(cb);
 		}
 
 		/**
@@ -2402,18 +2676,45 @@ var BaseDriver = function (_EventEmitter) {
 			return true;
 		}
 	}, {
+		key: 'origin',
+		get: function get() {
+			var origin = this.data.origin;
+
+			if (!origin) {
+				if (!this.data || !this.data.encodings.length) {
+					return null;
+				}
+
+				var d = this.data;
+				return d.encodings[d.encodings.length - 1];
+			}
+
+			return origin;
+		}
+
+		/**
+   * gets the origin location
+   * @return {string}
+   */
+
+	}, {
+		key: 'originLocation',
+		get: function get() {
+			var o = this.origin;
+
+			if (!o) {
+				return null;
+			}
+
+			return o.location;
+		}
+	}, {
 		key: 'data',
 		get: function get() {
 			var d = this.mediaLoader.get(this.format);
 			d.auto = true;
 			return d;
 		}
-
-		/**
-   * Returns the chosen bitrate level.  Sometimes this is the same as the current bitrate level.  null if auto, undefined if unknown
-   * @return {number}
-   */
-
 	}, {
 		key: 'chosenLevel',
 		get: function get() {
@@ -2469,13 +2770,32 @@ var BaseDriver = function (_EventEmitter) {
 	}, {
 		key: 'manifest',
 		get: function get() {
+			if (this.options.origin) {
+				var l = this.originLocation;
+				if (!l) {
+					this.options.origin = false;
+					return this.manifest();
+				}
+				return l;
+			}
+
+			var d = this.data;
+
+			if (!d.encodings.length) {
+				var o = this.originLocation;
+				if (o) {
+					this.options.origin = true;
+				}
+				return o;
+			}
+
 			var e = this.pickEncoding();
 			var uri = void 0;
 
 			if (e) {
 				uri = e.location;
 			} else {
-				uri = this.data.manifest;
+				uri = d.manifest;
 			}
 
 			if (!uri) {
@@ -2484,11 +2804,11 @@ var BaseDriver = function (_EventEmitter) {
 
 			var separator = uri.indexOf('?') === -1 ? '?' : '&';
 			if (this.options.preset === null) {
-				// do nothing
+				// nothing, simpler logic
 			} else if (this.options.preset) {
-				uri = '' + uri + separator + 'preset=' + this.options.preset;
+				uri += separator + 'preset=' + this.options.preset;
 			} else if (!_detect2.default.any()) {
-				uri = '' + uri + separator + 'preset=desktop';
+				uri += separator + 'preset=desktop';
 			}
 
 			return uri;
@@ -2533,7 +2853,7 @@ var BaseDriver = function (_EventEmitter) {
 	}, {
 		key: 'bitrate',
 		set: function set(bitrate) {
-			var _this7 = this;
+			var _this9 = this;
 
 			var ct = this.el.currentTime;
 			this.stop();
@@ -2541,19 +2861,19 @@ var BaseDriver = function (_EventEmitter) {
 
 			if (this.mediaLoader.vod) {
 				this.el.onloadedmetadata = function () {
-					_this7.el.onloadedmetadata = null;
-					_this7.el.currentTime = ct;
+					_this9.el.onloadedmetadata = null;
+					_this9.el.currentTime = ct;
 				};
 				this.el.oncanplay = function () {
-					_this7.el.oncanplay = null;
-					if (_this7.el.currentTime >= ct) {
+					_this9.el.oncanplay = null;
+					if (_this9.el.currentTime >= ct) {
 						return;
 					}
-					_this7.el.currentTime = ct;
+					_this9.el.currentTime = ct;
 				};
 			}
 			this.play(function () {
-				_this7.emit(_events4.default.BITRATE_SWITCH);
+				_this9.emit(_events4.default.BITRATE_SWITCH);
 			});
 		}
 
@@ -2630,7 +2950,8 @@ var BaseDriver = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = BaseDriver;
-},{"./detect":16,"./errors":17,"./events":18,"./logger":21,"events":48}],16:[function(require,module,exports){
+}).call(this,require('_process'))
+},{"./detect":18,"./errors":19,"./events":20,"./logger":23,"_process":53,"events":54}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2651,38 +2972,47 @@ function wrap(key, uaTest) {
 	};
 }
 
+function getChromeVersion() {
+	var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+	return raw ? parseInt(raw[2], 10) : false;
+}
+
+function getIOSversion() {
+	if (/iP(hone|od|ad)/.test(navigator.platform)) {
+		var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+		return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || 0, 10)];
+	}
+	return undefined;
+}
+
 var detect = {
-	winChrome51: wrap('winChrome51', function () {
-		if (!detect.windowsDesktop()) {
-			return false;
-		}
+	chromeGreater50: wrap('chromeGreater50', function () {
 		if (!detect.chrome()) {
 			return false;
 		}
 
-		var uaParts = navigator.userAgent.split(/\s*[;)(]\s*/);
-		var chromePart = void 0;
-
-		for (var i = 0; i < uaParts.length; i++) {
-			if (uaParts[i].slice(0, 6) === 'Chrome') {
-				chromePart = uaParts[i];
-				break;
-			}
-		}
-
-		if (!chromePart) {
+		return getChromeVersion() > 49;
+	}),
+	modernChrome: wrap('modernChrome', function () {
+		if (!detect.chrome()) {
 			return false;
 		}
 
-		var chromeParts = chromePart.split('/');
-		var versionParts = chromeParts[1].split('.');
-		if (parseInt(versionParts[0], 10) < 52) {
-			return true;
+		return getChromeVersion() > 52;
+	}),
+	winChrome51: wrap('winChrome51', function () {
+		if (!detect.windowsDesktop()) {
+			return false;
 		}
-		return false;
+
+		if (!detect.chrome()) {
+			return false;
+		}
+
+		return getChromeVersion() > 51;
 	}),
 
-	iPhone9: wrap('iPhone9', function () {
+	iPhone10: wrap('iPhone10', function () {
 		if (!detect.iPhone()) {
 			return false;
 		}
@@ -2707,9 +3037,34 @@ var detect = {
 		}
 
 		var versionParts = chromePart ? chromePart.split('_') : versionPart.split('/');
-		if (parseFloat(versionParts[1]) < 10) {
+		if (parseFloat(versionParts[1]) < 11) {
 			return true;
 		}
+		return false;
+	}),
+
+	iPhone9: wrap('iPhone9', function () {
+		if (!detect.iPhone()) {
+			return false;
+		}
+
+		var version = getIOSversion();
+		return version && version[0] < 10;
+	}),
+
+	modernMobile: wrap('modernMobile', function () {
+		if (!detect.any()) {
+			return false;
+		}
+
+		if (detect.android() && detect.modernChrome()) {
+			return true;
+		}
+
+		if (detect.iPhone10()) {
+			return true;
+		}
+
 		return false;
 	}),
 
@@ -2763,7 +3118,7 @@ var detect = {
 };
 
 exports.default = detect;
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2775,6 +3130,9 @@ var ERRORS = {
 	ELEMENT_REQUIRED: 'element-required',
 	EMBED_SWF_FAILED: 'embedding-flash-swf-failed',
 	GET_USER_MEDIA_FAILED: 'get-user-media-failed',
+	HTTP_SERVER_UNEXPECTED_RESPONSE: 'http-server-unexpected-response',
+	HTTP_SERVER_UNAUTHORIZED: 'http-server-unauthorized',
+	HTTP_SERVER_FORBIDDEN: 'http-server-forbidden',
 	HTTP_SERVER_INTERNAL_ERROR: 'http-server-internal-error',
 	HTTP_SERVER_NOT_FOUND: 'http-server-not-found',
 	MANIFEST: 'http-response',
@@ -2793,7 +3151,7 @@ var ERRORS = {
 };
 
 exports.default = ERRORS;
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2805,7 +3163,9 @@ var EVENTS = {
 	ERROR: 'error',
 	BITRATE_SWITCH: 'bitrate-switch',
 	SELECT_DRIVER: 'select-driver',
+	RESTART_DRIVER: 'restart-driver',
 	MANIFEST: 'manifest',
+	MEDIA_ENDED: 'ended',
 	MEDIA_PLAY: 'play',
 	MEDIA_STOP: 'stop',
 	MEDIA_PAUSE: 'pause',
@@ -2823,7 +3183,7 @@ var EVENTS = {
 };
 
 exports.default = EVENTS;
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2834,7 +3194,7 @@ function gcd(a, b) {
 }
 
 exports.default = gcd;
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2856,7 +3216,7 @@ exports.default = function (options, defaultOptions) {
 
 	return cloneOptions;
 };
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -2890,7 +3250,7 @@ logger.timing('first-playback', {ms: 1000});
 var logger = new _logger2.default();
 
 exports.default = logger;
-},{"./logger":22}],22:[function(require,module,exports){
+},{"./logger":24}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3169,7 +3529,7 @@ var Logger = function () {
 }();
 
 exports.default = Logger;
-},{"../uuidv4":36}],23:[function(require,module,exports){
+},{"../uuidv4":38}],25:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3200,19 +3560,17 @@ var _parseUrl = require('./parse-url');
 
 var _parseUrl2 = _interopRequireDefault(_parseUrl);
 
-var _logger = require('./logger');
-
-var _logger2 = _interopRequireDefault(_logger);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-param-reassign,arrow-body-style */
 
-var TRACK_VIEW_INTERVAL = 30 * 1000;
+
+var HLS_SUPPORTED_AUDIO_CODECS = ['aac', 'mp3'];
+var MEOW_SUPPORTED_AUDIO_CODECS = ['aac'];
 
 /**
  * @class interacts with the api to fetch video data
@@ -3236,39 +3594,40 @@ var MediaLoader = function (_EventEmitter) {
 
 		_this.currentState = _events4.default.OFFLINE;
 		_this.formats = {};
+		_this.pingUri = null;
 
 		_this.options = options;
-		_this.host = _this.options.host || window.location.host;
+		_this.host = _this.options.host || window.location.protocol + '//' + window.location.host;
 
 		_this.setPublicId(publicId);
 		if (_this.publicId) {
 			_this.options.pollingInterval = parseInt(_this.options.pollingInterval, 10);
+			_this.options.unauthorizedPollingInterval = parseInt(_this.options.unauthorizedPollingInterval, 10);
+			_this.options.unauthorizedRecoveryDuration = parseInt(_this.options.unauthorizedRecoveryDuration, 10);
 		}
 
-		if (_this.options.viewUri) {
-			_this.viewInteral = setInterval(_this.trackView.bind(_this), TRACK_VIEW_INTERVAL);
-		}
-
-		if (!_this.setUri(publicId)) {
-			return _possibleConstructorReturn(_this);
-		}
-
-		_this.trackView();
-
-		if (!_this.options.pollingInterval) {
-			return _possibleConstructorReturn(_this);
-		}
+		_this.setUri(publicId);
+		_this.shouldBePolling = false;
 		return _this;
 	}
 
-	/**
-  * @return boolean
-  */
-
-
 	_createClass(MediaLoader, [{
-		key: 'load',
+		key: 'modifyFormats',
+		value: function modifyFormats(formats) {
+			for (var k in formats) {
+				if (!formats[k].encodings || !formats[k].encodings.length) {
+					continue;
+				}
 
+				if (k === 'mp4-ws' && formats[k].origin && MEOW_SUPPORTED_AUDIO_CODECS.indexOf(formats[k].origin.audioCodec) === -1) {
+					formats[k].origin = null;
+				} else if (k === 'mp4-hls' && formats[k].origin && HLS_SUPPORTED_AUDIO_CODECS.indexOf(formats[k].origin.audioCodec) === -1) {
+					formats[k].origin = null;
+				}
+			}
+
+			return formats;
+		}
 
 		/**
   	{
@@ -3329,26 +3688,17 @@ var MediaLoader = function (_EventEmitter) {
    * @param {function} [cb]
    * @return {void}
    */
-		value: function load() {
+
+	}, {
+		key: 'load',
+		value: function load(publicId, cb) {
 			var _this2 = this;
-
-			var publicId = void 0;
-			var cb = void 0;
-
-			if (typeof (arguments.length <= 0 ? undefined : arguments[0]) === 'function') {
-				cb = arguments.length <= 0 ? undefined : arguments[0];
-			} else {
-				publicId = arguments.length <= 0 ? undefined : arguments[0];
-				cb = arguments.length <= 1 ? undefined : arguments[1];
-			}
-
-			if (!cb) {
-				cb = function noop() {};
-			}
 
 			if (this.manifest || this.vod) {
 				this.emit(_events4.default.MANIFEST, this.currentState);
-				cb();
+				if (cb) {
+					cb();
+				}
 				return;
 			}
 
@@ -3356,12 +3706,19 @@ var MediaLoader = function (_EventEmitter) {
 				return;
 			}
 
-			if (typeof publicId === 'string' && (publicId.slice(0, 7) === 'http://' || publicId.slice(0, 8) === 'https://')) {
+			if (typeof publicId !== 'string') {
+				cb = publicId;
+				publicId = null;
+			} else if (publicId.slice(0, 7) === 'http://' || publicId.slice(0, 8) === 'https://') {
 				this.options.mediaLoaderUri = publicId;
 			}
 
 			if (!this.setUri(publicId)) {
-				cb(new Error(_errors2.default.INVALID_MEDIA_URL));
+				// Set the uri based on the new public id
+				// if it fails, stop
+				if (cb) {
+					cb(new Error(_errors2.default.INVALID_MEDIA_URL));
+				}
 				return;
 			}
 
@@ -3372,18 +3729,28 @@ var MediaLoader = function (_EventEmitter) {
 				useXDR: true
 			}, function (err, response, body) {
 				var e = void 0;
+
 				if (err) {
 					e = new Error(_errors2.default.HTTP_SERVER_INTERNAL_ERROR);
 				} else if (response.statusCode > 499) {
 					e = new Error(_errors2.default.HTTP_SERVER_INTERNAL_ERROR);
-				} else if (response.statusCode > 399) {
+				} else if (response.statusCode === 404) {
 					e = new Error(_errors2.default.HTTP_SERVER_NOT_FOUND);
+				} else if (response.statusCode === 403) {
+					e = new Error(_errors2.default.HTTP_SERVER_FORBIDDEN);
+				} else if (response.statusCode === 401) {
+					e = new Error(_errors2.default.HTTP_SERVER_UNAUTHORIZED);
+				} else if (response.statusCode > 399) {
+					e = new Error(_errors2.default.HTTP_SERVER_UNEXPECTED_STATUS_CODE);
 				} else if (!_this2.validateResponse(body)) {
 					e = new Error(_errors2.default.HTTP_SERVER_UNEXPECTED_RESPONSE);
 				}
 
 				if (e) {
-					_this2.emit(_events4.default.ERROR, e.message);
+					_this2.emit(_events4.default.ERROR, e.message, {
+						statusCode: response.statusCode,
+						body: body
+					});
 				}
 
 				var state = void 0;
@@ -3394,50 +3761,59 @@ var MediaLoader = function (_EventEmitter) {
 				}
 
 				if (!state) {
-					_this2.formats = body.formats;
-					state = !Object.keys(body.formats).length ? _events4.default.OFFLINE : _events4.default.ONLINE;
-				}
-
-				_this2.type = body && body.type ? body.type : 'live';
-
-				if (_this2.vod) {
-					clearInterval(_this2.pollingSetInterval);
+					_this2.formats = _this2.modifyFormats(body.formats);
+					state = !Object.keys(_this2.formats).length ? _events4.default.OFFLINE : _events4.default.ONLINE;
 				}
 
 				if (state !== _this2.currentState) {
 					_this2.emit(state);
 				}
+
 				_this2.currentState = state;
+				_this2.pingUri = body && body.ping ? body.ping : null;
+				_this2.type = body && body.type ? body.type : 'live';
 				_this2.emit(_events4.default.MANIFEST, _this2.currentState);
 
-				cb();
+				_this2.setNextPoll(response.statusCode);
+				if (cb) {
+					cb();
+				}
 			});
 		}
-
-		/**
-   * Short poll to track views of live videos
-   */
-
 	}, {
-		key: 'trackView',
-		value: function trackView() {
-			if (!this.options.viewUri) {
+		key: 'setNextPoll',
+		value: function setNextPoll(statusCode) {
+			var _this3 = this;
+
+			if (this.vod) {
 				return;
 			}
 
-			(0, _xhr2.default)({
-				method: 'POST',
-				uri: this.options.viewUri
-			}, function (err, response, body) {
-				if (err) {
-					_logger2.default.warn('track view failed', err);
-				} else if (response.statusCode > 399) {
-					_logger2.default.warn('track view failed', {
-						code: response.statusCode,
-						body: body
-					});
-				}
-			});
+			clearTimeout(this.pollingTimeout);
+			var to = void 0;
+			switch (statusCode) {
+				case 401:
+				case 403:
+					if (this.noLongerUnauthorizedPolling) {
+						to = this.options.pollingInterval;
+					} else {
+						to = this.options.unauthorizedPollingInterval;
+
+						if (!this.unauthorizedRecoveryTimout) {
+							this.unauthorizedRecoveryTimout = setTimeout(function () {
+								_this3.noLongerUnauthorizedPolling = true;
+							}, this.options.unauthorizedRecoveryDuration);
+						}
+					}
+					break;
+				default:
+					this.noLongerUnauthorizedPolling = null;
+					to = this.options.pollingInterval;
+			}
+
+			this.pollingTimeout = setTimeout(function () {
+				_this3.load();
+			}, to);
 		}
 
 		/**
@@ -3453,7 +3829,7 @@ var MediaLoader = function (_EventEmitter) {
 
 			if (typeof publicId === 'string') {
 				this.publicId = publicId;
-			} else if ((typeof publicId === 'undefined' ? 'undefined' : _typeof(publicId)) === 'object') {
+			} else if (publicId && (typeof publicId === 'undefined' ? 'undefined' : _typeof(publicId)) === 'object') {
 				this.manifest = publicId;
 				this.currentState = _events4.default.ONLINE;
 				this.type = this.manifest.type;
@@ -3499,8 +3875,7 @@ var MediaLoader = function (_EventEmitter) {
 				this.emit(_events4.default.ERROR, _errors2.default.INVALID_MEDIA_URL);
 				return false;
 			}
-
-			this.uri = '' + this.uri + this.options.apiPrefix + '/' + publicId + this.options.apiSuffix;
+			this.uri += this.options.apiPrefix + '/' + publicId + this.options.apiSuffix;
 			return true;
 		}
 
@@ -3517,14 +3892,15 @@ var MediaLoader = function (_EventEmitter) {
 				return {
 					type: null,
 					encodings: [],
+					origin: null,
 					manifest: null,
+					audioCodec: null,
+					videoCodec: null,
 					state: _events4.default.ONLINE
 				};
 			}
 
-			// TODO: Remove this when back end reliably sends sorted bitrates
 			var encodings = [];
-
 			if (this.formats[format].encodings) {
 				encodings = this.formats[format].encodings.sort(function (a, b) {
 					if (a.videoKbps + a.audioKbps > b.videoKbps + b.audioKbps) {
@@ -3542,22 +3918,35 @@ var MediaLoader = function (_EventEmitter) {
 				}
 			}
 
+			var o = this.formats[format].origin;
+			if (o) {
+				o.origin = true;
+			}
+
 			return {
 				type: this.type,
+				origin: o,
 				encodings: encodings,
+				audioCodec: this.formats[format].audioCodec,
+				videoCodec: this.formats[format].videoCodec,
 				manifest: this.formats[format].manifest,
 				state: _events4.default.ONLINE
 			};
 		}
 
 		/**
-   * @return void
+   * @return boolean
    */
 
 	}, {
 		key: 'destroy',
+
+
+		/**
+   * @return void
+   */
 		value: function destroy() {
-			clearInterval(this.pollingSetInterval);
+			clearInterval(this.pollingTimeout);
 		}
 
 		/**
@@ -3568,15 +3957,11 @@ var MediaLoader = function (_EventEmitter) {
 	}, {
 		key: 'startInterval',
 		value: function startInterval() {
-			var _this3 = this;
-
 			if (!this.options.pollingInterval || this.manifest || this.vod) {
+				this.shouldBePolling = false;
 				return;
 			}
-
-			this.pollingSetInterval = setInterval(function () {
-				_this3.load(_this3.publicId);
-			}, this.options.pollingInterval);
+			this.shouldBePolling = true;
 		}
 	}, {
 		key: 'vod',
@@ -3589,7 +3974,7 @@ var MediaLoader = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = MediaLoader;
-},{"./errors":17,"./events":18,"./logger":21,"./parse-url":24,"events":48,"xhr":58}],24:[function(require,module,exports){
+},{"./errors":19,"./events":20,"./parse-url":26,"events":54,"xhr":64}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3613,7 +3998,7 @@ exports.default = function (href) {
 		host: a.host || window.location.host
 	};
 };
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -3627,6 +4012,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _events = require('events');
 
 var _events2 = _interopRequireDefault(_events);
+
+var _detect = require('./detect');
+
+var _detect2 = _interopRequireDefault(_detect);
 
 var _logger = require('./logger');
 
@@ -3676,8 +4065,6 @@ var DEFAULT_BITRATE = 1800;
 var LOW_BITRATE = 600;
 
 var DefaultOptions = {
-	apiPrefix: '/live',
-	apiSuffix: '.json',
 	autoplay: true,
 	bitrate: undefined,
 	debug: false,
@@ -3690,6 +4077,8 @@ var DefaultOptions = {
 	maxBufferSize: 60 * 1000 * 1000,
 	muted: undefined,
 	pollingInterval: 10000,
+	unauthorizedPollingInterval: 1000,
+	unauthorizedRecoveryDuration: 5000,
 	posterURI: null,
 	preset: undefined,
 	recoverErrorCount: 10,
@@ -3698,6 +4087,7 @@ var DefaultOptions = {
 	// storagePrefix: '',
 	viewUri: null,
 	volume: 0.75,
+	origin: false,
 
 	// flash paths
 	flashlsPath: '../dist/flashlsChromeless.swf',
@@ -3716,21 +4106,22 @@ var Player = function (_EventEmitter) {
 
 	/**
   * @param {object} el containing dom element
-  * @param {string} publicId public id of the video
+  * @param {string} manifest uri or object
   * @param {object} options
   * @param {string} [options[].host] host
-  * @param {string} [options[].apiPrefix] [live] Prefix for api, defaults to	{host}'/live'{publicId}.json
-  * @param {string} [options[].apiSuffix] [.json] Suffix for api, defaults to {host}/live{publicId}'.json'
   * @param {bool} [options[].autoplay] [true] autoplays the stream when it loads
   * @param {number} [options[].bitrate] [undefined] null for adaptive when available, desired kbps otherwise
   * @param {array} [options[].drivers] ["mp4", "nativeHls", "jsHls", "flash", lodef"] driver priority
   * @param {bool} [options[].debug] [false] enables debug logging
   * @param {number} [options[].recoverErrorCount] [10] Playback error count to recover the entire driver on
   * @param {number} [options[].forceDrivers]	[false]
-  * @param {number} [options[].maxBufferLength]	[30s]
-  * @param {number} [options[].maxBufferSize]	[60mb]
   * @param {bool} [options[].muted] whether or not the driver is muted
+  * @param {bool} [options[].hijackingClicks] [true] whether or not the rest of the app is hijacking clicks for mobile autoplays
   * @param {number} [options[].pollingInterval] [10000] ms timeout to wait before polling again
+  * @param {number} [options[].unauthorizedPollingInterval] [1000] ms timeout to wait before polling again if unauthorized, designed to be more frequent for a short interval of time to restart playback
+  * @param {number} [options[].unauthorizedRecoveryDuration] [5000] ms timeout to poll quickly after receiving an unauthorized response
+  * @param {string} [options[].posterUri] sets the poster attribute when available
+  * @param {bool} [options[].origin] [false] play the origin source
   * @param {number} [options[].volume] [0.75] 0-1 volume
   * @return {void}
   */
@@ -3834,6 +4225,11 @@ var Player = function (_EventEmitter) {
 			}
 		}
 
+		// mobile muted autoplay
+		if (!_this.options.hijackingClicks && _this.options.autoplay && _detect2.default.modernMobile()) {
+			_this.options.muted = true;
+		}
+
 		_this.mediaLoader = _this.options.mediaLoader || new _mediaLoader2.default(publicId, _this.options);
 		_this.setDrivers(_this.options.drivers);
 		_this.mediaLoader.on(_events4.default.ERROR, _this.eventHandler(_events4.default.ERROR).bind(_this));
@@ -3841,7 +4237,12 @@ var Player = function (_EventEmitter) {
 
 		_this.mediaLoader.on(_events4.default.MANIFEST, function () {
 			if (_this.mediaLoader.currentState !== _events4.default.ONLINE) {
-				_this.stop();
+				return;
+			}
+
+			if (_this.watchForAudioSwitch()) {
+				_this.currentDriver.options.origin = false;
+				_this.currentDriver.restart();
 				return;
 			}
 
@@ -3849,7 +4250,11 @@ var Player = function (_EventEmitter) {
 				return;
 			}
 
-			_this.play();
+			_this.play(function (playing) {
+				if (playing) {
+					_this.shouldTryToPlay = false;
+				}
+			});
 
 			if (!_this.currentDriver.supportsAutoplay) {
 				_this.shouldTryToPlay = false;
@@ -3886,7 +4291,7 @@ var Player = function (_EventEmitter) {
 
 			if (this.options.autoplay) {
 				this.autoplayProgressId = _stats.stats.start(_stats.STATS_EVENTS.AUTOPLAY_PROGRESS);
-				this.once(_events4.default.MEDIA_PROGRESS, function () {
+				this.once(_events4.default.MEDIA_TIMEUPDATE, function () {
 					_stats.stats.stop(_this2.autoplayProgressId, {
 						driver: _this2.currentDriver.driver
 					});
@@ -3894,8 +4299,25 @@ var Player = function (_EventEmitter) {
 			}
 		}
 
+		// watches for audio state switching from origin
+
+	}, {
+		key: 'watchForAudioSwitch',
+		value: function watchForAudioSwitch() {
+			// current driver is not playing origin
+			if (!this.currentDriver || !this.currentDriver.options.origin) {
+				return false;
+			}
+
+			// current driver is playing origin, and origin was removed
+			return !this.mediaLoader.get(this.currentDriver.format).origin;
+		}
+
 		/**
    * sets an option after construction, effects depend on implementation.  May not work until next restart
+   * @param {string} key
+   * @param {any} [value]
+   * @return {void}
    */
 
 	}, {
@@ -3908,12 +4330,18 @@ var Player = function (_EventEmitter) {
 		}
 
 		/**
-   * Loads the next video
-   * @param {string} [publicId]
+   * gets the current active playing manifest, null otherwise
+   * @return {string}
    */
 
 	}, {
 		key: 'load',
+
+
+		/**
+   * Loads the next video
+   * @param {string} [publicId]
+   */
 		value: function load(publicId, cb) {
 			this.stop();
 			this.mediaLoader.setPublicId(publicId);
@@ -3928,19 +4356,17 @@ var Player = function (_EventEmitter) {
 	}, {
 		key: 'destroy',
 		value: function destroy() {
-			if (this.mediaLoader.destroy) {
+			if (this.mediaLoader && this.mediaLoader.destroy) {
 				this.mediaLoader.removeAllListeners(_events4.default.MANIFEST);
-				this.mediaLoader.removeAllListeners(_events4.default.ERROR);
 				this.mediaLoader.destroy();
 			}
 
 			var k = void 0;
 			if (this.currentDriver) {
-				this.currentDriver.destroy();
 				for (k in _events4.default) {
 					this.currentDriver.removeAllListeners(_events4.default[k]);
+					this.currentDriver.removeAllListeners(_events4.default[k], this.eventHandler(_events4.default[k]));
 				}
-				this.currentDriver.removeAllListeners(_events4.default[k], this.eventHandler(_events4.default[k]));
 				this.currentDriver.destroy();
 			}
 
@@ -3959,6 +4385,23 @@ var Player = function (_EventEmitter) {
 		/**
    * @param {number} bitrate
    * @return {void}
+   */
+
+	}, {
+		key: 'playOrigin',
+		value: function playOrigin() {
+			this.options.origin = true;
+			this.store.set(_storageValues2.default.origin, 1);
+			this.store.set(_storageValues2.default.lockedKbps, null);
+			if (!this.currentDriver) {
+				return;
+			}
+			this.currentDriver.playOrigin();
+		}
+
+		/**
+   * sets the current driver
+   * @param {number} [index] 0
    */
 
 	}, {
@@ -4256,17 +4699,19 @@ var Player = function (_EventEmitter) {
    */
 
 	}, {
+		key: 'manifest',
+		get: function get() {
+			if (!this.mediaLoader || !this.mediaLoader.uri) {
+				return null;
+			}
+			return this.mediaLoader.uri;
+		}
+	}, {
 		key: 'bitrate',
 		set: function set(bitrate) {
 			this.storeBitrate(bitrate);
 			this.currentDriver.bitrate = bitrate;
 		}
-
-		/**
-   * sets the current driver
-   * @param {number} [index] 0
-   */
-
 	}, {
 		key: 'driver',
 		set: function set(index) {
@@ -4300,12 +4745,20 @@ var Player = function (_EventEmitter) {
 				hlsjsPath: this.options.hlsjsPath,
 				posterURI: this.options.posterURI,
 				flashFrameRate: this.options.flashFrameRate,
-				flashWmode: this.options.flashWmode
+				flashWmode: this.options.flashWmode,
+				origin: this.options.origin,
+				mse: this.options.mse
 			});
 
 			this.currentDriver.on(_events4.default.ERROR, function (err) {
 				var nextDriver = function nextDriver() {
 					if (!_this5.availableDrivers.length) {
+						_this5.mediaLoader.once(_events4.default.MANIFEST, function () {
+							_this5.setDrivers(_this5.options.drivers);
+							if (_this5.isTryingToPlay()) {
+								_this5.play();
+							}
+						});
 						return;
 					}
 					_this5.currentDriver.destroy();
@@ -4330,6 +4783,10 @@ var Player = function (_EventEmitter) {
 			this.emit(_events4.default.SELECT_DRIVER, this.currentDriver);
 			this.currentDriver.on(_events4.default.ESTIMATED_BW, function (kbps) {
 				_this5.store.set(_storageValues2.default.estimatedKbps, parseInt(kbps, 10) || LOW_BITRATE);
+			});
+
+			this.currentDriver.on(_events4.default.MEDIA_ENDED, function () {
+				_this5.isTryingToPlay = false;
 			});
 
 			for (var k in _events4.default) {
@@ -4582,7 +5039,7 @@ var Player = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = Player;
-},{"./errors":17,"./events":18,"./gcd":19,"./get-default-options":20,"./logger":21,"./media-loader":23,"./polyfills":26,"./stats":28,"./storage-values":30,"./store":35,"events":48}],26:[function(require,module,exports){
+},{"./detect":18,"./errors":19,"./events":20,"./gcd":21,"./get-default-options":22,"./logger":23,"./media-loader":25,"./polyfills":28,"./stats":30,"./storage-values":32,"./store":37,"events":54}],28:[function(require,module,exports){
 'use strict';
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -4906,7 +5363,7 @@ if ('document' in self) {
 		})();
 	}
 }
-},{}],27:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4918,7 +5375,7 @@ var STATS_EVENTS = {
 };
 
 exports.default = STATS_EVENTS;
-},{}],28:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -4944,7 +5401,7 @@ var stats = new _stats2.default();
 
 exports.stats = stats;
 exports.STATS_EVENTS = _events2.default;
-},{"./events":27,"./stats":29}],29:[function(require,module,exports){
+},{"./events":29,"./stats":31}],31:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5014,22 +5471,25 @@ var Stats = function () {
 }();
 
 exports.default = Stats;
-},{"../logger":21}],30:[function(require,module,exports){
+},{"../logger":23}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 var STORAGE_VALUES = {
-	muted: 'aiw_muted',
-	volume: 'aiw_volume',
-	lockedKbps: 'aiw_locked_kbs', // [null]
-	estimatedKbps: 'aiw_estimated_kbs', // [1800]
-	hideSuggestion: 'aiw_hide_suggestion'
+	muted: 'lv_muted',
+	volume: 'lv_volume',
+	lockedKbps: 'lv_locked_kbps', // [null]
+	estimatedKbps: 'lv_estimated_kbps', // [1800]
+	autoLastKbps: 'lv_auto_last_kbps', // [1800]
+	hideSuggestion: 'lv_hide_suggestion',
+	origin: 'lv_origin',
+	profile: 'lv_origin'
 };
 
 exports.default = STORAGE_VALUES;
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5079,7 +5539,7 @@ var BaseDriver = function () {
 }();
 
 exports.default = BaseDriver;
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5195,7 +5655,7 @@ var CookieDriver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = CookieDriver;
-},{"./base-driver":31}],33:[function(require,module,exports){
+},{"./base-driver":33}],35:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5263,7 +5723,7 @@ var LocalStorageDriver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = LocalStorageDriver;
-},{"./base-driver":31}],34:[function(require,module,exports){
+},{"./base-driver":33}],36:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5328,7 +5788,7 @@ var MemoryDriver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = MemoryDriver;
-},{"./base-driver":31}],35:[function(require,module,exports){
+},{"./base-driver":33}],37:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -5414,7 +5874,7 @@ var Store = function () {
 }();
 
 exports.default = Store;
-},{"./drivers/cookie":32,"./drivers/local-storage":33,"./drivers/memory":34}],36:[function(require,module,exports){
+},{"./drivers/cookie":34,"./drivers/local-storage":35,"./drivers/memory":36}],38:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5463,7 +5923,7 @@ function unparse(buf, offset) {
 
 	return bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + "-" + bth[buf[i++]] + bth[buf[i++]] + "-" + bth[buf[i++]] + bth[buf[i++]] + "-" + bth[buf[i++]] + bth[buf[i++]] + "-" + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]] + bth[buf[i++]];
 }
-},{}],37:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -6065,8 +6525,18 @@ var FlashDriver = function (_BaseDriver) {
 				_this7.connectToBroadcast(_this7.playing, function () {
 					_logger2.default.setPlayer(_this7.mediaLoader.host, _this7.mediaLoader.publicId, _this7.format, _this7.selectedEncoding.location, _this7);
 					_this7.startPlayback();
+					_this7.once('progress', function () {
+						if (cb) {
+							cb(true);
+						}
+						cb = null;
+					});
+					setTimeout(function () {
+						if (cb) {
+							cb(false);
+						}
+					}, 2000);
 					_this7.watchProgress(PROGRESS_CHECK);
-					cb(true);
 				});
 			});
 		}
@@ -6229,16 +6699,16 @@ var FlashDriver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = FlashDriver;
-},{"./thinflash/broadcast":38,"./thinflash/playback":39,"@livelyvideo/player-core/lib/base-driver":15,"@livelyvideo/player-core/lib/errors":17,"@livelyvideo/player-core/lib/events":18,"@livelyvideo/player-core/lib/logger":21,"lodash.noop":52,"swfobject-amd":55}],38:[function(require,module,exports){
+},{"./thinflash/broadcast":40,"./thinflash/playback":41,"@livelyvideo/player-core/lib/base-driver":17,"@livelyvideo/player-core/lib/errors":19,"@livelyvideo/player-core/lib/events":20,"@livelyvideo/player-core/lib/logger":23,"lodash.noop":58,"swfobject-amd":61}],40:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _playerCore = require('@livelyvideo/player-core');
+var _logger = require('@livelyvideo/player-core/lib/logger');
 
-var _playerCore2 = _interopRequireDefault(_playerCore);
+var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6261,7 +6731,7 @@ exports.default = {
 		try {
 			return this.getSwf().tfBroadcastCreate();
 		} catch (err) {
-			_playerCore2.default.error('broadcast', 'createBroadcast', [], 'error initializing broadcast [err=' + err + ']');
+			_logger2.default.error('broadcast', 'createBroadcast', [], 'error initializing broadcast [err=' + err + ']');
 			return false;
 		}
 	},
@@ -6277,7 +6747,7 @@ exports.default = {
 		try {
 			this.getSwf().tfBroadcastDestroy(broadcastID);
 		} catch (err) {
-			_playerCore2.default.error('broadcast', 'destroyBroadcast', [broadcastID], 'error destroying broadcast [err=' + err + ']');
+			_logger2.default.error('broadcast', 'destroyBroadcast', [broadcastID], 'error destroying broadcast [err=' + err + ']');
 			return false;
 		}
 		return true;
@@ -6298,99 +6768,22 @@ exports.default = {
 
 			(_getSwf = this.getSwf()).tfBroadcastConnect.apply(_getSwf, arguments);
 		} catch (err) {
-			_playerCore2.default.error('broadcast', 'connectToBroadcast', [broadcastID, url, streamName], 'error connecting to broadcast [err=' + err + ']');
-			return false;
-		}
-		return true;
-	},
-
-
-	/**
-  * Given a url of a video, will link the broadcast and that video.
-  *
-  * This is slightly different than connectToBroadcast; NetConnection.connect()
-  * needs 'null' as its first parameter when linking to static content. Sending an
-  * http address causes it to look for Flash Remoting at that
-  *
-  * @param {number} broadcastID - ID of the broadcast we want to attach the stream to
-  * @param {string} url - Location of the video to play
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	setVideoPath: function setVideoPath(broadcastID, url) {
-		try {
-			this.getSwf().tfBroadcastConnect(broadcastID, null, url);
-		} catch (err) {
-			_playerCore2.default.error('broadcast', 'connectToVideo', [broadcastID, url], 'error connecting to video [err=' + err + ']');
-			return false;
-		}
-		return true;
-	},
-
-
-	/**
-  * Allows us to dynamically set the stream path/name for a broadcast after it's
-  * been connected, but before it's been published.
-  *
-  * @param {number} broadcastID - ID of the broadcast to set the stream name on
-  * @param {string} streamName - Stream name/path
-  * @return {boolean} True if no errors, false otherwise
-  */
-	setStreamName: function setStreamName(broadcastID, streamName) {
-		try {
-			this.getSwf().tfBroadcastSetStreamName(broadcastID, streamName);
-		} catch (err) {
-			_playerCore2.default.error('broadcast', 'setStreamName', [broadcastID, streamName], 'error setting stream name [err=' + err + ']');
-			return false;
-		}
-		return true;
-	},
-
-
-	/**
-  * Attaches a camera that has previously been created to the broadcast specified
-  *
-  * @param {number} broadcastID - ID of a broadcast to attach to
-  * @param {number} cameraID - ID of an existing camera
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	broadcastAttachCamera: function broadcastAttachCamera(broadcastID, cameraID) {
-		try {
-			this.getSwf().tfBroadcastAttachCamera(broadcastID, cameraID);
-		} catch (err) {
-			_playerCore2.default.error('broadcast', 'broadcastAttachCamera', [broadcastID, cameraID], 'error attaching camera to broadcast [err=' + err + ']');
-			return false;
-		}
-		return true;
-	},
-
-
-	/**
-  * Attaches a microphone that has previously been created to the broadcast specified
-  *
-  * @param {number} broadcastID - ID of a broadcast to attach to.
-  * @param {number} micID - ID of microphone to attach to broadcast
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	broadcastAttachMicrophone: function broadcastAttachMicrophone(broadcastID, micID) {
-		try {
-			this.getSwf().tfBroadcastAttachMicrophone(broadcastID, micID);
-		} catch (err) {
-			_playerCore2.default.error('broadcast', 'broadcastAttachMicrophone', [broadcastID, micID], 'error attaching mic to broadcast [err=' + err + ']');
+			_logger2.default.error('broadcast', 'connectToBroadcast', [broadcastID, url, streamName], 'error connecting to broadcast [err=' + err + ']');
 			return false;
 		}
 		return true;
 	}
 }; /* eslint-disable */
-},{"@livelyvideo/player-core":14}],39:[function(require,module,exports){
+},{"@livelyvideo/player-core/lib/logger":23}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _playerCore = require('@livelyvideo/player-core');
+var _logger = require('@livelyvideo/player-core/lib/logger');
 
-var _playerCore2 = _interopRequireDefault(_playerCore);
+var _logger2 = _interopRequireDefault(_logger);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6430,7 +6823,7 @@ exports.default = {
 		try {
 			this.getSwf().tfPlaybackPlay(broadcastID, settings);
 		} catch (err) {
-			_playerCore2.default.error('playback', 'playbackPlay', [broadcastID, settings], 'error playing video [err=' + err + ']');
+			_logger2.default.error('playback', 'playbackPlay', [broadcastID, settings], 'error playing video [err=' + err + ']');
 			return false;
 		}
 		return true;
@@ -6448,7 +6841,7 @@ exports.default = {
 		try {
 			this.getSwf().tfPlaybackSetVolume(broadcastID, volume);
 		} catch (err) {
-			_playerCore2.default.error('playback', 'setVolume', [broadcastID, volume], 'error setting volume [err=' + err + ']');
+			_logger2.default.error('playback', 'setVolume', [broadcastID, volume], 'error setting volume [err=' + err + ']');
 			return false;
 		}
 		return true;
@@ -6466,102 +6859,9 @@ exports.default = {
 		try {
 			this.getSwf().tfPlaybackMute(broadcastID, toggle);
 		} catch (err) {
-			_playerCore2.default.error('playback', 'muteAudio', [broadcastID, toggle], 'error muting audio [err=' + err + ']');
+			_logger2.default.error('playback', 'muteAudio', [broadcastID, toggle], 'error muting audio [err=' + err + ']');
 			return false;
 		}
-		return true;
-	},
-
-
-	/**
-  * Pauses or unpauses playback
-  *
-  * @param {number} broadcastID - ID of the broadcast to pause/unpause
-  * @param {boolean} toggle - Whether or not to pause the stream
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	pausePlayback: function pausePlayback(broadcastID, toggle) {
-		try {
-			this.getSwf().tfPlaybackPause(broadcastID, toggle);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'pausePlayback', [broadcastID, toggle], 'error pausing playback [err=' + err + ']');
-			return false;
-		}
-		return true;
-	},
-
-
-	/**
-  * Toggles between paused states
-  *
-  * @param {number} broadcastID - ID of the broadcast to toggle pause on
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	pausePlaybackToggle: function pausePlaybackToggle(broadcastID) {
-		try {
-			this.getSwf().tfPlaybackTogglePause(broadcastID);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'pausePlaybackToggle', [broadcastID], 'error pausing playback [err=' + err + ']');
-			return false;
-		}
-
-		return true;
-	},
-
-
-	/**
-  * Creates new NetStream.
-  *
-  * @param {number} broadcastID - ID of the broadcast to toggle pause on
-  * @param {string} streamIndex - ID of the stream (within the broadcast) to create
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	createStream: function createStream(broadcastID, streamIndex) {
-		try {
-			this.getSwf().tfBroadcastCreateStream(broadcastID, streamIndex);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'createStream', [broadcastID], 'error creating stream [err=' + err + ']');
-			return false;
-		}
-
-		return true;
-	},
-
-
-	/**
-  * Destroys a given streamIndex that was created.
-  *
-  * @param {number} broadcastID - ID of the broadcast that has a streamIndex in it
-  * @param {string} streamIndex - Name of the stream to clean up.
-  * @return {boolean} True, if successful, false if not.
-  */
-	destroyStream: function destroyStream(broadcastID, streamIndex) {
-		try {
-			this.getSwf().tfBroadcastDestroyStream(broadcastID, streamIndex);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'destroyStream', [broadcastID, streamIndex], 'error destroying stream [err=' + err + ']');
-			return false;
-		}
-		return true;
-	},
-
-
-	/**
-  * Sets the current stream index. Subsequent operations will work
-  * on the NetStream / ThinVideo that matches the index.
-  *
-  * @param {number} broadcastID - ID of the broadcast
-  * @param {string} streamIndex - identifies the stream index
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	setCurrentStreamIndex: function setCurrentStreamIndex(broadcastID, streamIndex) {
-		try {
-			this.getSwf().tfBroadcastSetCurrentStreamIndex(broadcastID, streamIndex);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'setCurrentStreamIndex', [broadcastID, streamIndex], 'error setting stream index [err=' + err + ']');
-			return false;
-		}
-
 		return true;
 	},
 
@@ -6577,83 +6877,12 @@ exports.default = {
 		try {
 			return this.getSwf().tfGetNetStreamProperty(broadcastID, propertyName);
 		} catch (err) {
-			_playerCore2.default.error('playback', 'getNetStreamProperty', [broadcastID, propertyName], 'error getting NetStream property [err=' + err + ']');
+			_logger2.default.error('playback', 'getNetStreamProperty', [broadcastID, propertyName], 'error getting NetStream property [err=' + err + ']');
 			return false;
 		}
-	},
-
-
-	/**
-  * Sets property of NetStream.
-  *
-  * @param {number} broadcastID - ID of the broadcast
-  * @param {string} propertyName - The name of the property in NetStream to set
-  * @param {string} propertyValue - The new value of that property
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	setNetStreamProperty: function setNetStreamProperty(broadcastID, propertyName, propertyValue) {
-		try {
-			this.getSwf().tfSetNetStreamProperty(broadcastID, propertyName, propertyValue);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'setVideoProperties', [broadcastID, propertyName, propertyValue], 'error setting NetStream property [err=' + err + ']');
-			return false;
-		}
-
-		return true;
-	},
-
-
-	/**
-  * Invokes a method on the NetStream Object.
-  *
-  * @param {number} broadcastID - ID of the broadcast
-  * @param {string} methodName - The method in NetStream to invoke
-  * @param {Array} Additional arguments to pass to the method
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	invokeNetStreamMethod: function invokeNetStreamMethod(broadcastID, methodName) {
-		try {
-			var _getSwf;
-
-			(_getSwf = this.getSwf()).tfInvokeNetStreamMethod.apply(_getSwf, arguments);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'invokeNetStreamMethod', [broadcastID, methodName], 'error invoking NetStream method [err=' + err + ']');
-			return false;
-		}
-
-		return true;
-	},
-
-
-	/**
-  * Presets video properties on a specific broadcast / stream.
-  *
-  * @param {number} broadcastID - ID of the broadcast on which to set video properties
-  * @param {string} streamIndex - ID of the stream (within the broadcast) on which to set video properties
-  * @param {object} videoProperties
-  * @property {number}	x - x position of video
-  * @property {number}	y - y position of video
-  * @property {number}	width - width of video
-  * @property {number}	height - height of video
-  * @property {boolean} preserveVideoRatio - if true, preserves width/height ratio on resize
-  * @property {boolean} matchStageDimensions - if true, fills up as much of
-  *																					stage area as possible
-  * @return {boolean} True if no errors, false if something bad happened.
-  */
-	setVideoProperties: function setVideoProperties(broadcastID, streamIndex, videoProperties) {
-		try {
-			var _getSwf2;
-
-			(_getSwf2 = this.getSwf()).tfSetVideoProperties.apply(_getSwf2, arguments);
-		} catch (err) {
-			_playerCore2.default.error('playback', 'setVideoProperties', [broadcastID, streamIndex, videoProperties], 'error setting video properties [err=' + err + ']');
-			return false;
-		}
-
-		return true;
 	}
 }; /* eslint-disable */
-},{"@livelyvideo/player-core":14}],40:[function(require,module,exports){
+},{"@livelyvideo/player-core/lib/logger":23}],42:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6914,7 +7143,7 @@ var AbrController = function () {
 					// ensure nextLoadLevel is not negative
 					nextLoadLevel = Math.max(0, nextLoadLevel);
 					// force next load level in auto mode
-					hls.nextLoadLevel = nextLoadLevel;
+					hls.nextLoadLevel = nextLoadLevel || 0;
 					// abort fragment loading ...
 					// logger.warn(`loading too slow, abort fragment loading and switch to level ${nextLoadLevel}`);
 					// abort fragment loading
@@ -6927,7 +7156,7 @@ var AbrController = function () {
 	}, {
 		key: "emergencyDrop",
 		value: function emergencyDrop() {
-			this.hls.nextLoadLevel = Math.max(0, this.fragCurrent.level - 1);
+			this.hls.nextLoadLevel = Math.max(0, this.fragCurrent.level - 1) || 0;
 			if (this.hls.nextLoadLevel >= this.fragCurrent.level) {
 				return;
 			}
@@ -7001,14 +7230,18 @@ var AbrController = function () {
 			var i = void 0;
 			var maxAutoLevel = void 0;
 
+			if (!hls.levels) {
+				return -1;
+			}
+
 			if (this._autoLevelCapping === -1 && hls.levels) {
 				maxAutoLevel = hls.levels.length - 1;
 			} else {
-				return this._autoLevelCapping;
+				return Math.min(this._autoLevelCapping, hls.levels.length - 1);
 			}
 
 			if (this._nextAutoLevel !== -1) {
-				return Math.min(this._nextAutoLevel, maxAutoLevel);
+				return Math.min(this._nextAutoLevel, maxAutoLevel, hls.levels.length - 1);
 			}
 
 			for (i = 0; i <= maxAutoLevel; i++) {
@@ -7029,14 +7262,12 @@ var AbrController = function () {
 }();
 
 exports.default = AbrController;
-},{}],41:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -7079,6 +7310,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var HLS_SCRIPT_SPIN = 50;
+var SKIP_FORWARD_THRESHOLD = 25;
 
 var Hls = window.Hls;
 var HlsPath = function getHlsPath() {
@@ -7128,13 +7360,35 @@ var HlsJsDriver = function (_BaseDriver) {
 		_this.recoverDecodingErrorDate = null;
 		_this.recoverSwapAudioCodecDate = null;
 		_this.loadHls();
+		_this.currentLevelInterval = setTimeout(_this.saveCurrentLevel.bind(_this), 1000);
 		return _this;
 	}
 
 	_createClass(HlsJsDriver, [{
+		key: 'saveCurrentLevel',
+		value: function saveCurrentLevel() {
+			var c = this.currentLevel;
+
+			if (c) {
+				var encoding = this.data.encodings[c];
+				this.livelyPlayer.store.set('lv_auto_last_kbps', encoding.audioKbps + encoding.videoKbps);
+			}
+		}
+	}, {
+		key: 'reloadAndRestart',
+		value: function reloadAndRestart() {
+			var _this2 = this;
+
+			this.mediaLoader.load(function () {
+				if (_this2.mediaLoader.currentState === _events2.default.ONLINE) {
+					_this2.restart();
+				}
+			});
+		}
+	}, {
 		key: 'loadHls',
 		value: function loadHls(inputCb) {
-			var _this2 = this;
+			var _this3 = this;
 
 			var cb = inputCb || _lodash2.default;
 			// Add a timeout
@@ -7145,7 +7399,7 @@ var HlsJsDriver = function (_BaseDriver) {
 
 			if (this.loadingHls) {
 				setTimeout(function () {
-					_this2.loadHls(cb);
+					_this3.loadHls(cb);
 				}, HLS_SCRIPT_SPIN);
 				return;
 			}
@@ -7155,7 +7409,7 @@ var HlsJsDriver = function (_BaseDriver) {
 			script.setAttribute('src', this.options.hlsjsPath);
 			script.onload = function () {
 				Hls = window.Hls;
-				_this2.loadingHls = false;
+				_this3.loadingHls = false;
 				cb();
 			};
 			document.body.appendChild(script);
@@ -7163,16 +7417,16 @@ var HlsJsDriver = function (_BaseDriver) {
 	}, {
 		key: 'whenReady',
 		value: function whenReady(cb) {
-			var _this3 = this;
+			var _this4 = this;
 
 			this.loadHls(function () {
-				_get(HlsJsDriver.prototype.__proto__ || Object.getPrototypeOf(HlsJsDriver.prototype), 'whenReady', _this3).call(_this3, cb);
+				_get(HlsJsDriver.prototype.__proto__ || Object.getPrototypeOf(HlsJsDriver.prototype), 'whenReady', _this4).call(_this4, cb);
 			});
 		}
 	}, {
 		key: 'playNow',
 		value: function playNow(inputCb) {
-			var _this4 = this;
+			var _this5 = this;
 
 			var m = this.manifest;
 
@@ -7194,39 +7448,59 @@ var HlsJsDriver = function (_BaseDriver) {
 			}
 
 			this.el.setAttribute('src', m);
-			this.hls = new Hls({
-				abrController: _abrController2.default,
-				seekHoleNudgeDuration: 0.5,
-				debug: this.options.debug,
-				maxBufferLength: this.options.maxBufferLength,
-				maxBufferSize: this.options.maxBufferSize,
-				fragLoadingTimeOut: 3900,
-				fragLoadingMaxRetry: 2,
-				liveSyncDuration: 4
-			});
+			var startIt = function startIt() {
+				_this5.hls = new Hls({
+					abrController: _abrController2.default,
+					seekHoleNudgeDuration: 0.5,
+					debug: _this5.options.debug,
+					maxBufferLength: _this5.options.maxBufferLength,
+					maxBufferSize: _this5.options.maxBufferSize,
+					fragLoadingTimeOut: 3900
+				});
 
-			this.listen();
-			_logger2.default.setPlayer(this.mediaLoader.host, this.mediaLoader.publicId, this.format, m);
-			this.hls.loadSource(m);
-			this.hls.attachMedia(this.el);
-			this.elementPlay();
-			this.hls.on(Hls.Events.MEDIA_ATTACHED, function () {
-				_this4.isAttached = true;
-			});
+				_this5.listen();
+				_logger2.default.setPlayer(_this5.mediaLoader.host, _this5.mediaLoader.publicId, _this5.format, m);
+				_this5.hls.loadSource(m);
+				_this5.hls.attachMedia(_this5.el);
+				_this5.elementPlay();
 
-			this.hls.on(Hls.Events.MEDIA_DETACHED, function () {
-				_this4.isAttached = false;
-			});
+				if (!_this5.mediaLoader.vod) {
+					_this5.hls.on(Hls.Events.BUFFER_APPENDED, function () {
+						if (!_this5.el || !_this5.el.buffered.length || _this5.el.paused) {
+							return;
+						}
+						if (_this5.el.buffered.end(_this5.el.buffered.length - 1) - _this5.el.currentTime > SKIP_FORWARD_THRESHOLD) {
+							_logger2.default.error('player fell behind more than ' + SKIP_FORWARD_THRESHOLD + 's, restarting');
+							_this5.reloadAndRestart();
+						}
+					});
+				}
 
-			this.hls.on(Hls.Events.MANIFEST_PARSED, function () {
-				_this4.lastProgress = Date.now();
-			});
+				_this5.hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+					_this5.isAttached = true;
+				});
 
-			if (this.options.bitrate === null) {
-				this.bitrateCap = null;
-			} else if (!isNaN(this.options.bitrate)) {
-				this.bitrateCap = this.options.bitrate;
+				_this5.hls.on(Hls.Events.MEDIA_DETACHED, function () {
+					_this5.isAttached = false;
+				});
+
+				_this5.hls.on(Hls.Events.MANIFEST_PARSED, function () {
+					_this5.lastProgress = Date.now();
+				});
+
+				if (_this5.options.bitrate === null) {
+					_this5.bitrateCap = null;
+				} else if (!isNaN(_this5.options.bitrate)) {
+					_this5.bitrateCap = _this5.options.bitrate;
+				}
+			};
+
+			if (document.hidden) {
+				document.addEventListener('visibilitychange', startIt);
+			} else {
+				startIt();
 			}
+
 			cb(true);
 		}
 
@@ -7239,7 +7513,7 @@ var HlsJsDriver = function (_BaseDriver) {
 	}, {
 		key: 'play',
 		value: function play(cb) {
-			var _this5 = this;
+			var _this6 = this;
 
 			if (this.hls && !this.el.paused) {
 				return;
@@ -7251,52 +7525,17 @@ var HlsJsDriver = function (_BaseDriver) {
 				return;
 			}
 			this.whenReady(function () {
-				_this5.playNow(cb);
+				_this6.playNow(cb);
 			});
 		}
 	}, {
-		key: 'switchBitrate',
+		key: 'stop',
 
-
-		/**
-   * @param {number} bitrate
-   * @return {void}
-   */
-		value: function switchBitrate(bitrate) {
-			var _this6 = this;
-
-			this.bitrateCap = bitrate;
-			if (_detect2.default.firefox() || this.mediaLoader.vod) {
-				var _ret = function () {
-					var ct = _this6.el.currentTime;
-					_this6.stop();
-					if (!_this6.livelyPlayer.isTryingToPlay()) {
-						if (_this6.mediaLoader.vod) {
-							_this6.el.currentTime = ct;
-						}
-						return {
-							v: void 0
-						};
-					}
-
-					_this6.play(function () {
-						if (_this6.mediaLoader.vod) {
-							_this6.el.currentTime = ct;
-						}
-					});
-				}();
-
-				if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
-			}
-		}
 
 		/**
    * stops playback
    * @return {void}
    */
-
-	}, {
-		key: 'stop',
 		value: function stop() {
 			if (!this.hls) {
 				return;
@@ -7323,6 +7562,7 @@ var HlsJsDriver = function (_BaseDriver) {
 	}, {
 		key: 'destroy',
 		value: function destroy() {
+			this.destroyed = true;
 			this.el.remove();
 			if (this.hls) {
 				this.destroyHls();
@@ -7346,6 +7586,31 @@ var HlsJsDriver = function (_BaseDriver) {
 
 			this.hls = null;
 		}
+	}, {
+		key: 'recoverFromBufferSeekOverHole',
+		value: function recoverFromBufferSeekOverHole() {
+			var encodings = this.data.encodings;
+			var e = encodings[this.currentLevel];
+			if (!e) {
+				e = this.pickEncoding(this.options.bitrate || this.options.estimatedKbps);
+			}
+			if (e) {
+				this.options.bitrate = e.videoKbps + e.audioKbps;
+			}
+			this.reloadAndRestart();
+		}
+	}, {
+		key: 'ifNoProgress',
+		value: function ifNoProgress(cb) {
+			var _this7 = this;
+
+			var ct = this.el.currentTime;
+			setTimeout(function () {
+				if (_this7.el.currentTime <= ct) {
+					cb();
+				}
+			}, 250);
+		}
 
 		/**
    * Listen for important events and record or signal
@@ -7354,25 +7619,49 @@ var HlsJsDriver = function (_BaseDriver) {
 	}, {
 		key: 'listen',
 		value: function listen() {
-			var _this7 = this;
+			var _this8 = this;
 
+			var ct = void 0;
 			this.hls.on(Hls.Events.ERROR, function (type, data) {
 				switch (data.details) {
+					case Hls.ErrorDetails.LEVEL_LOAD_ERROR:
+					case Hls.ErrorDetails.FRAG_LOAD_TIMEOUT:
+						if (_this8.mediaLoader.vod) {
+							_this8.handleError(_events2.default.ERROR, _errors2.default.PLAYBACK_ERROR, data);
+							return;
+						}
+
+						if (_this8.mediaLoader.currentState === _events2.default.OFFLINE) {
+							_this8.stop();
+							return;
+						}
+						_logger2.default.warn('level load reload and restart', type, data);
+						_this8.reloadAndRestart();
+
+						ct = _this8.el.currentTime;
+						setTimeout(function () {
+							if (_this8.el.currentTime <= ct) {
+								_logger2.default.warn('level load reload and restart', type, data);
+								_this8.reloadAndRestart();
+							}
+						}, 100);
+						return;
 					case Hls.ErrorDetails.BUFFER_SEEK_OVER_HOLE:
-						_this7.handleError(_events2.default.ERROR, _errors2.default.PLAYBACK_ERROR, data);
+						_this8.ifNoProgress(function () {
+							_this8.recoverFromBufferSeekOverHole();
+						});
 						return;
 					case Hls.ErrorDetails.BUFFER_APPEND_ERROR:
 					case Hls.ErrorDetails.BUFFER_FULL_ERROR:
-						_this7.bufferOverflowCount++;
+						_this8.bufferOverflowCount++;
 						break;
 					case Hls.ErrorDetails.FRAG_LOAD_ERROR:
 					case Hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR:
-					case Hls.ErrorDetails.FRAG_LOAD_TIMEOUT:
 					case Hls.ErrorDetails.FRAG_DECRYPT_ERROR:
 					case Hls.ErrorDetails.FRAG_PARSING_ERROR:
 					case Hls.ErrorDetails.BUFFER_APPENDING_ERROR:
 					case Hls.ErrorDetails.BUFFER_STALLED_ERROR:
-						_this7.bufferUnderflowCount++;
+						_this8.bufferUnderflowCount++;
 						break;
 					default:
 						break;
@@ -7386,21 +7675,21 @@ var HlsJsDriver = function (_BaseDriver) {
 						// or just hard restart it
 						// for live it seems the same either way
 						if (data.details !== Hls.ErrorDetails.FRAG_LOAD_TIMEOUT) {
-							_this7.currentErrorCount++;
+							_this8.currentErrorCount++;
 						} else if (data.details === Hls.ErrorDetails.LEVEL_LOAD_TIMEOUT) {
-							_this7.currentErrorCount = _this7.options.recoverErrorCount;
+							_this8.currentErrorCount = _this8.options.recoverErrorCount;
 						}
 
-						_this7.handleError(_events2.default.ERROR, _errors2.default.NETWORK_ERROR, data);
+						_this8.handleError(_events2.default.ERROR, _errors2.default.NETWORK_ERROR, data);
 						break;
 					case Hls.ErrorTypes.MEDIA_ERROR:
 						if (data.fatal) {
-							_this7.handleMediaError();
+							_this8.handleMediaError();
 							return;
 						}
 						// don't add to current error count for buffer stalls
 						if (data.details === Hls.ErrorDetails.BUFFER_STALLED_ERROR) {
-							_this7.handleError(_events2.default.ERROR, _errors2.default.PLAYBACK_ERROR, data);
+							_this8.handleError(_events2.default.ERROR, _errors2.default.PLAYBACK_ERROR, data);
 							return;
 						}
 						if (data.details === Hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR) {
@@ -7410,30 +7699,34 @@ var HlsJsDriver = function (_BaseDriver) {
 							// many segment loads then compete and cause these errors
 							// its probably just an indicator of a screwed state
 							// Tracking it and reloading after a recovery count
-							_this7.currentErrorCount++;
+							_this8.currentErrorCount++;
 						}
 
-						_this7.handleError(_events2.default.ERROR, _errors2.default.PLAYBACK_ERROR, data);
+						_this8.handleError(_events2.default.ERROR, _errors2.default.PLAYBACK_ERROR, data);
 						break;
 					case Hls.ErrorTypes.OTHER_ERROR:
-						_this7.currentErrorCount++;
-						_this7.handleError(_events2.default.ERROR, _errors2.default.UNKNOWN_ERROR, data);
+						_this8.currentErrorCount++;
+						_this8.handleError(_events2.default.ERROR, _errors2.default.UNKNOWN_ERROR, data);
 						break;
 					default:
 						_logger2.default.error('unhandled hlsjs error', type, data);
 						return;
 				}
 
-				_this7.checkRestart(data);
+				_this8.checkRestart(data);
 				_logger2.default.error(type, data);
 			});
 
 			this.el.addEventListener('progress', function () {
-				_this7.emitProgress();
+				_this8.emitProgress();
 			});
 
+			this.el.onended = function () {
+				_this8.emit('ended');
+			};
+
 			this.el.addEventListener('timeupdate', function () {
-				_this7.emitTimeupdate();
+				_this8.emitTimeupdate();
 			});
 
 			this.el.addEventListener('error', function (e) {
@@ -7445,10 +7738,10 @@ var HlsJsDriver = function (_BaseDriver) {
 
 				switch (err.code) {
 					case err.MEDIA_ERR_DECODE:
-						_this7.handleMediaError();
+						_this8.handleMediaError();
 						break;
 					case err.MEDIA_ERR_SRC_NOT_SUPPORTED:
-						_this7.emit(_events2.default.ERROR, _errors2.default.DRIVER_NOT_SUPPORTED);
+						_this8.emit(_events2.default.ERROR, _errors2.default.DRIVER_NOT_SUPPORTED);
 						break;
 					default:
 						break;
@@ -7456,16 +7749,18 @@ var HlsJsDriver = function (_BaseDriver) {
 			});
 
 			this.hls.on(Hls.Events.LEVEL_SWITCH, function (e, data) {
-				_this7.bitrateSwitch(data.level);
+				_this8.bitrateSwitch(data.level);
 			});
 
 			this.hls.on(Hls.Events.FRAG_LOADED, function (e, data) {
-				_this7.loadedFrag(data.frag);
+				_this8.loadedFrag(data.frag);
 			});
 		}
 	}, {
 		key: 'handleMediaError',
 		value: function handleMediaError() {
+			var _this9 = this;
+
 			var now = window.performance.now();
 
 			if (!this.recoverDecodingErrorDate || now - this.recoverDecodingErrorDate > 3000) {
@@ -7476,6 +7771,10 @@ var HlsJsDriver = function (_BaseDriver) {
 				this.hls.swapAudioCodec();
 				this.hls.recoverMediaError();
 			}
+
+			this.ifNoProgress(function () {
+				_this9.recoverFromBufferSeekOverHole();
+			});
 		}
 	}, {
 		key: 'bitrateSwitch',
@@ -7514,8 +7813,26 @@ var HlsJsDriver = function (_BaseDriver) {
 	}, {
 		key: 'manifest',
 		get: function get() {
+			var d = this.data;
+
+			if (this.options.origin) {
+				return this.originLocation;
+			}
+
+			uri = d.manifest;
+
+			if (!this.options.origin && !d.encodings.length) {
+				this.options.origin = true;
+				return this.originLocation;
+			}
+
 			var uri = void 0;
-			uri = this.data.manifest;
+			uri = d.manifest;
+
+			if (!this.options.origin && !d.encodings.length) {
+				this.options.origin = true;
+				return this.originLocation;
+			}
 
 			if (!uri) {
 				return null;
@@ -7524,11 +7841,16 @@ var HlsJsDriver = function (_BaseDriver) {
 			var separator = uri.indexOf('?') === -1 ? '?' : '&';
 
 			if (this.options.preset === null) {
-				// do nothing
+				uri += separator;
 			} else if (this.options.preset) {
 				uri += separator + 'preset=' + this.options.preset;
 			} else if (!_detect2.default.any()) {
 				uri += separator + 'preset=desktop';
+			}
+
+			var lastAutoKbps = this.livelyPlayer.store.get('lv_auto_last_kbps');
+			if (lastAutoKbps) {
+				uri += 'kbps=' + lastAutoKbps;
 			}
 
 			return uri;
@@ -7562,6 +7884,37 @@ var HlsJsDriver = function (_BaseDriver) {
 			this.hls.abrController.autoLevelCapping = Math.max(i - 1, 0);
 			this.emit(_events2.default.MEDIA_PLAY);
 		}
+
+		/**
+   * @param {number} bitrate
+   * @return {void}
+   */
+
+	}, {
+		key: 'bitrate',
+		set: function set(bitrate) {
+			var _this10 = this;
+
+			this.bitrateCap = bitrate;
+			if (_detect2.default.firefox() || this.mediaLoader.vod) {
+				var ct = this.el.currentTime;
+				this.stop();
+				if (!this.livelyPlayer.tryingToPlay) {
+					if (this.mediaLoader.vod) {
+						this.el.currentTime = ct;
+					}
+					return;
+				}
+
+				if (this.mediaLoader.vod) {
+					this.el.onloadedmetadata = function () {
+						_this10.el.onloadedmetadata = null;
+						_this10.el.currentTime = ct;
+					};
+				}
+				this.play();
+			}
+		}
 	}, {
 		key: 'currentLevel',
 		get: function get() {
@@ -7589,14 +7942,11 @@ var HlsJsDriver = function (_BaseDriver) {
 				return false;
 			}
 
-			if (_detect2.default.android()) {
-				return false;
-			}
-
 			// disable safari, native hls performs better -- this is because there is no OS preference list
 			if (_detect2.default.safari() && !_detect2.default.android() && !_detect2.default.chrome() && !_detect2.default.ie()) {
 				return false;
 			}
+
 			// This is directly copied from the hls library so that the library can be dynamically loaded in
 			return window.MediaSource && window.MediaSource.isTypeSupported('video/mp4; codecs="avc1.42E01E,mp4a.40.2"');
 		}
@@ -7616,7 +7966,381 @@ var HlsJsDriver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = HlsJsDriver;
-},{"./abr-controller":40,"@livelyvideo/player-core/lib/base-driver":15,"@livelyvideo/player-core/lib/detect":16,"@livelyvideo/player-core/lib/errors":17,"@livelyvideo/player-core/lib/events":18,"@livelyvideo/player-core/lib/logger":21,"lodash.noop":52}],42:[function(require,module,exports){
+},{"./abr-controller":42,"@livelyvideo/player-core/lib/base-driver":17,"@livelyvideo/player-core/lib/detect":18,"@livelyvideo/player-core/lib/errors":19,"@livelyvideo/player-core/lib/events":20,"@livelyvideo/player-core/lib/logger":23,"lodash.noop":58}],44:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
+var _logger = require('@livelyvideo/player-core/lib/logger');
+
+var _logger2 = _interopRequireDefault(_logger);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-param-reassign */
+
+
+// TODO: emergency drop
+
+var SAMPLE_SIZE = 300; // sample size for estimating bandwidth
+var RECENT_KBPS = 120;
+var PROFILE_INTERVAL = 10000;
+var RECENT_KBPS_INTERVAL = 1000;
+var MAX_BW_ESTIMATE = 50000 * 8;
+var BASE_SWITCH_THRESHOLD = 60 * 1000 * 5; // 8 * 1000; // 8 seconds
+var MIN_SIZE = 2000; // minimum size to use in estimated bw
+var MIN_MS_TIME = 2; // minimum required ms download time
+var IGNORE = 0;
+var MIN_SAMPLE_SIZE = 25;
+var EMERGENCY_RELEASE = 900;
+
+var profileTypes = {
+	stable: {
+		key: 'stable',
+		bwModifier: function bwModifier(bytes) {
+			var b = Math.min(bytes, bytes - (bytes * 0.01 + Math.log(bytes * bytes) / Math.log(2)));
+			return b;
+		},
+		resistUpshift: function resistUpshift(kbps, encodingKbps) {
+			return encodingKbps * 2.5 + Math.pow(Math.log(encodingKbps * 2), 3.2) > kbps * 2;
+		},
+		resistDownshift: function resistDownshift(kbps, encodingKbps) {
+			return kbps * 2 + Math.pow(Math.log(kbps * 2), 3.2) > encodingKbps * 2;
+		}
+	},
+
+	normal: {
+		key: 'normal',
+		bwModifier: function bwModifier(bytes) {
+			var b = Math.min(bytes, bytes - (bytes * 0.06 + Math.log(bytes * bytes) / Math.log(2)));
+			return b;
+		},
+		resistUpshift: function resistUpshift(kbps, encodingKbps) {
+			return encodingKbps * 2.5 + Math.pow(Math.log(encodingKbps * 2), 3.4) > kbps * 2;
+		},
+		resistDownshift: function resistDownshift(kbps, encodingKbps) {
+			return kbps * 2 + Math.pow(Math.log(kbps * 2), 3.4) > encodingKbps * 2;
+		}
+	},
+
+	uncertain: {
+		key: 'uncertain',
+		bwModifier: function bwModifier(bytes) {
+			var b = Math.min(bytes, bytes - (bytes * 0.3 + Math.log(bytes * bytes) / Math.log(2)));
+			return b;
+		},
+		resistUpshift: function resistUpshift(kbps, encodingKbps) {
+			return encodingKbps * 2.5 + Math.pow(Math.log(encodingKbps * 2), 3.6) > kbps * 2;
+		},
+		resistDownshift: function resistDownshift(kbps, encodingKbps) {
+			return kbps * 2 + Math.pow(Math.log(kbps * 2), 3.4) > encodingKbps * 2;
+		}
+	},
+
+	sporadic: {
+		key: 'sporadic',
+		bwModifier: function bwModifier(bytes) {
+			var b = Math.min(bytes, bytes - (bytes * 0.5 + Math.log(bytes * bytes) / Math.log(2)));
+			return b;
+		},
+		resistUpshift: function resistUpshift(kbps, encodingKbps) {
+			return encodingKbps * 2.5 + Math.pow(Math.log(encodingKbps * 2), 4) > kbps * 2;
+		},
+		resistDownshift: function resistDownshift(kbps, encodingKbps) {
+			return kbps * 2 + Math.pow(Math.log(kbps * 2), 3.4) > encodingKbps * 2;
+		}
+	}
+};
+
+var AbrController = function (_EventEmitter) {
+	_inherits(AbrController, _EventEmitter);
+
+	function AbrController(player, driver, profile, switchImmediately, maxShifts) {
+		_classCallCheck(this, AbrController);
+
+		var _this = _possibleConstructorReturn(this, (AbrController.__proto__ || Object.getPrototypeOf(AbrController)).call(this));
+
+		_this.player = player;
+		_this.driver = driver;
+		_this.switchImmediately = switchImmediately;
+		_this.switchThreshold = BASE_SWITCH_THRESHOLD;
+		_this.count = 0;
+		_this.dropCount = 0;
+		_this.totalShifts = 0;
+		_this.profile = profileTypes[profile] || profileTypes.normal;
+		_this.maxShifts = maxShifts || Infinity;
+		_this.currentKbps = driver.options.bitrate || Math.max(driver.options.estimatedKbps, 244);
+		_this.rawKbps = [];
+		_this.recentKbps = [];
+		_this.sampleBws = [];
+		_this.selectedEncoding = null;
+		_this.lastMessageTime = window.performance.now();
+		_this.lastSwitch = -1 * BASE_SWITCH_THRESHOLD;
+
+		_this.emergencyModifier = 1;
+		_this.releaseEmergencyTimeout = null;
+
+		_this.init();
+		return _this;
+	}
+
+	_createClass(AbrController, [{
+		key: 'updateTransport',
+		value: function updateTransport() {
+			this.player.removeListener('fragment', this.onMessage);
+			this.player.on('fragment', this.onMessage.bind(this));
+		}
+	}, {
+		key: 'init',
+		value: function init() {
+			var _this2 = this;
+
+			this.player.on('fragment', this.onMessage.bind(this));
+			this.profileInterval = setInterval(this.profileStream.bind(this), PROFILE_INTERVAL);
+			this.trackRecentKbpsInterval = setInterval(function () {
+				var total = 0;
+				for (var i = 0; i < _this2.rawKbps.length; i++) {
+					total += _this2.rawKbps[i];
+				}
+				var sample = total / _this2.rawKbps.length;
+				_this2.rawKbps = [];
+				_this2.recentKbps.unshift(sample);
+				_this2.recentKbps.splice(RECENT_KBPS);
+			}, RECENT_KBPS_INTERVAL);
+
+			this.estimatedKbpsInterval = setInterval(function () {
+				_this2.emit('profile', {
+					estimatedKbps: _this2.currentKbps,
+					profile: _this2.profile
+				});
+
+				if (!_this2.selectedEncoding) {
+					_logger2.default.debug('Estimated KBPS=' + _this2.currentKbps + ', Emergency modifier=' + _this2.emergencyModifier + ', Last BW Switch=' + _this2.lastSwitch + ', Shiftable=' + _this2.shiftable + ', Profile=' + _this2.profile.key);
+					return;
+				}
+				_logger2.default.debug('Estimated KBPS=' + _this2.currentKbps + ', Emergency modifier=' + _this2.emergencyModifier + ', Last BW Switch=' + _this2.lastSwitch + ', Last Selected Bitrated=' + (_this2.selectedEncoding.audioKbps + _this2.selectedEncoding.videoKbps) + ', Shiftable=' + _this2.shiftable + ', Profile=' + _this2.profile.key);
+			}, 4000);
+		}
+	}, {
+		key: 'handleEmergencyDrop',
+		value: function handleEmergencyDrop(modifier, remainingSample) {
+			var _this3 = this;
+
+			this.dropCount++;
+
+			if (this.dropCount < 2) {
+				return;
+			}
+			this.dropCount = 0;
+			this.emergencyModifier = modifier;
+			this.sampleBws.splice(remainingSample);
+
+			clearTimeout(this.releaseEmergencyTimeout);
+			setTimeout(function () {
+				_this3.emergencyModifier = 1;
+			}, EMERGENCY_RELEASE);
+		}
+	}, {
+		key: 'profileStream',
+		value: function profileStream() {
+			var sortedKbps = [];
+			sortedKbps.push.apply(sortedKbps, this.recentKbps);
+			sortedKbps.sort(function (a, b) {
+				if (a > b) {
+					return 1;
+				}
+				return -1;
+			});
+
+			var quartile = Math.floor(sortedKbps.length / 4);
+			var percentDiff1 = (sortedKbps[quartile * 2] - sortedKbps[quartile]) / sortedKbps[quartile * 2];
+			var percentDiff2 = (sortedKbps[quartile * 3] - sortedKbps[quartile * 2]) / sortedKbps[quartile * 3];
+			var sum = percentDiff1 + percentDiff2;
+
+			if (sum > 1) {
+				this.profile = profileTypes.sporadic;
+			} else if (sum > 0.65) {
+				this.profile = profileTypes.uncertain;
+			} else if (sum > 0.3) {
+				this.profile = profileTypes.normal;
+			} else {
+				this.profile = profileTypes.stable;
+			}
+		}
+	}, {
+		key: 'onMessage',
+		value: function onMessage(ev) {
+			if (this.destroyed) {
+				return;
+			}
+
+			this.lastMessageTime = window.performance.now();
+			if (ev.time > ev.duration * 2.5) {
+				this.dropCount++;
+				this.handleEmergencyDrop(0.6, (MIN_SAMPLE_SIZE - 1) * 3);
+			} else if (ev.time > ev.duration * 2.25) {
+				this.handleEmergencyDrop(0.7, Math.max(MIN_SAMPLE_SIZE - 1, Math.floor(SAMPLE_SIZE * 0.5)));
+			} else if (ev.time > ev.duration * 2) {
+				this.handleEmergencyDrop(0.8, Math.max(MIN_SAMPLE_SIZE - 1, Math.floor(SAMPLE_SIZE * 0.7)));
+			} else if (ev.time > ev.duration * 1.75) {
+				this.handleEmergencyDrop(0.9, Math.max(MIN_SAMPLE_SIZE - 1, Math.floor(SAMPLE_SIZE * 0.8)));
+			} else {
+				this.dropCount = 0;
+			}
+
+			var bw = this.profile.bwModifier(ev.size * 8) * this.emergencyModifier / ev.time;
+			this.rawKbps.push(ev.size * 8 / ev.time);
+
+			if (ev.time < MIN_MS_TIME) {
+				ev.time = MIN_MS_TIME;
+			}
+
+			// Init
+			if (ev.size < MIN_SIZE) {
+				if (this.count > IGNORE) {
+					this.count = Math.floor(IGNORE / 2);
+				}
+				return;
+			}
+
+			// if (this.currentKbps && bw > this.currentKbps * 6 && this.sampleBws.length * 2 < MIN_SIZE) {
+			// 	bw = this.currentKbps * 6;
+			// }
+
+			this.count++;
+			if (!isNaN(bw) && this.count > IGNORE && bw < MAX_BW_ESTIMATE) {
+				this.sampleBws.unshift(bw);
+				this.sampleBws.splice(SAMPLE_SIZE);
+				this.currentKbps = this.calculateCurrentKbps();
+			}
+
+			if (this.shiftable) {
+				this.shiftIfNecessary();
+			}
+		}
+	}, {
+		key: 'shiftIfNecessary',
+		value: function shiftIfNecessary() {
+			var encodings = this.driver.data.encodings;
+			var currentEncoding = encodings[this.driver.currentLevel];
+
+			var suggestedEncoding = encodings[0];
+			var chosenI = 0;
+			for (var i = 0; i < encodings.length; i++) {
+				if (encodings[i].videoKbps + encodings[i].audioKbps < this.currentKbps) {
+					suggestedEncoding = encodings[i];
+					chosenI = i;
+				} else {
+					break;
+				}
+			}
+
+			if (this.switchImmediately) {
+				this.switchBitrate(suggestedEncoding);
+				this.switchImmediately = false;
+				_logger2.default.debug('pick first adaptive encoding', suggestedEncoding);
+				return;
+			}
+
+			if (!currentEncoding || currentEncoding.videoKbps === suggestedEncoding.videoKbps) {
+				return;
+			}
+
+			suggestedEncoding.kbps = suggestedEncoding.videoKbps + suggestedEncoding.audioKbps;
+			currentEncoding.kbps = currentEncoding.videoKbps + currentEncoding.audioKbps;
+
+			// Stiffness criteria
+			if (suggestedEncoding.kbps > currentEncoding.kbps) {
+				while (this.profile.resistUpshift(this.currentKbps, suggestedEncoding.kbps) && suggestedEncoding.kbps > currentEncoding.kbps) {
+					suggestedEncoding = encodings[--chosenI];
+					if (!suggestedEncoding || suggestedEncoding.kbps < currentEncoding.kbps) {
+						_logger2.default.debug('tried to upshift - too stiff');
+						return;
+					}
+				}
+
+				this.emit('upshift');
+			} else {
+				while (this.profile.resistDownshift(this.currentKbps, suggestedEncoding.kbps) && suggestedEncoding.kbps < currentEncoding.kbps) {
+					suggestedEncoding = encodings[++chosenI];
+					if (!suggestedEncoding || suggestedEncoding.kbps > currentEncoding.kbps) {
+						_logger2.default.debug('tried to downshift - too stiff');
+						return;
+					}
+				}
+
+				this.emit('downshift');
+			}
+
+			if (currentEncoding.videoKbps === suggestedEncoding.videoKbps) {
+				return;
+			}
+
+			_logger2.default.debug('switching bitrate', {
+				currentEncoding: currentEncoding,
+				suggestedEncoding: suggestedEncoding,
+				currentKbps: this.currentKbps
+			});
+
+			this.lastSwitch = window.performance.now();
+			this.selectedEncoding = suggestedEncoding;
+			this.switchBitrate(suggestedEncoding);
+			this.totalShifts++;
+		}
+	}, {
+		key: 'switchBitrate',
+		value: function switchBitrate(suggestedEncoding) {
+			this.emit('profile', {
+				estimatedKbps: this.currentKbps,
+				profile: this.profile
+			});
+			this.driver.setEncoding(suggestedEncoding);
+		}
+	}, {
+		key: 'calculateCurrentKbps',
+		value: function calculateCurrentKbps() {
+			var total = 0;
+			for (var i = 0; i < this.sampleBws.length; i++) {
+				total += this.sampleBws[i];
+			}
+
+			return total / this.sampleBws.length;
+		}
+	}, {
+		key: 'destroy',
+		value: function destroy() {
+			clearTimeout(this.spinTimeout);
+			clearTimeout(this.releaseEmergencyTimeout);
+			clearInterval(this.estimatedKbpsInterval);
+			this.destroyed = true;
+			if (this.player) {
+				this.player.removeListener('fragment', this.onMessage);
+			}
+		}
+	}, {
+		key: 'shiftable',
+		get: function get() {
+			return this.totalShifts < this.maxShifts && this.sampleBws.length > MIN_SAMPLE_SIZE && window.performance.now() - this.lastSwitch > this.switchThreshold;
+		}
+	}]);
+
+	return AbrController;
+}(_events2.default);
+
+exports.default = AbrController;
+},{"@livelyvideo/player-core/lib/logger":23,"events":54}],45:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7630,7 +8354,7 @@ exports.default = function (blob, cb) {
 	};
 	reader.readAsArrayBuffer(blob);
 };
-},{}],43:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -7638,8 +8362,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
 var _baseDriver = require('@livelyvideo/player-core/lib/base-driver');
 
@@ -7661,13 +8383,9 @@ var _errors = require('@livelyvideo/player-core/lib/errors');
 
 var _errors2 = _interopRequireDefault(_errors);
 
-var _lodash = require('lodash.noop');
+var _player = require('./player');
 
-var _lodash2 = _interopRequireDefault(_lodash);
-
-var _blobToArrayBuffer = require('./blob-to-array-buffer');
-
-var _blobToArrayBuffer2 = _interopRequireDefault(_blobToArrayBuffer);
+var _player2 = _interopRequireDefault(_player);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7675,9 +8393,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-param-reassign */
 
-var BOX_NAMES = ['moof', 'mfhd'];
+// const REESTABLISH_CONNECTION_TIMER = 500; // ms to reestablish a ws connection before determining if error is fatal
+var ACCEPTABLE_MODES = ['A', 'B', 'N'];
+// const BACK_OFF = [0, 1000, 2000, 5000, 25000];
 
 /**
  * @class MediaSourceMp4Driver
@@ -7687,7 +8407,7 @@ var MediaSourceMp4Driver = function (_BaseDriver) {
 	_inherits(MediaSourceMp4Driver, _BaseDriver);
 
 	/**
-  * @param {object} livelyPlayer Lively video object
+  * @param {object} livelyPlayer all in wonder object
   * @param {object} mediaLoader media loader object
   * @param {object[]} [options]
   * @param {number} [options[].bitrate] attempts to find and use the bitrate nearest to this value
@@ -7704,20 +8424,14 @@ var MediaSourceMp4Driver = function (_BaseDriver) {
 
 		var _this = _possibleConstructorReturn(this, (MediaSourceMp4Driver.__proto__ || Object.getPrototypeOf(MediaSourceMp4Driver)).call(this, livelyPlayer, mediaLoader, options));
 
-		window.hackManifest = function (m) {
-			_this.hackedManifest = m;
-		};
-
-		if (!_this.options.bitrate) {
-			_this.options.bitrate = _this.options.estimatedKbps;
-		}
+		_this.currentManifest = null;
 
 		if (!_this.options.mse) {
 			_this.options.mse = {};
 		}
 
-		if (!_this.options.mse.backFill || isNaN(_this.options.mse.backFill) || _this.options.mse.backFill < 0 || _this.options.mse.backFill > 10000) {
-			_this.options.mse.backFill = 0;
+		if (!_this.options.mse.backFill || isNaN(_this.options.mse.backFill) || _this.options.mse.backFill < 0 || _this.options.mse.backFill > 10) {
+			_this.options.mse.backFill = 2;
 		}
 
 		if (!_this.options.mse.maxGap || isNaN(_this.options.mse.maxGap) || _this.options.mse.maxGap < 0 || _this.options.mse.maxGap > 10000) {
@@ -7732,110 +8446,153 @@ var MediaSourceMp4Driver = function (_BaseDriver) {
 			// seconds of buffer required for play to start
 			_this.options.mse.requiredBuffer = 1;
 		}
+
+		if (!_this.options.mse.initFailTimeout || isNaN(_this.options.mse.initFailTimeout) || _this.options.mse.initFailTimeout < 0) {
+			_this.options.mse.initFailTimeout = 30000;
+		}
+
+		if (!_this.options.mse.playbackFailTimeout || isNaN(_this.options.mse.playbackFailTimeout) || _this.options.mse.playbackFailTimeout < 0) {
+			_this.options.mse.playbackFailTimeout = 60000;
+		}
+
+		if (!_this.options.mse.mode || ACCEPTABLE_MODES.indexOf(_this.options.mse.mode) === -1) {
+			_this.options.mse.mode = 'B';
+		}
 		// seconds of buffer required before removing buffer
 		_this.options.mse.requiredBufferBeforeRemove = _this.options.mse.requiredBuffer;
 		// ms interval to check current time against buffer and skip forward
 		_this.options.mse.skipWatchInterval = Math.floor(_this.options.mse.requiredBuffer * 400);
 		// seconds behind end of buffer before skipping forward to end of buffer - this.options.mse.requiredBuffer
-		_this.options.mse.skipForwardThreshold = Math.floor(_this.options.mse.requiredBuffer * 6);
+		_this.options.mse.skipForwardThreshold = 25;
+		// download each playback attempt
+		_this.options.mse.download = !!_this.options.mse.download;
+		// adaptive, max shifts
+		if (isNaN(_this.options.mse.maxShifts)) {
+			_this.options.mse.maxShifts = Infinity;
+		}
 
-		_this.offlineInterval = null;
-
-		_this.volumeValue = _this.options.volume;
-		_this.mutedValue = _this.options.muted;
+		_this.seekingOverHole = false;
+		_this.activeEncoding = null;
 		_this.render();
-		_this.gcInterval = null;
-		_this.queue = [];
-		_this.buffering = false;
-		_this.currentSegmentNumber = null;
 		return _this;
 	}
 
 	_createClass(MediaSourceMp4Driver, [{
-		key: 'render',
-
-
-		/**
-   * Renders video tag and attaches all relevant listeners
-   * @return {void}
-   */
-		value: function render() {
+		key: 'handleBufferOverholeSeeking',
+		value: function handleBufferOverholeSeeking() {
 			var _this2 = this;
+
+			var seekTo = function seekTo(targetTime) {
+				_this2.seekingOverHole = true;
+				setTimeout(function () {
+					_this2.seekingOverHole = false;
+
+					_logger2.default.debug(_events2.default.SEEK_OVER_HOLE, {
+						currentTime: _this2.el.currentTime,
+						nextBufferStart: _this2.nextBufferStart,
+						currentBufferEnd: _this2.currentBufferEnd
+					});
+
+					_this2.emit(_events2.default.SEEK_OVER_HOLE, {
+						currentBufferEnd: _this2.currentBufferEnd,
+						nextBufferStart: _this2.nextBufferStart
+					});
+
+					if (!isNaN(targetTime)) {
+						_this2.el.currentTime = targetTime;
+					}
+				}, Math.max(Math.floor((_this2.currentBufferEnd - _this2.el.currentTime) * 1000) - 50, 1));
+			};
+
+			if (this.el.currentTime > 0 && this.el.currentTime >= this.currentBufferEnd - 0.025 && this.el.currentTime < this.nextBufferStart && !this.seekingOverHole) {
+				seekTo(this.nextBufferStart);
+			}
+
+			if (this.currentBufferEnd === 0 && this.nextBufferStart === 0 && this.lastBufferStart > this.el.currentTime) {
+				seekTo(this.lastBufferStart);
+			}
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var _this3 = this;
 
 			this.el = document.createElement('video');
 			this.el.setAttribute('class', 'aiw-video');
-
 			if (this.options.posterURI) {
 				this.el.setAttribute('poster', this.options.posterURI);
 			}
 			this.livelyPlayer.el.appendChild(this.el);
 
-			this.el.addEventListener('stall', function () {
-				_logger2.default.warn('playback stalled');
-				_this2.emit('stall');
+			this.el.addEventListener('timeupdate', function () {
+				_this3.handleBufferOverholeSeeking();
+				_this3.emitTimeupdate();
 			});
 
 			this.el.addEventListener('progress', function () {
-				_this2.emitProgress();
+				_this3.emitProgress();
+			});
+
+			this.el.addEventListener('error', function (e) {
+				switch (e.target.code) {
+					case 1:
+						_this3.emit('error', 'media-error', {
+							code: e.target.code,
+							description: 'MEDIA_ERR_ABORTED',
+							fatal: true
+						});
+						break;
+					case 2:
+						_this3.emit('error', 'media-error', {
+							code: e.target.code,
+							description: 'MEDIA_ERR_NETWORK',
+							fatal: true
+						});
+						break;
+					case 3:
+						_this3.emit(_events2.default.ERROR, _errors2.default.DRIVER_NOT_SUPPORTED, {
+							description: 'MEDIA_ERR_DECODE',
+							fatal: true
+						});
+						break;
+					case 4:
+						_this3.emit(_events2.default.ERROR, _errors2.default.DRIVER_NOT_SUPPORTED, {
+							description: 'MEDIA_ERR_SRC_NOT_SUPPORTED',
+							fatal: true
+						});
+						break;
+					default:
+						_this3.emit(_events2.default.ERROR, _errors2.default.DRIVER_NOT_SUPPORTED, {
+							description: 'unknown element error',
+							fatal: true
+						});
+				}
 			});
 
 			// when video pauses, check if offline and cleanup
 			this.el.addEventListener('pause', function () {
-				if (_this2.mediaLoader.currentState === _events2.default.OFFLINE) {
-					_this2.stop();
+				if (_this3.mediaLoader.currentState === _events2.default.OFFLINE) {
+					_this3.stop();
 				}
 			});
-			this.el.volume = this.volumeValue;
-			this.el.muted = this.mutedValue;
+			this.el.volume = this.options.volume;
+			this.el.muted = this.options.muted;
 		}
 
 		/**
-   * rerender as part of stop/start garbage collection.
-   * @return {void}
+   * returns true if browser supports native mp4
+   * @return {Boolean}
    */
 
 	}, {
-		key: 'rerender',
-		value: function rerender() {
-			this.volumeValue = this.el.volume;
-			this.mutedValue = this.el.muted;
-			this.el.remove();
-			this.render();
-		}
-
-		/** returns the media loader data
-   * @param {String} [format]
-   * @return {string}
-   */
-
-	}, {
-		key: 'getData',
-		value: function getData(format) {
-			return this.mediaLoader.get(format || this.format);
-		}
-
-		/**
-   * @param {number} bitrate
-   * @return {void}
-   */
-
-	}, {
-		key: 'pickEncoding',
-
-
-		/**
-   * @param {number} [bitrate] bitrate, defaults to options.bitrate || options.estimatedKbps
-   * @return {object} encoding object
-   */
-		value: function pickEncoding() {
-			var bitrate = this.options.bitrate || this.options.estimatedKbps;
+		key: 'getLevelForBitrate',
+		value: function getLevelForBitrate(bitrate) {
 			var encodings = this.data.encodings;
 
 			if (!encodings.length) {
 				return null;
 			}
 
-			// Pick the encoding based on estimated encodings
 			var i = void 0;
 			for (i = 0; i < encodings.length; i++) {
 				if (!encodings[i].videoWidth) {
@@ -7846,7 +8603,283 @@ var MediaSourceMp4Driver = function (_BaseDriver) {
 				}
 			}
 			i = Math.max(i - 1, 0);
-			return encodings[i];
+			return i;
+		}
+	}, {
+		key: 'pickEncoding',
+
+
+		/**
+   * @param {number} [bitrate] bitrate, defaults to options.bitrate || options.estimatedKbps
+   * @return {object} encoding object
+   */
+		value: function pickEncoding(bitrate) {
+			bitrate = bitrate || this.options.bitrate;
+			if (!bitrate) {
+				return null;
+			}
+
+			var encodings = this.data.encodings;
+
+			if (!encodings.length) {
+				return null;
+			}
+
+			return encodings[this.currentLevel];
+		}
+
+		/**
+   * calls to the transport to set the encoding
+   * @param {object} encodings
+   * @return {void}
+   */
+
+	}, {
+		key: 'setEncoding',
+		value: function setEncoding(encoding) {
+			if (this.activeEncoding && this.activeEncoding.videoKbps === encoding.videoKbps && this.activeEncoding.audioKbps === encoding.audioKbps) {
+				return;
+			}
+
+			this.activeEncoding = encoding;
+			var x = encoding.location.split('/');
+			this.player.switchBitrate(x[x.length - 1]);
+		}
+
+		/**
+   * @param {number} bitrate
+   * @return {void}
+   */
+
+	}, {
+		key: 'switchBitrate',
+		value: function switchBitrate(bitrate) {
+			var _this4 = this;
+
+			this.options.origin = false;
+			this.options.bitrate = bitrate;
+
+			if (!bitrate) {
+				this.options.bitrate = null;
+				this.stop(function () {
+					_this4.play();
+				});
+				return;
+			}
+			this.setEncoding(this.pickEncoding(bitrate));
+		}
+	}, {
+		key: 'addSessionKey',
+		value: function addSessionKey(l) {
+			var delimiter = l.indexOf('?') === -1 ? '?' : '&';
+			l += delimiter + 'sid=' + _logger2.default.sessionKey;
+			return l;
+		}
+	}, {
+		key: 'destroy',
+
+
+		/**
+   * destroys the driver
+   * @return {void}
+   */
+		value: function destroy() {
+			this.stop();
+			this.el.remove();
+		}
+	}, {
+		key: 'pause',
+		value: function pause() {
+			this.stop();
+		}
+	}, {
+		key: 'stop',
+		value: function stop(cb) {
+			var _this5 = this;
+
+			this.playbackLock = false;
+			clearInterval(this.nudgeInterval);
+			if (!this.player) {
+				if (cb) {
+					cb();
+				}
+				return;
+			}
+			this.player.destroy(function () {
+				for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+					args[_key] = arguments[_key];
+				}
+
+				_this5.player = null;
+				if (cb) {
+					cb.apply(cb, args);
+				}
+			});
+		}
+
+		/**
+   * @param {function} [cb]
+   */
+
+	}, {
+		key: 'play',
+		value: function play(cb) {
+			var _this6 = this;
+
+			if (this.playbackLock) {
+				return;
+			}
+
+			this.playbackLock = true;
+			this.elementPlay();
+			if (this.player) {
+				this.player.play(cb);
+				return;
+			}
+
+			this.whenReady(function () {
+				clearInterval(_this6.nudgeInterval);
+				_this6.nudgeTime = null;
+				var nudges = 0;
+				_this6.nudgeInterval = setInterval(function () {
+					if (!_this6.livelyPlayer.tryingToPlay || _this6.el.currentTime === 0) {
+						return;
+					}
+
+					if (_this6.nudgeTime && _this6.el.currentTime === _this6.nudgeTime && (!_this6.lastBufferEnd || _this6.el.currentTime < _this6.lastBufferEnd)) {
+						_logger2.default.debug('playback halted, nudging');
+						nudges++;
+						_this6.el.currentTime = _this6.el.currentTime + 0.1;
+						var p = _this6.el.play();
+						if (typeof Promise !== 'undefined' && p instanceof Promise) {
+							p.catch(function () {
+								// its ok, it didn't work out this time
+							});
+						}
+					} else {
+						nudges = 0;
+						_this6.nudgeTime = _this6.el.currentTime;
+					}
+
+					if (nudges > 29) {
+						clearInterval(_this6.nudgeInterval);
+						_this6.reloadAndRestart();
+					}
+				}, 500);
+
+				if (_this6.player) {
+					_this6.player.destroy();
+				}
+				_this6.player = new _player2.default(_this6, _this6.options);
+				_this6.upshift = 0;
+				_this6.downshift = 0;
+				_this6.currentErrorCount = 0;
+				_this6.fragCounts = 0;
+				_this6.fragSize = 0;
+				_this6.fragFetchTime = 0;
+				_this6.fragMaxTime = 0;
+				_this6.fragMinTime = 0;
+
+				_this6.player.on('upshift', function () {
+					_this6.upshift++;
+				});
+
+				_this6.player.on('downshift', function () {
+					_this6.downshift++;
+				});
+
+				_this6.player.on('fragment', function (data) {
+					_this6.fragCounts++;
+					_this6.fragSize += data.size;
+					_this6.fragFetchTime += data.fetchTime;
+					_this6.fragMaxTime = Math.max(_this6.fragMaxTime, data.fetchTime);
+					_this6.fragMinTime = Math.min(_this6.fragMinTime || data.fetchTime, data.fetchTime);
+				});
+
+				_this6.player.on('error', function (e, data) {
+					_this6.currentErrorCount++;
+					_this6.emit(e, data);
+					if (data.fatal) {
+						_this6.reloadAndRestart();
+					}
+				});
+				_this6.player.play(cb);
+			});
+		}
+	}, {
+		key: 'lastBufferEnd',
+		get: function get() {
+			if (!this.sourceBuffer || !this.sourceBuffer.buffered.length) {
+				return 0;
+			}
+
+			return this.sourceBuffer.buffered.end(this.sourceBuffer.buffered.length - 1);
+		}
+	}, {
+		key: 'lastBufferStart',
+		get: function get() {
+			if (!this.sourceBuffer || !this.sourceBuffer.buffered.length) {
+				return 0;
+			}
+
+			return this.sourceBuffer.buffered.start(this.sourceBuffer.buffered.length - 1);
+		}
+	}, {
+		key: 'nextBufferStart',
+		get: function get() {
+			if (!this.sourceBuffer) {
+				return 0;
+			}
+
+			for (var i = 0; i < this.sourceBuffer.buffered.length; i++) {
+				var b = this.sourceBuffer.buffered;
+
+				if (this.el.currentTime >= b.start(i) && this.el.currentTime <= b.end(i)) {
+					if (this.sourceBuffer.buffered.length > i + 1) {
+						return this.sourceBuffer.buffered.start(i + 1);
+					}
+					return this.sourceBuffer.buffered.end(i);
+				}
+			}
+			return 0;
+		}
+	}, {
+		key: 'currentBufferEnd',
+		get: function get() {
+			if (!this.sourceBuffer || !this.sourceBuffer.buffered.length) {
+				return 0;
+			}
+
+			for (var i = 0; i < this.sourceBuffer.buffered.length; i++) {
+				if (this.el.currentTime >= this.sourceBuffer.buffered.start(i) && this.el.currentTime <= this.sourceBuffer.buffered.end(i)) {
+					return this.sourceBuffer.buffered.end(i);
+				}
+			}
+			return 0;
+		}
+	}, {
+		key: 'currentLevel',
+		get: function get() {
+			if (this.options.bitrate) {
+				return this.getLevelForBitrate(this.options.bitrate);
+			}
+
+			if (!this.activeEncoding) {
+				return this.getLevelForBitrate(this.options.estimatedKbps);
+			}
+
+			return this.getLevelForBitrate(this.activeEncoding.videoKbps + this.activeEncoding.audioKbps);
+		}
+	}, {
+		key: 'originLocation',
+		get: function get() {
+			var o = this.origin;
+
+			if (!o) {
+				return null;
+			}
+
+			return this.addSessionKey(o.location);
 		}
 
 		/**
@@ -7856,368 +8889,48 @@ var MediaSourceMp4Driver = function (_BaseDriver) {
 
 	}, {
 		key: 'manifest',
-		value: function manifest(overrideSegment) {
-			if (this.hackedManifest) {
-				return this.hackedManifest;
+		get: function get() {
+			var l = void 0;
+
+			if (this.options.origin) {
+				l = this.originLocation;
+				if (!l) {
+					this.options.origin = false;
+					return this.manifest;
+				}
+			} else {
+				var d = this.data;
+				if (!d.encodings.length) {
+					var o = this.originLocation;
+					if (o) {
+						this.options.origin = true;
+					}
+					return o;
+				}
+
+				var e = this.pickEncoding(this.options.bitrate || this.options.estimatedKbps);
+
+				if (!e) {
+					return null;
+				}
+
+				l = e.location;
 			}
 
-			var e = this.pickEncoding();
-
-			if (!e) {
+			if (!l) {
 				return null;
 			}
 
-			if (overrideSegment) {
-				e.location += '?seq=' + overrideSegment;
-			} else if (overrideSegment !== null && this.currentSegmentNumber) {
-				e.location += '?seq=' + (this.currentSegmentNumber + 1);
-			}
-
-			return e.location;
-		}
-
-		/**
-   * destroys the driver
-   * @return {void}
-   */
-
-	}, {
-		key: 'destroy',
-		value: function destroy() {
-			this.shutdown();
-			if (this.el) {
-				this.el.remove();
-			}
-		}
-
-		/**
-   * append (or remove) next buffer from the queue
-   * @return {void}
-   */
-
-	}, {
-		key: 'appendBuffer',
-		value: function appendBuffer() {
-			var _this3 = this;
-
-			if (this.buffering) {
-				return;
-			}
-
-			var op = this.queue.shift();
-			if (!op) {
-				return;
-			}
-
-			this.buffering = true;
-			if (op.type === 'remove') {
-				if (this.sourceBuffer.buffered.length && this.sourceBuffer.buffered.end(0) - this.el.currentTime > this.options.mse.requiredBufferBeforeRemove) {
-					_logger2.default.debug('remove buffer', op.start + '-' + op.end, 'buffered until ' + this.sourceBuffer.buffered.end(0));
-					if (this.sourceBuffer) {
-						this.sourceBuffer.remove(op.start, op.end);
-					}
-				} else {
-					this.buffering = false;
-				}
-			} else if (this.sourceBuffer) {
-				(0, _blobToArrayBuffer2.default)(op.blob, function (ab) {
-					if (!_this3.sourceBuffer) {
-						return;
-					}
-					_this3.currentSegmentNumber = _this3.getSegmentNumber(ab);
-					_this3.sourceBuffer.appendBuffer(ab);
-				});
-			} else {
-				this.restart();
-			}
-		}
-
-		/**
-   * restart playback
-   * @return {void}
-   */
-
-	}, {
-		key: 'restart',
-		value: function restart() {
-			var _this4 = this;
-
-			if (this.lockRestart) {
-				return;
-			}
-			this.lockRestart = true;
-			this.currentErrorCount = 0;
-			this.recentErrorCount = 0;
-			this.stop(function () {
-				_this4.whenReady(function () {
-					_this4.connect(null, null);
-					_this4.lockRestart = false;
-				});
-			});
-		}
-	}, {
-		key: 'whenReady',
-		value: function whenReady(cb) {
-			var _this5 = this;
-
-			if (this.ms) {
-				_get(MediaSourceMp4Driver.prototype.__proto__ || Object.getPrototypeOf(MediaSourceMp4Driver.prototype), 'whenReady', this).call(this, cb);
-				return;
-			}
-
-			this.ms = new window.MediaSource();
-			_get(MediaSourceMp4Driver.prototype.__proto__ || Object.getPrototypeOf(MediaSourceMp4Driver.prototype), 'whenReady', this).call(this, function () {
-				_this5.ms.addEventListener('sourceopen', function () {
-					_this5.sourceBuffer = _this5.ms.addSourceBuffer('video/mp4; codecs="avc1.4d4028, mp4a.40.2"');
-
-					var lastDuration = _this5.el.currentTime;
-					_this5.sourceBuffer.addEventListener('update', function () {
-						_this5.emit('bufferAppended');
-
-						var duration = _this5.el.currentTime - lastDuration;
-						if (duration !== lastDuration) {
-							_logger2.default.debug('source buffer updated', 'current time', _this5.el.currentTime, 'fragment duration', duration);
-						} else {
-							_logger2.default.debug('source buffer updated', 'current time', _this5.el.currentTime);
-						}
-
-						_this5.buffering = false;
-						_this5.appendBuffer();
-					});
-
-					_this5.sourceBuffer.addEventListener('error', function (err) {
-						_logger2.default.error('sourcebuffer error', err);
-						_this5.restart();
-					});
-					if (cb) {
-						cb();
-					}
-				});
-			});
-
-			this.el.src = window.URL.createObjectURL(this.ms);
-		}
-	}, {
-		key: 'pause',
-		value: function pause() {
-			this.stop();
-		}
-	}, {
-		key: 'shutdown',
-		value: function shutdown(inputCb) {
-			var cb = inputCb || _lodash2.default;
-			this.resetCounts();
-			clearInterval(this.progressInterval);
-			clearInterval(this.gcInterval);
-			this.el.pause();
-			delete this.ms;
-			delete this.sourceBuffer;
-			this.currentSegmentNumber = null;
-			if (this.ws) {
-				this.ws.onclose = null;
-				this.ws.close();
-				this.ws = null;
-				cb();
-			}
-		}
-	}, {
-		key: 'stop',
-		value: function stop(cb) {
-			this.shutdown(cb);
-			this.rerender();
-		}
-
-		/**
-   * parse out current segment number from skip boxes
-   * @return {int} current segment number
-   */
-
-	}, {
-		key: 'getSegmentNumber',
-		value: function getSegmentNumber(ab) {
-			var dv = new DataView(ab);
-			var boxSize = 0;
-			var i = 0;
-			var j = 0;
-			var len = ab.byteLength;
-
-			for (i = 0; i < len && j < BOX_NAMES.length;) {
-				boxSize = dv.getUint32(i);
-				// step into box
-				if (String.fromCharCode(dv.getUint8(i + 4)) === BOX_NAMES[j].charAt(0) && String.fromCharCode(dv.getUint8(i + 5)) === BOX_NAMES[j].charAt(1) && String.fromCharCode(dv.getUint8(i + 6)) === BOX_NAMES[j].charAt(2) && String.fromCharCode(dv.getUint8(i + 7)) === BOX_NAMES[j].charAt(3)) {
-					len = i + boxSize;
-					j++;
-					i += 8; // works only for Box, not for extended box
-				} else {
-					i += boxSize;
-				}
-			}
-
-			// we found it
-			if (j === BOX_NAMES.length) {
-				return dv.getUint32(i + 4);
-			}
-			return null;
-		}
-
-		/**
-   * set up websocket connection
-   */
-
-	}, {
-		key: 'connect',
-		value: function connect(inputCb, overrideSegment) {
-			var _this6 = this;
-
-			if (this.ws) {
-				return;
-			}
-
-			var cb = inputCb || _lodash2.default;
-			// set up connect, pass first message to cb, handle the rest similarly
-			var setupConnection = function setupConnection() {
-				var m = _this6.manifest(overrideSegment);
-				_logger2.default.debug('set up websocket connection', m);
-				_this6.ws = new window.WebSocket(m);
-
-				_this6.ws.onerror = function () {
-					setTimeout(function () {
-						if (_this6.ws.readyState === 1) {
-							_this6.emit(_events2.default.ERROR, _errors2.default.WS_NETWORK_ERROR, { fatal: false });
-						} else {
-							_this6.emit(_events2.default.ERROR, _errors2.default.WS_CONNECTION, { fatal: true });
-						}
-					}, _this6.options.mse.requiredBuffer);
-				};
-
-				_this6.ws.onclose = function () {
-					setupConnection();
-				};
-
-				// Watch for video falling behind because of bandwidth problems and skip user forward
-				_this6.progressInterval = setInterval(function () {
-					if (_this6.el.paused || !_this6.sourceBuffer || !_this6.sourceBuffer.buffered.length || !_this6.el.currentTime) {
-						return;
-					}
-
-					var endOfBuffer = _this6.sourceBuffer.buffered.end(_this6.sourceBuffer.buffered.length - 1);
-					if (endOfBuffer - _this6.el.currentTime > _this6.options.mse.skipForwardThreshold) {
-						_logger2.default.error('skipping forward - current time', _this6.el.currentTime, 'end of buffer', endOfBuffer);
-						_this6.el.currentTime = endOfBuffer - _this6.options.mse.requiredBuffer;
-						_this6.el.play();
-					}
-				}, _this6.options.mse.skipWatchInterval);
-
-				// Attach a destroy closure to the ws object for cleanup
-				var destroyed = false;
-				_this6.ws.destroy = function () {
-					destroyed = true;
-					_this6.queue = [];
-					_this6.buffering = false;
-				};
-
-				// handle websocket messages
-				// if not destroyed, parse to array buffer, extract segment number, push onto queue
-				var lastMessage = window.performance.now();
-				_this6.ws.onmessage = function (ev) {
-					if (destroyed) {
-						return;
-					}
-
-					var diff = window.performance.now() - lastMessage;
-					if (diff > 500) {
-						_logger2.default.warn('long segment wait', diff, ev.data.size);
-					} else {
-						_logger2.default.debug('segment wait', diff, ev.data.size);
-					}
-
-					_this6.fragCounts++;
-					_this6.fragSize += ev.data.size;
-					_this6.fragDownloadTime += diff;
-					_this6.fragMaxTime = Math.max(_this6.fragMaxTime, diff);
-					_this6.fragMinTime = Math.min(_this6.fragMinTime || diff, diff);
-
-					lastMessage = window.performance.now();
-					_this6.queue.push({
-						type: 'append',
-						blob: ev.data
-					});
-
-					_this6.appendBuffer();
-					if (cb) {
-						cb();
-						cb = _lodash2.default;
-					}
-				};
-
-				// clean up irrelevant video buffer
-				clearInterval(_this6.gcInterval);
-				_this6.gcInterval = setInterval(function () {
-					_this6.queue.push({
-						type: 'remove',
-						start: 0,
-						end: _this6.el.currentTime - 30
-					});
-				}, 30 * 1000);
-
-				// start playback
-				_this6.once('bufferAppended', function () {
-					var setTime = function setTime() {
-						setTimeout(function () {
-							if (!_this6.sourceBuffer.buffered.length || _this6.sourceBuffer.buffered.end(0) - _this6.sourceBuffer.buffered.start(0) < _this6.options.mse.requiredBuffer) {
-								setTimeout(setTime.bind(_this6), 20);
-							} else {
-								_this6.el.currentTime = _this6.sourceBuffer.buffered.start(0);
-								_this6.el.play();
-							}
-							cb();
-						}, 50);
-					};
-					setTime();
-				});
-			};
-
-			setupConnection();
-		}
-
-		/**
-   * @param {function} [cb]
-   */
-
-	}, {
-		key: 'play',
-		value: function play(inputCb) {
-			var _this7 = this;
-
-			var cb = inputCb || _lodash2.default;
-			if (_detect2.default.any()) {
-				this.el.play();
-			}
-			this.whenReady(function () {
-				_this7.connect();
-				cb(true);
-			});
-		}
-	}, {
-		key: 'bitrate',
-		set: function set(bitrate) {
-			this.options.bitrate = bitrate;
-			this.restart();
-			/**
-   const x = this.pickEncoding(bitrate).location.split('/');
-   this.ws.send('switch_stream?name=' + x[x.length - 1] + '&mode=B&bckfil=0&retry=20&mxgap=500');
-   **/
+			return this.addSessionKey(l);
 		}
 	}], [{
 		key: 'isSupported',
-
-
-		/**
-   * returns true if browser supports native mp4
-   * @return {Boolean}
-   */
 		value: function isSupported() {
-			return window.WebSocket && window.MediaSource && window.MediaSource.isTypeSupported('video/mp4; codecs="avc1.42E01E,mp4a.40.2"');
+			if (_detect2.default.chrome() && !_detect2.default.chromeGreater50()) {
+				return false;
+			}
+
+			return window.WebSocket && window.MediaSource && window.MediaSource.isTypeSupported('video/mp4; codecs="avc1.4d4028,mp4a.40.2"');
 		}
 	}, {
 		key: 'driver',
@@ -8235,7 +8948,642 @@ var MediaSourceMp4Driver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = MediaSourceMp4Driver;
-},{"./blob-to-array-buffer":42,"@livelyvideo/player-core/lib/base-driver":15,"@livelyvideo/player-core/lib/detect":16,"@livelyvideo/player-core/lib/errors":17,"@livelyvideo/player-core/lib/events":18,"@livelyvideo/player-core/lib/logger":21,"lodash.noop":52}],44:[function(require,module,exports){
+},{"./player":47,"@livelyvideo/player-core/lib/base-driver":17,"@livelyvideo/player-core/lib/detect":18,"@livelyvideo/player-core/lib/errors":19,"@livelyvideo/player-core/lib/events":20,"@livelyvideo/player-core/lib/logger":23}],47:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
+var _transport = require('./transport');
+
+var _transport2 = _interopRequireDefault(_transport);
+
+var _abrController = require('./abr-controller');
+
+var _abrController2 = _interopRequireDefault(_abrController);
+
+var _logger = require('@livelyvideo/player-core/lib/logger');
+
+var _logger2 = _interopRequireDefault(_logger);
+
+var _blobToArrayBuffer = require('./blob-to-array-buffer');
+
+var _blobToArrayBuffer2 = _interopRequireDefault(_blobToArrayBuffer);
+
+var _storageValues = require('@livelyvideo/player-core/lib/storage-values');
+
+var _storageValues2 = _interopRequireDefault(_storageValues);
+
+var _detect = require('@livelyvideo/player-core/lib/detect');
+
+var _detect2 = _interopRequireDefault(_detect);
+
+var _errors = require('@livelyvideo/player-core/lib/errors');
+
+var _errors2 = _interopRequireDefault(_errors);
+
+var _events3 = require('@livelyvideo/player-core/lib/events');
+
+var _events4 = _interopRequireDefault(_events3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-param-reassign */
+
+
+var Player = function (_EventEmitter) {
+	_inherits(Player, _EventEmitter);
+
+	function Player(driver, options) {
+		_classCallCheck(this, Player);
+
+		var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this));
+
+		_this.livelyPlayer = driver.livelyPlayer;
+		_this.mediaLoader = driver.mediaLoader;
+		_this.driver = driver;
+		_this.options = options;
+		_this.el = _this.driver.el;
+
+		_this.buffering = false;
+		_this.queue = [];
+		_this.sourceBuffers = [];
+
+		// set up the ABR Controller
+		if (!_this.options.bitrate) {
+			_this.abrController = new _abrController2.default(_this, _this.driver, _this.livelyPlayer.store.get(_storageValues2.default.profile), false, _this.driver.options.mse.maxShifts);
+			_this.abrController.on('profile', function (data) {
+				var ttl = _detect2.default.any() ? 6 * 1000 * 60 * 60 : 1000 * 60 * 60 * 24 * 60;
+
+				_this.livelyPlayer.store.set(_storageValues2.default.estimatedKbps, data.estimatedKbps, ttl);
+				_this.livelyPlayer.store.set(_storageValues2.default.profile, data.profile.key, ttl);
+			});
+
+			_this.abrController.on('upshift', function () {
+				_this.emit('upshift');
+			});
+
+			_this.abrController.on('downshift', function () {
+				_this.emit('downshift');
+			});
+		}
+
+		var e = void 0;
+		if (_this.options.origin) {
+			e = _this.driver.data.origin;
+		} else {
+			e = _this.driver.pickEncoding();
+		}
+
+		if (!e && _this.driver.data.encodings.length) {
+			e = _this.driver.data.encodings[0];
+		}
+		_this.encoding = e;
+
+		_this.setupMSE();
+		return _this;
+	}
+
+	_createClass(Player, [{
+		key: 'appendBuffer',
+		value: function appendBuffer() {
+			var _this2 = this;
+
+			if (this.buffering) {
+				return;
+			}
+
+			var wait = function wait() {
+				_this2.buffering = true;
+				setTimeout(function () {
+					_this2.buffering = false;
+					_this2.appendBuffer();
+				}, 20);
+			};
+
+			if (!this.ms.readyState) {
+				wait();
+				return;
+			}
+
+			var op = this.queue.shift();
+
+			if (!op) {
+				wait();
+				return;
+			}
+
+			this.buffering = true;
+			if (op.type === 'remove') {
+				_logger2.default.debug('remove buffer', op.start + '-' + op.end + ' buffered until ' + op.sb.buffered.end(0));
+				op.sb.remove(op.start, op.end);
+			} else {
+				(0, _blobToArrayBuffer2.default)(op.blob, function (ab) {
+					var currentSegmentInfo = _this2.transport.getSegmentInfo(ab);
+
+					// backwards compat
+					if (_this2.version === 1) {
+						currentSegmentInfo.contentTag = 0;
+					}
+
+					var sb = _this2.sourceBuffers[currentSegmentInfo.contentTag];
+
+					_this2.emit('fragment', {
+						size: op.blob.size,
+						time: op.time,
+						duration: 300
+					});
+
+					if (!sb) {
+						_this2.queue.unshift(op);
+						wait();
+						return;
+					}
+
+					sb.appendBuffer(ab);
+				});
+			}
+		}
+	}, {
+		key: 'newSourceBuffer',
+		value: function newSourceBuffer(mimetype) {
+			var _this3 = this;
+
+			if (!mimetype || !window.MediaSource.isTypeSupported(mimetype)) {
+				this.sourceBuffers.push(null);
+				return;
+			}
+
+			var sb = this.ms.addSourceBuffer(mimetype);
+			sb.mimetype = mimetype;
+			sb.addEventListener('updateend', function () {
+				_this3.buffering = false;
+				_this3.appendBuffer();
+
+				if (_this3.el.currentTime === 0 && _this3.el.buffered.length) {
+					if (_this3.el.buffered.end(_this3.el.buffered.length - 1) - _this3.el.buffered.start(0) > _this3.options.mse.requiredBuffer) {
+						_this3.el.currentTime = Math.max(_this3.el.buffered.end(_this3.el.buffered.length - 1) - _this3.options.mse.requiredBuffer, _this3.el.buffered.start(0));
+						var p = _this3.el.play();
+						if (typeof Promise !== 'undefined' && p instanceof Promise) {
+							p.catch(function () {
+								// its ok, it didn't work out this time
+							});
+						}
+					}
+				}
+				/** logs */
+				// this.sourceBuffers.forEach((sbl, k) => {
+				// 	if (!sbl) {
+				// 		return;
+				// 	}
+				// 	let out = `Buffers: ${k} ${this.el.currentTime} `;
+				// 	for (let i = 0; i < sbl.buffered.length; i++) {
+				// 		out += `${sbl.buffered.start(i)}-${sbl.buffered.end(i)} `;
+				// 	}
+				// 	// logger.info(out);
+				// });
+				// /** end logs*/
+			});
+			this.sourceBuffers.push(sb);
+		}
+	}, {
+		key: 'setupMSE',
+		value: function setupMSE() {
+			var _this4 = this;
+
+			this.ms = new window.MediaSource();
+
+			this.ms.addEventListener('error', function () {
+				// if it errors, its because of a fatal decoding error
+				_this4.emit(_events4.default.ERROR, _errors2.default.MEDIA_ERROR, {
+					fatal: true
+				});
+			});
+
+			this.ms.addEventListener('sourceopen', function () {
+				var e = _this4.encoding;
+
+				if (!e) {
+					_this4.emit(_events4.default.ERROR, _errors2.default.MEDIA_ERROR, { fatal: true });
+					return;
+				}
+
+				if (e && e.channels) {
+					_this4.version = 2;
+					e.channels.forEach(function (c) {
+						_this4.newSourceBuffer(c);
+					});
+				} else {
+					_this4.version = 1;
+					var o = _this4.driver.data.origin;
+					var mimetype = void 0;
+					if (_this4.options.origin && o && o.audioCodec !== 'aac' || !_this4.options.origin && _this4.driver.data.audioCodec !== 'aac') {
+						mimetype = 'video/mp4; codecs="avc1.4d4028"';
+					} else {
+						mimetype = 'video/mp4; codecs="avc1.4d4028, mp4a.40.2"';
+					}
+
+					_this4.newSourceBuffer(mimetype);
+				}
+			});
+
+			this.el.src = window.URL.createObjectURL(this.ms);
+		}
+	}, {
+		key: 'setupTransport',
+		value: function setupTransport() {
+			var _this5 = this;
+
+			var channelCount = this.encoding.channels && this.encoding.channels.length ? this.encoding.channels.length : 1;
+			this.transport = new _transport2.default(this.driver.manifest, this.options.mse.backFill, this.options.mse.maxGap, this.options.mse.retry, this.options.mse.mode, this.options.mse.download, this.options.mse.segmentDuration, channelCount);
+			this.transport.on('error', function () {
+				if (_this5.transport && _this5.transport.isDisconnected) {
+					_this5.emit(_events4.default.ERROR, _errors2.default.WS_NETWORK_ERROR, { fatal: false });
+				} else {
+					_this5.emit(_events4.default.ERROR, _errors2.default.WS_CONNECTION, { fatal: false });
+				}
+			});
+
+			this.transport.on('destroy', function () {
+				_this5.emit(_events4.default.ERROR, _errors2.default.WS_CONNECTION, { fatal: true });
+			});
+			this.transport.on('message', function (ev) {
+				_this5.queue.push({
+					type: 'append',
+					blob: ev.data,
+					time: ev.fetchTime
+				});
+				_this5.appendBuffer();
+			});
+		}
+	}, {
+		key: 'switchBitrate',
+		value: function switchBitrate(name) {
+			if (this.abrController) {
+				this.abrController.destroy();
+			}
+			this.transport.switchBitrate(name);
+		}
+	}, {
+		key: 'play',
+		value: function play(cb) {
+			var _this6 = this;
+
+			this.queue = [];
+			if (!this.transport) {
+				this.setupTransport();
+			}
+
+			this.gcInterval = setInterval(function () {
+				_this6.sourceBuffers.forEach(function (sb) {
+					_this6.queue.push({
+						type: 'remove',
+						sb: sb,
+						start: 0,
+						end: _this6.el.currentTime - 15
+					});
+				});
+			}, 30 * 1000);
+
+			var returnTrue = function returnTrue() {
+				_this6.el.removeEventListener('timeupdate', returnTrue);
+				clearTimeout(waitForPlay);
+				if (cb) {
+					cb(true);
+				}
+				cb = null;
+			};
+			this.el.addEventListener('timeupdate', returnTrue);
+
+			var waitForPlay = setTimeout(function () {
+				_this6.el.removeEventListener('timeupdate', returnTrue);
+				if (cb) {
+					cb(false);
+				}
+				cb = null;
+			}, 4000);
+			this.el.play();
+		}
+	}, {
+		key: 'stop',
+		value: function stop(cb) {
+			clearInterval(this.gcInterval);
+			this.transport.removeAllListeners('message');
+			this.buffering = false;
+			this.el.pause();
+			if (cb) {
+				cb();
+			}
+		}
+	}, {
+		key: 'destroy',
+		value: function destroy(cb) {
+			this.transport.removeAllListeners('error');
+			this.transport.removeAllListeners('destroy');
+			this.transport.removeAllListeners('message');
+			this.transport.destroy();
+
+			if (this.abrController) {
+				this.abrController.destroy();
+			}
+
+			this.stop(cb);
+		}
+	}]);
+
+	return Player;
+}(_events2.default);
+
+exports.default = Player;
+},{"./abr-controller":44,"./blob-to-array-buffer":45,"./transport":48,"@livelyvideo/player-core/lib/detect":18,"@livelyvideo/player-core/lib/errors":19,"@livelyvideo/player-core/lib/events":20,"@livelyvideo/player-core/lib/logger":23,"@livelyvideo/player-core/lib/storage-values":32,"events":54}],48:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _events = require('events');
+
+var _events2 = _interopRequireDefault(_events);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /* eslint-disable no-param-reassign */
+
+var BOX_NAMES = ['moof', 'mfhd'];
+var INIT_BOX = 'ftyp';
+
+function sFCC(dv, n) {
+	return String.fromCharCode(dv.getUint8(n));
+}
+
+function getContentTag(ab, dv) {
+	if (ab.byteLength < 9) {
+		return 1;
+	}
+
+	// last box should be skip
+	if (dv.getUint32(ab.byteLength - 5) !== 0x736b6970) {
+		return 1;
+	}
+	return dv.getUint8(ab.byteLength - 1);
+}
+
+var Latency = function Latency() {
+	_classCallCheck(this, Latency);
+
+	this.lastTime = window.performance.now();
+	this.lastSegmentTime = window.performance.now();
+	this.lastSegmentDuration = 0;
+};
+
+/**
+ * @class Transport
+ */
+
+
+var Transport = function (_EventEmitter) {
+	_inherits(Transport, _EventEmitter);
+
+	/**
+  * @param {string} websocket uri
+  * @param {int} backFill
+  * @param {int} maxGap
+  * @param {int} retry
+  */
+	function Transport(uri) {
+		var backFill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+		var maxGap = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 500;
+		var retry = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 20;
+		var mode = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'B';
+		var download = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
+		var segmentDuration = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : 300;
+		var channelCount = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : 1;
+
+		_classCallCheck(this, Transport);
+
+		var _this = _possibleConstructorReturn(this, (Transport.__proto__ || Object.getPrototypeOf(Transport)).call(this));
+
+		_this.uri = uri;
+		_this.backFill = backFill;
+		_this.maxGap = maxGap;
+		_this.retry = retry;
+		_this.mode = mode;
+		_this.segmentDuration = segmentDuration;
+		_this.saveToDownload = download;
+		_this.downloadedSegments = [];
+		_this.ws = new window.WebSocket(_this.uri + '&bckfil=' + _this.backFill);
+
+		_this.channelTracker = 0;
+		_this.channelLatency = [];
+		for (var i = 0; i < channelCount; i++) {
+			_this.channelLatency.push(new Latency());
+		}
+
+		_this.ws.onmessage = function (ev) {
+			if (_typeof(ev.data) === 'object') {
+				ev.fetchTime = window.performance.now() - _this.lastTime + 10;
+				ev.segmentDuration = _this.lastSegmentDuration || _this.segmentDuration;
+
+				_this.emit('message', ev);
+
+				_this.lastSegmentTime = window.performance.now();
+				if (_this.saveToDownload) {
+					_this.downloadedSegments.push(ev.data);
+				}
+
+				_this.nextChannel();
+			} else {
+				_this.lastTime = window.performance.now();
+				var currentSegmentDuration = parseInt(ev.data, 10);
+				_this.lastSegmentDuration = currentSegmentDuration < 2000 && currentSegmentDuration > 0 ? currentSegmentDuration : _this.segmentDuration;
+			}
+		};
+		_this.ws.onclose = function () {
+			_this.emit('close');
+			_this.emit('destroy');
+		};
+		_this.ws.onerror = function () {
+			for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+				args[_key] = arguments[_key];
+			}
+
+			_this.emit.apply(_this, ['error'].concat(args));
+		};
+		return _this;
+	}
+
+	_createClass(Transport, [{
+		key: 'nextChannel',
+		value: function nextChannel() {
+			this.channelTracker++;
+			if (this.channelLatency.length >= this.channelTracker) {
+				this.channelTracker = 0;
+			}
+		}
+	}, {
+		key: 'download',
+		value: function download() {
+			var a = document.createElement('a');
+			document.body.appendChild(a);
+			a.style = 'display: none';
+
+			var blob = new window.Blob(this.downloadedSegments, {
+				type: 'octet/stream'
+			});
+			var url = window.URL.createObjectURL(blob);
+			a.href = url;
+			a.download = 'blah.mp4';
+			a.click();
+			window.URL.revokeObjectURL(url);
+		}
+	}, {
+		key: 'getSegmentInfo',
+
+
+		// get latency () {
+		// 	if (!this.latencyCount) {
+		// 		return 0;
+		// 	}
+		// 	return this.latencySum / this.latencyCount * 0.75;
+		// }
+
+		/**
+   * parse out current segment number from skip boxes
+   * @return {int} current segment number
+   */
+		value: function getSegmentInfo(ab) {
+			var dv = new DataView(ab);
+
+			var contentTag = getContentTag(ab, dv);
+
+			var boxSize = 0;
+			var i = 0;
+			var j = 0;
+			var len = ab.byteLength;
+
+			var segmentNo = 0;
+			var init = false;
+
+			if ('' + sFCC(dv, 4) + sFCC(dv, 5) + sFCC(dv, 6) + sFCC(dv, 7) === INIT_BOX) {
+				init = true;
+			}
+
+			for (i = 0; i < len && j < BOX_NAMES.length;) {
+				boxSize = dv.getUint32(i);
+				// step into box
+				if (sFCC(dv, i + 4) === BOX_NAMES[j].charAt(0) && sFCC(dv, i + 5) === BOX_NAMES[j].charAt(1) && sFCC(dv, i + 6) === BOX_NAMES[j].charAt(2) && sFCC(dv, i + 7) === BOX_NAMES[j].charAt(3)) {
+					len = i + boxSize;
+					j++;
+					i += 8; // works only for Box, not for extended box
+				} else {
+					i += boxSize;
+				}
+			}
+
+			// we found it
+			if (j === BOX_NAMES.length) {
+				segmentNo = dv.getUint32(i + 4);
+			}
+
+			return {
+				contentTag: contentTag,
+				segment: segmentNo,
+				init: init
+			};
+		}
+
+		/**
+  * Switches the current active bitrate
+  *
+  * @param {string} stream name
+  * @param {string}
+   */
+
+	}, {
+		key: 'switchBitrate',
+		value: function switchBitrate(name) {
+			this.ws.send('switch_stream?name=' + name + '&mode=' + this.mode + '&bckfil=' + this.backFill + '&retry=' + this.retry + '&mxgap=' + this.maxGap);
+		}
+
+		/**
+   * Destroys the websocket connection
+   */
+
+	}, {
+		key: 'destroy',
+		value: function destroy(cb) {
+			this.downloadedSegments = [];
+			if (!cb) {
+				cb = function cb() {};
+			}
+
+			clearInterval(this.pingInterval);
+			if (!this.ws) {
+				cb();
+				return;
+			}
+
+			this.ws.close();
+			setTimeout(function () {
+				cb();
+			}, 50);
+		}
+	}, {
+		key: 'lastTime',
+		get: function get() {
+			return this.channelLatency[this.channelTracker].lastTime;
+		},
+		set: function set(v) {
+			this.channelLatency[this.channelTracker].lastTime = v;
+		}
+	}, {
+		key: 'lastSegmentTime',
+		get: function get() {
+			return this.channelLatency[this.channelTracker].lastSegmentTime;
+		},
+		set: function set(v) {
+			this.channelLatency[this.channelTracker].lastSegmentTime = v;
+		}
+	}, {
+		key: 'lastSegmentDuration',
+		get: function get() {
+			return this.channelLatency[this.channelTracker].lastSegmentDuration;
+		},
+		set: function set(v) {
+			this.channelLatency[this.channelTracker].lastSegmentDuration = v;
+		}
+	}, {
+		key: 'disconnected',
+		get: function get() {
+			return this.ws.readyState > 1;
+		}
+	}]);
+
+	return Transport;
+}(_events2.default);
+
+exports.default = Transport;
+},{"events":54}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8341,6 +9689,11 @@ var NativeHLSDriver = function (_BaseDriver) {
 			}, ERROR_RETRY_TIMER);
 		});
 
+		_this.el.addEventListener('webkitendfullscreen', function () {
+			_this.livelyPlayer.stop();
+			_this.el.setAttribute('src', _this.manifest);
+		});
+
 		_this.lastProgress = Date.now();
 		return _this;
 	}
@@ -8371,6 +9724,10 @@ var NativeHLSDriver = function (_BaseDriver) {
 						_this2.emitProgress();
 					};
 
+					_this2.el.onended = function () {
+						_this2.emit('ended');
+					};
+
 					_this2.el.ontimeupdate = function () {
 						_this2.fragCounts++;
 						_this2.emitTimeupdate();
@@ -8389,10 +9746,6 @@ var NativeHLSDriver = function (_BaseDriver) {
    * @return {Boolean}
    */
 		value: function isSupported() {
-			if (_detect2.default.iPhone9()) {
-				return false;
-			}
-
 			var el = document.createElement('video');
 			var result = el.canPlayType && (el.canPlayType('application/vnd.apple.mpegURL') === 'maybe' || el.canPlayType('application/vnd.apple.mpegURL') === 'probably');
 			el.remove();
@@ -8414,7 +9767,7 @@ var NativeHLSDriver = function (_BaseDriver) {
 }(_baseDriver2.default);
 
 exports.default = NativeHLSDriver;
-},{"@livelyvideo/player-core/lib/base-driver":15,"@livelyvideo/player-core/lib/detect":16,"@livelyvideo/player-core/lib/errors":17,"@livelyvideo/player-core/lib/events":18,"lodash.noop":52}],45:[function(require,module,exports){
+},{"@livelyvideo/player-core/lib/base-driver":17,"@livelyvideo/player-core/lib/detect":18,"@livelyvideo/player-core/lib/errors":19,"@livelyvideo/player-core/lib/events":20,"lodash.noop":58}],50:[function(require,module,exports){
 !function(e,t){"object"==typeof exports&&"object"==typeof module?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.LivelyStockBroadcaster=t():e.LivelyStockBroadcaster=t()}(this,function(){return function(e){function t(n){if(r[n])return r[n].exports;var i=r[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var r={};return t.m=e,t.c=r,t.i=function(e){return e},t.d=function(e,t,r){Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=17)}([function(e,t){"use strict";function r(e,t){var r=document.createElement(e);return r.classList.add.apply(r.classList,t),r}Object.defineProperty(t,"__esModule",{value:!0}),t.default=r},function(e,t){function r(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function n(e){return"function"==typeof e}function i(e){return"number"==typeof e}function o(e){return"object"==typeof e&&null!==e}function s(e){return void 0===e}e.exports=r,r.EventEmitter=r,r.prototype._events=void 0,r.prototype._maxListeners=void 0,r.defaultMaxListeners=10,r.prototype.setMaxListeners=function(e){if(!i(e)||e<0||isNaN(e))throw TypeError("n must be a positive number");return this._maxListeners=e,this},r.prototype.emit=function(e){var t,r,i,a,c,u;if(this._events||(this._events={}),"error"===e&&(!this._events.error||o(this._events.error)&&!this._events.error.length)){if(t=arguments[1],t instanceof Error)throw t;var l=new Error('Uncaught, unspecified "error" event. ('+t+")");throw l.context=t,l}if(r=this._events[e],s(r))return!1;if(n(r))switch(arguments.length){case 1:r.call(this);break;case 2:r.call(this,arguments[1]);break;case 3:r.call(this,arguments[1],arguments[2]);break;default:a=Array.prototype.slice.call(arguments,1),r.apply(this,a)}else if(o(r))for(a=Array.prototype.slice.call(arguments,1),u=r.slice(),i=u.length,c=0;c<i;c++)u[c].apply(this,a);return!0},r.prototype.addListener=function(e,t){var i;if(!n(t))throw TypeError("listener must be a function");return this._events||(this._events={}),this._events.newListener&&this.emit("newListener",e,n(t.listener)?t.listener:t),this._events[e]?o(this._events[e])?this._events[e].push(t):this._events[e]=[this._events[e],t]:this._events[e]=t,o(this._events[e])&&!this._events[e].warned&&(i=s(this._maxListeners)?r.defaultMaxListeners:this._maxListeners,i&&i>0&&this._events[e].length>i&&(this._events[e].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[e].length),"function"==typeof console.trace&&console.trace())),this},r.prototype.on=r.prototype.addListener,r.prototype.once=function(e,t){function r(){this.removeListener(e,r),i||(i=!0,t.apply(this,arguments))}if(!n(t))throw TypeError("listener must be a function");var i=!1;return r.listener=t,this.on(e,r),this},r.prototype.removeListener=function(e,t){var r,i,s,a;if(!n(t))throw TypeError("listener must be a function");if(!this._events||!this._events[e])return this;if(r=this._events[e],s=r.length,i=-1,r===t||n(r.listener)&&r.listener===t)delete this._events[e],this._events.removeListener&&this.emit("removeListener",e,t);else if(o(r)){for(a=s;a-- >0;)if(r[a]===t||r[a].listener&&r[a].listener===t){i=a;break}if(i<0)return this;1===r.length?(r.length=0,delete this._events[e]):r.splice(i,1),this._events.removeListener&&this.emit("removeListener",e,t)}return this},r.prototype.removeAllListeners=function(e){var t,r;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[e]&&delete this._events[e],this;if(0===arguments.length){for(t in this._events)"removeListener"!==t&&this.removeAllListeners(t);return this.removeAllListeners("removeListener"),this._events={},this}if(r=this._events[e],n(r))this.removeListener(e,r);else if(r)for(;r.length;)this.removeListener(e,r[r.length-1]);return delete this._events[e],this},r.prototype.listeners=function(e){var t;return t=this._events&&this._events[e]?n(this._events[e])?[this._events[e]]:this._events[e].slice():[]},r.prototype.listenerCount=function(e){if(this._events){var t=this._events[e];if(n(t))return 1;if(t)return t.length}return 0},r.listenerCount=function(e,t){return e.listenerCount(t)}},function(e,t){e.exports=function(e,t){var r=void 0!==e.textContent?"textContent":"innerText";return"undefined"!=typeof t&&(e[r]=t),e[r]}},function(e,t){function r(e){var t=n.call(e);return"[object Function]"===t||"function"==typeof e&&"[object RegExp]"!==t||"undefined"!=typeof window&&(e===window.setTimeout||e===window.alert||e===window.confirm||e===window.prompt)}e.exports=r;var n=Object.prototype.toString},function(e,t,r){!function(t,r){e.exports=r()}(this,function(){return function(e){function t(n){if(r[n])return r[n].exports;var i=r[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var r={};return t.m=e,t.c=r,t.i=function(e){return e},t.d=function(e,t,r){Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=9)}([function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={createBroadcast:function(){try{return this.getSwf().tfBroadcastCreate()}catch(e){return this.logError("broadcast","createBroadcast",[],"error initializing broadcast [err="+e+"]"),!1}},destroyBroadcast:function(e){try{this.getSwf().tfBroadcastDestroy(e)}catch(t){return this.logError("broadcast","destroyBroadcast",[e],"error destroying broadcast [err="+t+"]"),!1}return!0},connectToBroadcast:function(e,t,r){try{var n;(n=this.getSwf()).tfBroadcastConnect.apply(n,arguments)}catch(n){return this.logError("broadcast","connectToBroadcast",[e,t,r],"error connecting to broadcast [err="+n+"]"),!1}return!0},setVideoPath:function(e,t){try{this.getSwf().tfBroadcastConnect(e,null,t)}catch(r){return this.logError("broadcast","connectToVideo",[e,t],"error connecting to video [err="+r+"]"),!1}return!0},setStreamName:function(e,t){try{this.getSwf().tfBroadcastSetStreamName(e,t)}catch(r){return this.logError("broadcast","setStreamName",[e,t],"error setting stream name [err="+r+"]"),!1}return!0},broadcastAttachCamera:function(e,t){try{this.getSwf().tfBroadcastAttachCamera(e,t)}catch(r){return this.logError("broadcast","broadcastAttachCamera",[e,t],"error attaching camera to broadcast [err="+r+"]"),!1}return!0},broadcastAttachMicrophone:function(e,t){try{this.getSwf().tfBroadcastAttachMicrophone(e,t)}catch(r){return this.logError("broadcast","broadcastAttachMicrophone",[e,t],"error attaching mic to broadcast [err="+r+"]"),!1}return!0}}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={createCamera:function(){try{return this.getSwf().tfCameraCreate()}catch(e){return this.logError("camera","createCamera",[],"error creating camera [err="+e+"]"),!1}},destroyCamera:function(e){try{this.getSwf().tfCameraDestroy(e)}catch(t){return this.logError("camera","destroyCamera",[e],"error destroying camera [err="+t+"]"),!1}return!0},cameraSetQuality:function(e,t,r){try{this.getSwf().tfCameraSetQuality(e,t,r)}catch(n){return this.logError("Camera","cameraSetQuality",[e,t,r],"error setting camera quality [err="+n+"]"),!1}return!0},cameraSetMode:function(e,t,r,n,i){try{this.getSwf().tfCameraSetMode(e,t,r,n,i)}catch(o){return this.logError("camera","cameraSetMode",[e,t,r,n,i],"error setting camera mode [err="+o+"]"),!1}return!0},cameraSetKeyFrameInterval:function(e,t){try{this.getSwf().tfCameraSetKeyFrameInterval(e,t)}catch(r){return this.logError("camera","cameraSetKeyFrameInterval",[e,t],"error setting key frame interval [err="+r+"]"),!1}return!0},getProperty:function(e,t){try{this.getSwf().tfGetCameraProperty(e,t)}catch(r){return this.logError("camera","getProperty",[e,t],"cannot get property from Camera [err="+r+"]"),!1}return!0},cameraAttachToStage:function(e){try{this.getSwf().tfCameraAttachToStage(e)}catch(t){return this.logError("camera","cameraAttachToStage",[e],"error adding camera to stage [err="+t+"]"),!1}return!0},cameraDetachFromStage:function(e){try{this.getSwf().tfCameraDetachFromStage(e)}catch(t){return this.logError("camera","cameraDetachFromStage",[e],"error detaching camera from stage [err="+t+"]"),!1}return!0},cameraSetDisplayProperties:function(e,t){try{this.getSwf().tfCameraSetDisplayProperties(e,t)}catch(r){return this.logError("camera","cameraSetDisplayProperties",[e,t],"error set camera display properties [err="+r+"]"),!1}return!0}}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={createMicrophone:function(){try{return this.getSwf().tfMicrophoneCreate()}catch(e){return this.logError("microphone","createMicrophone",[],"error creating microphone [err="+e+"]"),!1}},setVolume:function(e,t){try{return this.getSwf().tfSetMicrophoneVolume(e,t)}catch(e){return this.logError("microphone","createMicrophone",[],"error creating microphone [err="+e+"]"),!1}},getVolume:function(e){try{return this.getSwf().tfGetMicrophoneVolume(e)}catch(e){return this.logError("microphone","createMicrophone",[],"error creating microphone [err="+e+"]"),!1}},destroyMicrophone:function(e){try{this.getSwf().tfMicrophoneDestroy(e)}catch(t){return this.logError("microphone","destroyMicrophone",[e],"error destroying microphone [err="+t+"]"),!1}return!0},micUseEchoSuppression:function(e,t){try{this.getSwf().tfMicrophoneSetUseEchoSuppression(e,t)}catch(r){return this.logError("microphone","micUseEchoSuppression",[e,t],"error setting suppression [err="+r+"]"),!1}return!0},getProperty:function(e,t){try{return this.getSwf().tfGetMicrophoneProperty(e,t)}catch(r){return this.logError("microphone","getProperty",[e,t],"cannot get property on Microphone"),!1}},setProperty:function(e,t,r){try{return this.getSwf().tfSetMicrophoneProperty(t,r)}catch(n){return this.logError("microphone","setProperty",[t,e,r],"cannot set property on microphone"),!1}}}},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={playbackPlay:function(e,t){try{this.getSwf().tfPlaybackPlay(e,t)}catch(r){return this.logError("playback","playbackPlay",[e,t],"error playing video [err="+r+"]"),!1}return!0},setVolume:function(e,t){try{this.getSwf().tfPlaybackSetVolume(e,t)}catch(r){return this.logError("playback","setVolume",[e,t],"error setting volume [err="+r+"]"),!1}return!0},muteAudio:function(e,t){try{this.getSwf().tfPlaybackMute(e,t)}catch(r){return this.logError("playback","muteAudio",[e,t],"error muting audio [err="+r+"]"),!1}return!0},pausePlayback:function(e,t){try{this.getSwf().tfPlaybackPause(e,t)}catch(r){return this.logError("playback","pausePlayback",[e,t],"error pausing playback [err="+r+"]"),!1}return!0},pausePlaybackToggle:function(e){try{this.getSwf().tfPlaybackTogglePause(e)}catch(t){return this.logError("playback","pausePlaybackToggle",[e],"error pausing playback [err="+t+"]"),!1}return!0},createStream:function(e,t){try{this.getSwf().tfBroadcastCreateStream(e,t)}catch(t){return this.logError("playback","createStream",[e],"error creating stream [err="+t+"]"),!1}return!0},destroyStream:function(e,t){try{this.getSwf().tfBroadcastDestroyStream(e,t)}catch(r){return this.logError("playback","destroyStream",[e,t],"error destroying stream [err="+r+"]"),!1}return!0},setCurrentStreamIndex:function(e,t){try{this.getSwf().tfBroadcastSetCurrentStreamIndex(e,t)}catch(r){return this.logError("playback","setCurrentStreamIndex",[e,t],"error setting stream index [err="+r+"]"),!1}return!0},getNetStreamProperty:function(e,t){try{return this.getSwf().tfGetNetStreamProperty(e,t)}catch(r){return this.logError("playback","getNetStreamProperty",[e,t],"error getting NetStream property [err="+r+"]"),!1}},setNetStreamProperty:function(e,t,r){try{this.getSwf().tfSetNetStreamProperty(e,t,r)}catch(n){return this.logError("playback","setVideoProperties",[e,t,r],"error setting NetStream property [err="+n+"]"),!1}return!0},invokeNetStreamMethod:function(e,t){try{var r;(r=this.getSwf()).tfInvokeNetStreamMethod.apply(r,arguments)}catch(r){return this.logError("playback","invokeNetStreamMethod",[e,t],"error invoking NetStream method [err="+r+"]"),!1}return!0},setVideoProperties:function(e,t,r){try{var n;(n=this.getSwf()).tfSetVideoProperties.apply(n,arguments)}catch(n){return this.logError("playback","setVideoProperties",[e,t,r],"error setting video properties [err="+n+"]"),!1}return!0}}},function(e,t){"use strict";/**
  * @license ThinFlash
  * Copyright (c) 2014 Accretive Technology Group, Inc.  http://accretivetg.com
@@ -8436,9 +9789,9 @@ var r=[{name:"Modem (56K) wide",id:"9",mode:"160,90,12",keyframeinterval:"12",qu
 var r={active:!1,pending:!1,dead:!0};e.exports={useEchoSuppression:!1,status:r}},function(e,t){function r(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function n(e){return"function"==typeof e}function i(e){return"number"==typeof e}function o(e){return"object"==typeof e&&null!==e}function s(e){return void 0===e}e.exports=r,r.EventEmitter=r,r.prototype._events=void 0,r.prototype._maxListeners=void 0,r.defaultMaxListeners=10,r.prototype.setMaxListeners=function(e){if(!i(e)||e<0||isNaN(e))throw TypeError("n must be a positive number");return this._maxListeners=e,this},r.prototype.emit=function(e){var t,r,i,a,c,u;if(this._events||(this._events={}),"error"===e&&(!this._events.error||o(this._events.error)&&!this._events.error.length)){if(t=arguments[1],t instanceof Error)throw t;var l=new Error('Uncaught, unspecified "error" event. ('+t+")");throw l.context=t,l}if(r=this._events[e],s(r))return!1;if(n(r))switch(arguments.length){case 1:r.call(this);break;case 2:r.call(this,arguments[1]);break;case 3:r.call(this,arguments[1],arguments[2]);break;default:a=Array.prototype.slice.call(arguments,1),r.apply(this,a)}else if(o(r))for(a=Array.prototype.slice.call(arguments,1),u=r.slice(),i=u.length,c=0;c<i;c++)u[c].apply(this,a);return!0},r.prototype.addListener=function(e,t){var i;if(!n(t))throw TypeError("listener must be a function");return this._events||(this._events={}),this._events.newListener&&this.emit("newListener",e,n(t.listener)?t.listener:t),this._events[e]?o(this._events[e])?this._events[e].push(t):this._events[e]=[this._events[e],t]:this._events[e]=t,o(this._events[e])&&!this._events[e].warned&&(i=s(this._maxListeners)?r.defaultMaxListeners:this._maxListeners,i&&i>0&&this._events[e].length>i&&(this._events[e].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[e].length),"function"==typeof console.trace&&console.trace())),this},r.prototype.on=r.prototype.addListener,r.prototype.once=function(e,t){function r(){this.removeListener(e,r),i||(i=!0,t.apply(this,arguments))}if(!n(t))throw TypeError("listener must be a function");var i=!1;return r.listener=t,this.on(e,r),this},r.prototype.removeListener=function(e,t){var r,i,s,a;if(!n(t))throw TypeError("listener must be a function");if(!this._events||!this._events[e])return this;if(r=this._events[e],s=r.length,i=-1,r===t||n(r.listener)&&r.listener===t)delete this._events[e],this._events.removeListener&&this.emit("removeListener",e,t);else if(o(r)){for(a=s;a-- >0;)if(r[a]===t||r[a].listener&&r[a].listener===t){i=a;break}if(i<0)return this;1===r.length?(r.length=0,delete this._events[e]):r.splice(i,1),this._events.removeListener&&this.emit("removeListener",e,t)}return this},r.prototype.removeAllListeners=function(e){var t,r;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[e]&&delete this._events[e],this;if(0===arguments.length){for(t in this._events)"removeListener"!==t&&this.removeAllListeners(t);return this.removeAllListeners("removeListener"),this._events={},this}if(r=this._events[e],n(r))this.removeListener(e,r);else if(r)for(;r.length;)this.removeListener(e,r[r.length-1]);return delete this._events[e],this},r.prototype.listeners=function(e){var t;return t=this._events&&this._events[e]?n(this._events[e])?[this._events[e]]:this._events[e].slice():[]},r.prototype.listenerCount=function(e){if(this._events){var t=this._events[e];if(n(t))return 1;if(t)return t.length}return 0},r.listenerCount=function(e,t){return e.listenerCount(t)}},function(e,t,r){/*!    SWFObject v2.3.20120118 <http://github.com/swfobject/swfobject>
     is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 */
-!function(t,r){e.exports=r()}(this,function(){function e(){if(!X&&document.getElementsByTagName("body")[0]){try{var e,t=m("span");t.style.display="none",e=B.getElementsByTagName("body")[0].appendChild(t),e.parentNode.removeChild(e),e=null,t=null}catch(e){return}X=!0;for(var r=U.length,n=0;n<r;n++)U[n]()}}function t(e){X?e():U[U.length]=e}function r(e){if(typeof N.addEventListener!=M)N.addEventListener("load",e,!1);else if(typeof B.addEventListener!=M)B.addEventListener("load",e,!1);else if(typeof N.attachEvent!=M)g(N,"onload",e);else if("function"==typeof N.onload){var t=N.onload;N.onload=function(){t(),e()}}else N.onload=e}function n(){var e=B.getElementsByTagName("body")[0],t=m(j);t.setAttribute("style","visibility: hidden;"),t.setAttribute("type",P);var r=e.appendChild(t);if(r){var n=0;!function o(){if(typeof r.GetVariable!=M)try{var s=r.GetVariable("$version");s&&(s=s.split(" ")[1].split(","),J.pv=[b(s[0]),b(s[1]),b(s[2])])}catch(e){J.pv=[8,0,0]}else if(n<10)return n++,void setTimeout(o,10);e.removeChild(t),r=null,i()}()}else i()}function i(){var e=F.length;if(e>0)for(var t=0;t<e;t++){var r=F[t].id,n=F[t].callbackFn,i={success:!1,id:r};if(J.pv[0]>0){var u=y(r);if(u)if(!w(F[t].swfVersion)||J.wk&&J.wk<312)if(F[t].expressInstall&&s()){var l={};l.data=F[t].expressInstall,l.width=u.getAttribute("width")||"0",l.height=u.getAttribute("height")||"0",u.getAttribute("class")&&(l.styleclass=u.getAttribute("class")),u.getAttribute("align")&&(l.align=u.getAttribute("align"));for(var f={},h=u.getElementsByTagName("param"),p=h.length,d=0;d<p;d++)"movie"!=h[d].getAttribute("name").toLowerCase()&&(f[h[d].getAttribute("name")]=h[d].getAttribute("value"));a(l,f,r,n)}else c(u),n&&n(i);else E(r,!0),n&&(i.success=!0,i.ref=o(r),i.id=r,n(i))}else if(E(r,!0),n){var v=o(r);v&&typeof v.SetVariable!=M&&(i.success=!0,i.ref=v,i.id=v.id),n(i)}}}function o(e){var t=null,r=y(e);return r&&"OBJECT"===r.nodeName.toUpperCase()&&(t=typeof r.SetVariable!==M?r:r.getElementsByTagName(j)[0]||r),t}function s(){return!G&&w("6.0.65")&&(J.win||J.mac)&&!(J.wk&&J.wk<312)}function a(e,t,r,n){var i=y(r);if(r=v(r),G=!0,A=n||null,O={success:!1,id:r},i){"OBJECT"==i.nodeName.toUpperCase()?(k=u(i),L=null):(k=i,L=r),e.id=R,(typeof e.width==M||!/%$/.test(e.width)&&b(e.width)<310)&&(e.width="310"),(typeof e.height==M||!/%$/.test(e.height)&&b(e.height)<137)&&(e.height="137"),B.title=B.title.slice(0,47)+" - Flash Player Installation";var o=J.ie?"ActiveX":"PlugIn",s="MMredirectURL="+encodeURIComponent(N.location.toString().replace(/&/g,"%26"))+"&MMplayerType="+o+"&MMdoctitle="+B.title;if(typeof t.flashvars!=M?t.flashvars+="&"+s:t.flashvars=s,J.ie&&4!=i.readyState){var a=m("div");r+="SWFObjectNew",a.setAttribute("id",r),i.parentNode.insertBefore(a,i),i.style.display="none",p(i)}f(e,t,r)}}function c(e){if(J.ie&&4!=e.readyState){e.style.display="none";var t=m("div");e.parentNode.insertBefore(t,e),t.parentNode.replaceChild(u(e),t),p(e)}else e.parentNode.replaceChild(u(e),e)}function u(e){var t=m("div");if(J.win&&J.ie)t.innerHTML=e.innerHTML;else{var r=e.getElementsByTagName(j)[0];if(r){var n=r.childNodes;if(n)for(var i=n.length,o=0;o<i;o++)1==n[o].nodeType&&"PARAM"==n[o].nodeName||8==n[o].nodeType||t.appendChild(n[o].cloneNode(!0))}}return t}function l(e,t){var r=m("div");return r.innerHTML="<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'><param name='movie' value='"+e+"'>"+t+"</object>",r.firstChild}function f(e,t,r){var n,i=y(r);if(r=v(r),J.wk&&J.wk<312)return n;if(i){var o,s,a,c=m(J.ie?"div":j);typeof e.id==M&&(e.id=r);for(a in t)t.hasOwnProperty(a)&&"movie"!==a.toLowerCase()&&h(c,a,t[a]);J.ie&&(c=l(e.data,c.innerHTML));for(o in e)e.hasOwnProperty(o)&&(s=o.toLowerCase(),"styleclass"===s?c.setAttribute("class",e[o]):"classid"!==s&&"data"!==s&&c.setAttribute(o,e[o]));J.ie?H[H.length]=e.id:(c.setAttribute("type",P),c.setAttribute("data",e.data)),i.parentNode.replaceChild(c,i),n=c}return n}function h(e,t,r){var n=m("param");n.setAttribute("name",t),n.setAttribute("value",r),e.appendChild(n)}function p(e){var t=y(e);t&&"OBJECT"==t.nodeName.toUpperCase()&&(J.ie?(t.style.display="none",function e(){if(4==t.readyState){for(var r in t)"function"==typeof t[r]&&(t[r]=null);t.parentNode.removeChild(t)}else setTimeout(e,10)}()):t.parentNode.removeChild(t))}function d(e){return e&&e.nodeType&&1===e.nodeType}function v(e){return d(e)?e.id:e}function y(e){if(d(e))return e;var t=null;try{t=B.getElementById(e)}catch(e){}return t}function m(e){return B.createElement(e)}function b(e){return parseInt(e,10)}function g(e,t,r){e.attachEvent(t,r),K[K.length]=[e,t,r]}function w(e){e+="";var t=J.pv,r=e.split(".");return r[0]=b(r[0]),r[1]=b(r[1])||0,r[2]=b(r[2])||0,t[0]>r[0]||t[0]==r[0]&&t[1]>r[1]||t[0]==r[0]&&t[1]==r[1]&&t[2]>=r[2]}function _(e,t,r,n){var i=B.getElementsByTagName("head")[0];if(i){var o="string"==typeof r?r:"screen";if(n&&(C=null,T=null),!C||T!=o){var s=m("style");s.setAttribute("type","text/css"),s.setAttribute("media",o),C=i.appendChild(s),J.ie&&typeof B.styleSheets!=M&&B.styleSheets.length>0&&(C=B.styleSheets[B.styleSheets.length-1]),T=o}C&&(typeof C.addRule!=M?C.addRule(e,t):typeof B.createTextNode!=M&&C.appendChild(B.createTextNode(e+" {"+t+"}")))}}function E(e,t){if($){var r=t?"visible":"hidden",n=y(e);X&&n?n.style.visibility=r:"string"==typeof e&&_("#"+e,"visibility:"+r)}}function S(e){var t=/[\\\"<>\.;]/,r=null!=t.exec(e);return r&&typeof encodeURIComponent!=M?encodeURIComponent(e):e}var k,L,A,O,C,T,M="undefined",j="object",x="Shockwave Flash",I="ShockwaveFlash.ShockwaveFlash",P="application/x-shockwave-flash",R="SWFObjectExprInst",D="onreadystatechange",N=window,B=document,V=navigator,q=!1,U=[],F=[],H=[],K=[],X=!1,G=!1,$=!0,W=!1,J=function(){var e=typeof B.getElementById!=M&&typeof B.getElementsByTagName!=M&&typeof B.createElement!=M,t=V.userAgent.toLowerCase(),r=V.platform.toLowerCase(),n=r?/win/.test(r):/win/.test(t),i=r?/mac/.test(r):/mac/.test(t),o=!!/webkit/.test(t)&&parseFloat(t.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")),s="Microsoft Internet Explorer"===V.appName,a=[0,0,0],c=null;if(typeof V.plugins!=M&&typeof V.plugins[x]==j)c=V.plugins[x].description,c&&typeof V.mimeTypes!=M&&V.mimeTypes[P]&&V.mimeTypes[P].enabledPlugin&&(q=!0,s=!1,c=c.replace(/^.*\s+(\S+\s+\S+$)/,"$1"),a[0]=b(c.replace(/^(.*)\..*$/,"$1")),a[1]=b(c.replace(/^.*\.(.*)\s.*$/,"$1")),a[2]=/[a-zA-Z]/.test(c)?b(c.replace(/^.*[a-zA-Z]+(.*)$/,"$1")):0);else if(typeof N.ActiveXObject!=M)try{var u=new ActiveXObject(I);u&&(c=u.GetVariable("$version"),c&&(s=!0,c=c.split(" ")[1].split(","),a=[b(c[0]),b(c[1]),b(c[2])]))}catch(e){}return{w3:e,pv:a,wk:o,ie:s,win:n,mac:i}}();return function(){J.w3&&((typeof B.readyState!=M&&("complete"===B.readyState||"interactive"===B.readyState)||typeof B.readyState==M&&(B.getElementsByTagName("body")[0]||B.body))&&e(),X||(typeof B.addEventListener!=M&&B.addEventListener("DOMContentLoaded",e,!1),J.ie&&(B.attachEvent(D,function t(){"complete"==B.readyState&&(B.detachEvent(D,t),e())}),N==top&&!function t(){if(!X){try{B.documentElement.doScroll("left")}catch(e){return void setTimeout(t,0)}e()}}()),J.wk&&!function t(){if(!X)return/loaded|complete/.test(B.readyState)?void e():void setTimeout(t,0)}()))}(),U[0]=function(){q?n():i()},function(){J.ie&&window.attachEvent("onunload",function(){for(var e=K.length,t=0;t<e;t++)K[t][0].detachEvent(K[t][1],K[t][2]);for(var r=H.length,n=0;n<r;n++)p(H[n]);for(var i in J)J[i]=null;if(J=null,"undefined"!=typeof swfobject){for(var o in swfobject)swfobject[o]=null;swfobject=null}})}(),{registerObject:function(e,t,r,n){if(J.w3&&e&&t){var i={};i.id=e,i.swfVersion=t,i.expressInstall=r,i.callbackFn=n,F[F.length]=i,E(e,!1)}else n&&n({success:!1,id:e})},getObjectById:function(e){if(J.w3)return o(e)},embedSWF:function(e,r,n,i,o,c,u,l,h,p){var d=v(r),y={success:!1,id:d};J.w3&&!(J.wk&&J.wk<312)&&e&&r&&n&&i&&o?(E(d,!1),t(function(){n+="",i+="";var t={};if(h&&typeof h===j)for(var v in h)t[v]=h[v];t.data=e,t.width=n,t.height=i;var m={};if(l&&typeof l===j)for(var b in l)m[b]=l[b];if(u&&typeof u===j)for(var g in u)if(u.hasOwnProperty(g)){var _=W?encodeURIComponent(g):g,S=W?encodeURIComponent(u[g]):u[g];typeof m.flashvars!=M?m.flashvars+="&"+_+"="+S:m.flashvars=_+"="+S}if(w(o)){var k=f(t,m,r);t.id==d&&E(d,!0),y.success=!0,y.ref=k,y.id=k.id}else{if(c&&s())return t.data=c,void a(t,m,r,p);E(d,!0)}p&&p(y)})):p&&p(y)},switchOffAutoHideShow:function(){$=!1},enableUriEncoding:function(e){W=typeof e===M||e},ua:J,getFlashPlayerVersion:function(){return{major:J.pv[0],minor:J.pv[1],release:J.pv[2]}},hasFlashPlayerVersion:w,createSWF:function(e,t,r){return J.w3?f(e,t,r):void 0},showExpressInstall:function(e,t,r,n){J.w3&&s()&&a(e,t,r,n)},removeSWF:function(e){J.w3&&p(e)},createCSS:function(e,t,r,n){J.w3&&_(e,t,r,n)},addDomLoadEvent:t,addLoadEvent:r,getQueryParamValue:function(e){var t=B.location.search||B.location.hash;if(t){if(/\?/.test(t)&&(t=t.split("?")[1]),null==e)return S(t);for(var r=t.split("&"),n=0;n<r.length;n++)if(r[n].substring(0,r[n].indexOf("="))==e)return S(r[n].substring(r[n].indexOf("=")+1))}return""},expressInstallCallback:function(){if(G){var e=y(R);e&&k&&(e.parentNode.replaceChild(k,e),L&&(E(L,!0),J.ie&&(k.style.display="block")),A&&A(O)),G=!1}},version:"2.3"}})},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(7),u=n(c),l=r(8),f=n(l),h=r(0),p=n(h),d=r(1),v=n(d),y=r(2),m=n(y),b=r(3),g=n(b),w=r(4),_=n(w),E=r(5),S=n(E),k=r(6),L=n(k),A="11.0.0",O="aiwswfbroadcast",C=0,T=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return s.el=e,s.accessKey=r,s.options=n,s.encodingSettings=n.encodingSettings||S.default.preset,s.origin=n.rtmpUrl,s.origin||s.emit("error","no origin supplied"),s.origin+="?host="+s.options.host,s.options.affiliate&&(s.origin+="&affiliate="+s.options.affiliate),s.id=C++,s.broadcastId=null,s.cameraId=null,s.microphoneId=null,s.swf=null,s.pollingTf=null,s.pollingTfAttempts=0,s.devicesAttempts=0,s.tfIsReadyCbs=[],s.render(),s.setupThinflash(function(){s.emit("ready")}),s}return s(t,e),a(t,[{key:"supportsDevices",value:function(){return!1}},{key:"supportsMute",value:function(){return!0}},{key:"supportsEncodingSettings",value:function(){return!0}},{key:"onceDevicesAreReady",value:function(e){var t=this;return this.devicesAttempts++,this.cameraId||(this.cameraId=this.cameraApi.createCamera()),this.microphoneId||this.createMicrophone(),this.cameraId&&this.microphoneId?void e():this.devicesAttempts>10?void this.emit("error","no devices"):void setTimeout(function(){t.onceDevicesAreReady(e)},200)}},{key:"onceTfIsReady",value:function(e){return this.swf&&this.swf.tfBroadcastCreate?void e():(this.tfIsReadyCbs.push(e),void this.pollTf())}},{key:"pollTf",value:function(){var e=this;this.pollingTf||(this.pollingTfAttempts=0,clearInterval(this.pollingTf),this.pollingTf=setInterval(function(){if(e.pollingTfAttempts++,e.pollingTfAttempts>30)return clearInterval(e.pollingTf),void e.emit("error","embedding swf timed out");if(e.swf&&e.swf.tfBroadcastCreate){clearInterval(e.pollingTf);for(var t=e.tfIsReadyCbs.shift();t;)t(),t=e.tfIsReadyCbs.shift()}},20))}},{key:"getDetails",value:function(){var e={state:this.state};if(this.broadcastId){var t=this.swf.tfGetNetStreamProperty(this.broadcastId,"info");e.droppedFrames=t.droppedFrames,e.kbps=.008*t.currentBytesPerSecond}return e}},{key:"destroy",value:function(){this.stop(),this.cameraApi.cameraDetachFromStage(this.cameraId),this.cameraApi.destroyCamera(this.cameraId),this.microphoneApi.destroyMicrophone(this.microphoneId),this.swf&&this.swf.remove()}},{key:"stop",value:function(e){this.cameraId&&(this.cameraApi.cameraDetachFromStage(this.cameraId),this.cameraApi.destroyCamera(this.cameraId),this.cameraId=null),this.microphoneId&&(this.microphoneApi.destroyMicrophone(this.microphoneId),this.microphoneId=null),this.broadcastId?this.broadcastApi.destroyBroadcast(this.broadcastId)?(this.broadcastId=null,this.emit("stop")):(this.broadcastId=null,this.emit("error","stop failed")):this.emit("stop"),this.setup(e)}},{key:"attachCamera",value:function(){this.cameraApi.cameraSetMode(this.cameraId,_.default.mode.width,_.default.mode.height,_.default.mode.fps,_.default.mode.favorArea),this.cameraApi.cameraSetQuality(this.cameraId,this.encodingSettings.quality.split(",")[0],this.encodingSettings.quality.split(",")[1]),this.cameraApi.cameraSetKeyFrameInterval(this.cameraId,this.encodingSettings.keyframeinterval),this.options.preview&&this.cameraApi.cameraAttachToStage(this.cameraId)}},{key:"createMicrophone",value:function(){this.microphoneId=this.microphoneApi.createMicrophone(),this.microphoneApi.micUseEchoSuppression(this.microphoneId,L.default.useEchoSuppression)}},{key:"broadcast",value:function(e){var t=this;this.setupThinflash(function(){return t.broadcastId=t.broadcastApi.createBroadcast(),t.broadcastId?(t.once("BroadcastEvent",function(){t.broadcastApi.broadcastAttachCamera(t.broadcastId,t.cameraId),t.microphoneId&&t.broadcastApi.broadcastAttachMicrophone(t.broadcastId,t.microphoneId),t.emit("broadcasting"),e&&e()}),void t.broadcastApi.connectToBroadcast.apply(t.broadcastApi,[t.broadcastId,t.origin,t.accessKey].concat(t.options.tfArgs))):void t.emit("error","could not start broadcast")})}},{key:"enumerateDevices",value:function(){return null}},{key:"setup",value:function(e){var t=this;this.onceDevicesAreReady(function(){t.attachCamera(),e&&e()})}},{key:"render",value:function(){this.obj=document.createElement("div"),this.el.appendChild(this.obj),this.obj.setAttribute("class","aiw-swf-container"),this.obj.setAttribute("id",O+"_"+this.id)}},{key:"setupThinflash",value:function(e){var t=this;if(this.swf)return void(e&&e());if(this.loading)return void setTimeout(this.setupThinflash.bind(this,e),50);window.tfSendToJavaScript=function(e,r,n){if(e===t.obj.getAttribute("id")){switch(n[1]){case"NetConnection.Connect.Closed":t.stop()}t.emit(r,n[1],n[0],n.slice(2))}},window.tfIsReady=function(){return!0};var r=function(e){var r=Object.create(e);return r.logError=function(){for(var e=arguments.length,r=Array(e),n=0;n<e;n++)r[n]=arguments[n];t.emit("tf-error",r)},r.getSwf=function(){return t.swf},r};this.broadcastApi=r(p.default),this.cameraApi=r(v.default),this.microphoneApi=r(m.default),this.playbackApi=r(g.default),f.default.embedSWF(this.options.tfSwfPath,this.obj.getAttribute("id"),"100%","100%",11,"/dist/expressInstall.swf",{tfID:this.obj.getAttribute("id")},{scale:"noscale",quality:"high",allowscriptaccess:"always",allowfullscreen:"true",wmode:"direct",align:"middle",salign:"TL",menu:"true",id:this.obj.getAttribute("id")},{id:this.obj.getAttribute("id"),class:"tf-content"},function(r){return t.swf=r.ref,t.swf?void t.onceTfIsReady(function(){t.onceDevicesAreReady(function(){t.attachCamera(),e&&e(r)})}):(t.emit("error","embedding swf failed"),void(e&&e()))})}},{key:"encodingSettings",set:function(e){var t=this;return e.quality&&"string"==typeof e.quality?isNaN(e.keyframeinterval)?void this.emit("error","encoder settings must include a keyframeinterval, must be a number"):"broadcasting"!==this.state?void(this.encodingSettingsValue=e):void this.stop(function(){t.encodingSettingsValue=e,t.broadcast()}):void this.emit("error","encoder settings must include a quality, must be a string")},get:function(){return this.encodingSettingsValue||S.default.preset}},{key:"mute",set:function(e){return!!this.microphoneId&&(e?this.microphoneApi.setVolume(this.microphoneId,0):this.microphoneApi.setVolume(this.microphoneId,60),this.emit(this.mute?"mute":"unmute"),this.mute)},get:function(){return!!this.microphoneId&&!this.microphoneApi.getVolume(this.microphoneId)}},{key:"state",get:function(){return this.broadcastId?"broadcasting":"stopped"}}],[{key:"isSupported",value:function(){return f.default.hasFlashPlayerVersion(A)}}]),t}(u.default);e.exports=T}])})},function(e,t,r){!function(t,r){e.exports=r()}(this,function(){return function(e){function t(n){if(r[n])return r[n].exports;var i=r[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var r={};return t.m=e,t.c=r,t.i=function(e){return e},t.d=function(e,t,r){Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=6)}([function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(5),u=n(c),l=r(1),f=n(l),h=r(2),p=n(h),d=r(3),v=n(d);r(4);var y={accessKey:null,affiliate:null,drivers:["flash","webrtc"],flashWmode:"transparent",gateway:null,host:null,iceServers:[],preview:!0,rtmpUrl:null,tfArgs:[],tfSwfPath:"",user:null},m=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));if(s.el=e,s.accessKey=r,s.options=(0,v.default)(n,y),!s.options.affiliate)throw new Error("affiliate required for broadcaster");if(!s.options.host)throw new Error("host required for broadcaster");s.drivers=[],s.currentDriver=null;for(var a=0;a<s.options.drivers.length;a++)s.options.drivers[a].isSupported()&&s.drivers.push(s.options.drivers[a]);return s.setup(),s}return s(t,e),a(t,[{key:"setup",value:function(){return this.drivers.length?(this.currentDriver=new this.drivers[0](this.el,this.accessKey,(0,v.default)(this.options)),void this.proxyEvents()):void this.emit(p.default.ERROR,f.default.NO_DRIVERS)}},{key:"broadcast",value:function(){var e=this;return this.currentDriver||this.setup(),this.currentDriver?void this.currentDriver.broadcast(function(){e.emit(p.default.START)}):void this.emit(p.default.NO_DRIVERS)}},{key:"proxyEvent",value:function(e){return function(){for(var t=arguments.length,r=Array(t),n=0;n<t;n++)r[n]=arguments[n];this.emit.apply(this,[e].concat(r))}.bind(this)}},{key:"proxyEvents",value:function(){for(var e in p.default)this.currentDriver.on(p.default[e],this.proxyEvent(p.default[e]))}},{key:"destroy",value:function(){this.currentDriver&&this.currentDriver.destroy()}},{key:"stop",value:function(){var e=this;return this.currentDriver?void this.currentDriver.stop(function(){e.emit(p.default.STOP)}):void this.emit(p.default.ERROR,"cannot stop, no driver set")}},{key:"enumerateDevices",value:function(){return this.currentDriver?this.currentDriver.enumerateDevices?this.currentDriver.enumerateDevices():null:(this.emit(p.default.ERROR,"cannot get cameras, no driver set"),null)}},{key:"setCamera",value:function(e){return this.currentDriver?void this.currentDriver.setCamera(e):void this.emit(p.default.ERROR,"cannot set camera, no driver set")}},{key:"supportsEncodingSettings",value:function(){return!!this.currentDriver&&this.currentDriver.supportsEncodingSettings()}},{key:"supportsMute",value:function(){return!!this.currentDriver&&this.currentDriver.supportsMute()}},{key:"supportsDevices",value:function(){return!!this.currentDriver&&this.currentDriver.supportsDevices()}},{key:"mute",set:function(e){return this.currentDriver?(this.currentDriver.mute=e,this.currentDriver.mute):void this.emit(p.default.ERROR,"cannot set mute, no driver set")},get:function(){return this.currentDriver?this.currentDriver.mute:void this.emit(p.default.ERROR,"cannot get mute, no driver set")}},{key:"state",get:function(){return this.currentDriver?this.currentDriver.state:"uninitialized"}},{key:"encodingSettings",set:function(e){this.currentDriver&&this.this.currentDriver.supportsEncodingSettings()&&this.currentDriver.setEncodingSettings(e)}}]),t}(u.default);t.default=m},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={ELEMENT_REQUIRED:"element required",EMBED_SWF_FAILED:"embedding flash swf failed",GATEWAY_ERROR:"gateway error",GATEWAY_HANDLE_ERROR:"gateway create handle error",GATEWAY_REQUIRED:"gateway required",RTC_OFFER_FAILED:"rtc offer failed",SETUP_PEER_ANSWER_FAILED:"setup peer answer failed",NO_DRIVERS:"no supported drivers",NO_DEVICES:"no devices found",STOP_FAILED:"could not stop broadcast",ICE_SERVERS:"no valid ice servers"};t.default=r},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={UPDATE_STREAM:"update-local-stream",REMOVE_STREAM:"remove-local-stream",ERROR:"error",HANGUP:"hangup",JANUS:"janus",MUTE:"mute",UNMUTE:"unmute",BROADCASTING:"broadcasting",READY:"ready",START:"start",STOP:"stop"};t.default=r},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e,t){var r=e?Object.create(e):{};if(!t)return r;for(var n in t)"undefined"==typeof r[n]&&(r[n]=t[n]);return r}},function(e,t){"use strict";"function"!=typeof Object.create&&(Object.create=function(e){var t=function(){};return function(r,n){if(r!==Object(r)&&null!==r)throw TypeError("Argument must be an object, or null");t.prototype=r||{},n!==e&&Object.defineProperties(t.prototype,n);var i=new t;return t.prototype=null,i}}())},function(e,t){function r(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function n(e){return"function"==typeof e}function i(e){return"number"==typeof e}function o(e){return"object"==typeof e&&null!==e}function s(e){return void 0===e}e.exports=r,r.EventEmitter=r,r.prototype._events=void 0,r.prototype._maxListeners=void 0,r.defaultMaxListeners=10,r.prototype.setMaxListeners=function(e){if(!i(e)||e<0||isNaN(e))throw TypeError("n must be a positive number");return this._maxListeners=e,this},r.prototype.emit=function(e){var t,r,i,a,c,u;if(this._events||(this._events={}),"error"===e&&(!this._events.error||o(this._events.error)&&!this._events.error.length)){if(t=arguments[1],t instanceof Error)throw t;var l=new Error('Uncaught, unspecified "error" event. ('+t+")");throw l.context=t,l}if(r=this._events[e],s(r))return!1;if(n(r))switch(arguments.length){case 1:r.call(this);break;case 2:r.call(this,arguments[1]);break;case 3:r.call(this,arguments[1],arguments[2]);break;default:a=Array.prototype.slice.call(arguments,1),r.apply(this,a)}else if(o(r))for(a=Array.prototype.slice.call(arguments,1),u=r.slice(),i=u.length,c=0;c<i;c++)u[c].apply(this,a);return!0},r.prototype.addListener=function(e,t){var i;if(!n(t))throw TypeError("listener must be a function");return this._events||(this._events={}),this._events.newListener&&this.emit("newListener",e,n(t.listener)?t.listener:t),this._events[e]?o(this._events[e])?this._events[e].push(t):this._events[e]=[this._events[e],t]:this._events[e]=t,o(this._events[e])&&!this._events[e].warned&&(i=s(this._maxListeners)?r.defaultMaxListeners:this._maxListeners,i&&i>0&&this._events[e].length>i&&(this._events[e].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[e].length),"function"==typeof console.trace&&console.trace())),this},r.prototype.on=r.prototype.addListener,r.prototype.once=function(e,t){function r(){this.removeListener(e,r),i||(i=!0,t.apply(this,arguments))}if(!n(t))throw TypeError("listener must be a function");var i=!1;return r.listener=t,this.on(e,r),this},r.prototype.removeListener=function(e,t){var r,i,s,a;if(!n(t))throw TypeError("listener must be a function");if(!this._events||!this._events[e])return this;if(r=this._events[e],s=r.length,i=-1,r===t||n(r.listener)&&r.listener===t)delete this._events[e],this._events.removeListener&&this.emit("removeListener",e,t);else if(o(r)){for(a=s;a-- >0;)if(r[a]===t||r[a].listener&&r[a].listener===t){i=a;break}if(i<0)return this;1===r.length?(r.length=0,delete this._events[e]):r.splice(i,1),this._events.removeListener&&this.emit("removeListener",e,t)}return this},r.prototype.removeAllListeners=function(e){var t,r;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[e]&&delete this._events[e],this;if(0===arguments.length){for(t in this._events)"removeListener"!==t&&this.removeAllListeners(t);return this.removeAllListeners("removeListener"),this._events={},this}if(r=this._events[e],n(r))this.removeListener(e,r);else if(r)for(;r.length;)this.removeListener(e,r[r.length-1]);return delete this._events[e],this},r.prototype.listeners=function(e){var t;return t=this._events&&this._events[e]?n(this._events[e])?[this._events[e]]:this._events[e].slice():[]},r.prototype.listenerCount=function(e){if(this._events){var t=this._events[e];if(n(t))return 1;if(t)return t.length}return 0},r.listenerCount=function(e,t){return e.listenerCount(t)}},function(e,t,r){"use strict";"undefined"==typeof window?e.exports=function(){}:e.exports=r(0).default}])})},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),p=n(h),d=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return r.stock=e,r.el=(0,p.default)("div",["access_key"]),r.span=(0,p.default)("span",["access_key__key"]),r.regenerateEl=(0,p.default)("button",["access_key__regenerate"]),r.stock.bar.appendChild(r.el),r.stock.bar.appendChild(r.regenerateEl),(0,f.default)(r.el,"Access Key: "),r.el.appendChild(r.span),(0,f.default)(r.span,r.stock.accessKey),(0,f.default)(r.regenerateEl,"Reset key"),r.regenerateEl.onclick=function(){r.stock.regenerate()},r}return s(t,e),a(t,[{key:"destroy",value:function(){this.el.remove(),this.regenerateEl.remove()}}]),t}(u.default);t.default=d},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),p=n(h),d=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));r.stock=e,r.el=(0,p.default)("button",["broadcast"]),r.stock.bar.appendChild(r.el);var n=function(){"stopped"===r.stock.broadcaster.state?(r.el.classList.add("stopped"),(0,f.default)(r.el,"Broadcast")):(r.el.classList.remove("stopped"),(0,f.default)(r.el,"Stop"))};n();var s=function(){"stopped"===r.stock.broadcaster.state?r.stock.broadcaster.broadcast():r.stock.broadcaster.stop()};return e.broadcaster.on("start",n),e.broadcaster.on("stop",n),r.el.addEventListener("click",s),r}return s(t,e),a(t,[{key:"destroy",value:function(){this.el.remove()}}]),t}(u.default);t.default=d},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),p=n(h),d=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return r.stock=e,r.stock.broadcaster.on("error",r.updateError.bind(r)),r.el=(0,p.default)("div",["error"]),r.stock.bar.appendChild(r.el),r.stock.broadcaster.on("start",r.clearError.bind(r)),r.stock.broadcaster.on("error",r.updateError.bind(r)),r}return s(t,e),a(t,[{key:"clearError",value:function(){(0,f.default)(this.el,"")}},{key:"updateError",value:function(e){var t=void 0;switch(e){default:t="Unknown broadcast failure"}(0,f.default)(this.el,t)}},{key:"destroy",value:function(){this.stock.broadcaster.removeListener("error",this.updateError),this.el.remove()}}]),t}(u.default);t.default=d},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){
-for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),p=n(h),d=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));r.stock=e,r.el=(0,p.default)("button",["mute"]),r.stock.bar.appendChild(r.el),r.updateMuteButton();var n=function(){r.stock.broadcaster.mute=!r.stock.broadcaster.mute};return r.stock.broadcaster.on("mute",r.updateMuteButton.bind(r)),r.stock.broadcaster.on("unmute",r.updateMuteButton.bind(r)),r.el.addEventListener("click",n),r}return s(t,e),a(t,[{key:"updateMuteButton",value:function(){(0,f.default)(this.el,this.stock.broadcaster.mute?"Unmute":"Mute")}},{key:"destroy",value:function(){this.stock.broadcaster.removeListener("mute",this.updateMuteButton),this.stock.broadcaster.removeListener("unmute",this.updateMuteButton),this.el.remove()}}]),t}(u.default);t.default=d},function(e,t,r){"use strict";function n(e,t){for(var r=0;r<e.length;r++)t(e[r])}function i(e){for(var t in e)if(e.hasOwnProperty(t))return!1;return!0}function o(e,t,r){var n=e;return f(t)?(r=t,"string"==typeof e&&(n={uri:e})):n=p(t,{uri:e}),n.callback=r,n}function s(e,t,r){return t=o(e,t,r),a(t)}function a(e){function t(){4===f.readyState&&o()}function r(){var e=void 0;if(e=f.response?f.response:f.responseText||c(f),_)try{e=JSON.parse(e)}catch(e){}return e}function n(e){return clearTimeout(v),e instanceof Error||(e=new Error(""+(e||"Unknown XMLHttpRequest Error"))),e.statusCode=0,u(e,l)}function o(){if(!d){var t;clearTimeout(v),t=e.useXDR&&void 0===f.status?200:1223===f.status?204:f.status;var n=l,i=null;return 0!==t?(n={body:r(),statusCode:t,method:m,headers:{},url:y,rawRequest:f},f.getAllResponseHeaders&&(n.headers=h(f.getAllResponseHeaders()))):i=new Error("Internal XMLHttpRequest Error"),u(i,n,n.body)}}if("undefined"==typeof e.callback)throw new Error("callback argument missing");var a=!1,u=function(t,r,n){a||(a=!0,e.callback(t,r,n))},l={body:void 0,headers:{},statusCode:0,method:m,url:y,rawRequest:f},f=e.xhr||null;f||(f=e.cors||e.useXDR?new s.XDomainRequest:new s.XMLHttpRequest);var p,d,v,y=f.url=e.uri||e.url,m=f.method=e.method||"GET",b=e.body||e.data||null,g=f.headers=e.headers||{},w=!!e.sync,_=!1;if("json"in e&&(_=!0,g.accept||g.Accept||(g.Accept="application/json"),"GET"!==m&&"HEAD"!==m&&(g["content-type"]||g["Content-Type"]||(g["Content-Type"]="application/json"),b=JSON.stringify(e.json))),f.onreadystatechange=t,f.onload=o,f.onerror=n,f.onprogress=function(){},f.ontimeout=n,f.open(m,y,!w,e.username,e.password),w||(f.withCredentials=!!e.withCredentials),!w&&e.timeout>0&&(v=setTimeout(function(){d=!0,f.abort("timeout");var e=new Error("XMLHttpRequest timeout");e.code="ETIMEDOUT",n(e)},e.timeout)),f.setRequestHeader)for(p in g)g.hasOwnProperty(p)&&f.setRequestHeader(p,g[p]);else if(e.headers&&!i(e.headers))throw new Error("Headers cannot be set on an XDomainRequest object");return"responseType"in e&&(f.responseType=e.responseType),"beforeSend"in e&&"function"==typeof e.beforeSend&&e.beforeSend(f),f.send(b),f}function c(e){if("document"===e.responseType)return e.responseXML;var t=204===e.status&&e.responseXML&&"parsererror"===e.responseXML.documentElement.nodeName;return""!==e.responseType||t?null:e.responseXML}function u(){}var l=r(12),f=r(3),h=r(13),p=r(16);e.exports=s,s.XMLHttpRequest=l.XMLHttpRequest||u,s.XDomainRequest="withCredentials"in new s.XMLHttpRequest?s.XMLHttpRequest:l.XDomainRequest,n(["get","put","post","patch","head","delete"],function(e){s["delete"===e?"del":e]=function(t,r,n){return r=o(t,r,n),r.method=e.toUpperCase(),a(r)}})},function(e,t,r){function n(e,t,r){if(!a(t))throw new TypeError("iterator must be a function");arguments.length<3&&(r=this),"[object Array]"===c.call(e)?i(e,t,r):"string"==typeof e?o(e,t,r):s(e,t,r)}function i(e,t,r){for(var n=0,i=e.length;n<i;n++)u.call(e,n)&&t.call(r,e[n],n,e)}function o(e,t,r){for(var n=0,i=e.length;n<i;n++)t.call(r,e.charAt(n),n,e)}function s(e,t,r){for(var n in e)u.call(e,n)&&t.call(r,e[n],n,e)}var a=r(3);e.exports=n;var c=Object.prototype.toString,u=Object.prototype.hasOwnProperty},function(e,t,r){(function(t){"undefined"!=typeof window?e.exports=window:"undefined"!=typeof t?e.exports=t:"undefined"!=typeof self?e.exports=self:e.exports={}}).call(t,r(15))},function(e,t,r){var n=r(14),i=r(11),o=function(e){return"[object Array]"===Object.prototype.toString.call(e)};e.exports=function(e){if(!e)return{};var t={};return i(n(e).split("\n"),function(e){var r=e.indexOf(":"),i=n(e.slice(0,r)).toLowerCase(),s=n(e.slice(r+1));"undefined"==typeof t[i]?t[i]=s:o(t[i])?t[i].push(s):t[i]=[t[i],s]}),t}},function(e,t){function r(e){return e.replace(/^\s*|\s*$/g,"")}t=e.exports=r,t.left=function(e){return e.replace(/^\s*/,"")},t.right=function(e){return e.replace(/\s*$/,"")}},function(e,t){var r;r=function(){return this}();try{r=r||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(r=window)}e.exports=r},function(e,t){function r(){for(var e={},t=0;t<arguments.length;t++){var r=arguments[t];for(var i in r)n.call(r,i)&&(e[i]=r[i])}return e}e.exports=r;var n=Object.prototype.hasOwnProperty},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(5),f=n(l),h=r(4),p=n(h),d=r(10),v=n(d),y=r(0),m=n(y),b=r(9),g=n(b),w=r(6),_=n(w),E=r(7),S=n(E),k=r(8),L=n(k),A=["ready","mute","unmute","start","stop","error"],O=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));s.broadcasterEl=(0,m.default)("div",["broadcaster"]),s.bar=(0,m.default)("div",["control-bar"]),s.el=e,s.el.appendChild(s.broadcasterEl),s.el.appendChild(s.bar),s.accessKeyEndpoint=r,s.options=n,n.gateway&&(n.janusGateway=n.gateway),n.host||(n.host="livelyvideo.tv");for(var a=[],c=[],u=0;u<s.options.drivers.length;u++)switch(s.options.drivers[u]){case"flash":n.rtmpUrl||a.push("flash driver requires rtmpUrl"),c.push(p.default);break;case"webrtc":n.janusGateway||a.push("webrtc driver requires gateway"),n.rtmpUrl||a.push("webrtc driver requires rtmpUrl"),n.iceServers&&!n.iceServers.length&&a.push("webrtc requires ice servers");break;default:a.push("unknown driver "+s.options.drivers[u])}if(a.length)throw new Error(a.join(", "));return n.drivers=c,n.preview=!0,s.controls=[],s}return s(t,e),a(t,[{key:"destroy",value:function(){this.previewEl&&this.previewEl.remove(),this.bar.remove(),this.broadcaster&&this.broadcaster.destroy()}},{key:"destroyControls",value:function(){for(var e=0;e<this.controls.length;e++)this.controls[e].destroy()}},{key:"setupControls",value:function(){this.controls=[],this.controls.push(new g.default(this)),this.controls.push(new S.default(this)),this.controls.push(new _.default(this)),this.controls.push(new L.default(this))}},{key:"setup",value:function(e,t){var r=this,n=this.accessKeyEndpoint;if(t){var i=n.indexOf("?")===-1?"?":"&";n+=i+"regenerate=1"}this.destroyControls(),(0,v.default)({method:"GET",uri:n,json:!0},function(t,n,i){if(t)return r.emit("error","failed to get access key",t),void(e&&e(t));if(n.statusCode>399){var o=new Error(i);return r.emit("error","failed to get access key",o),void(e&&e(o))}r.accessKey=i.results.pvtKey,r.broadcaster=new f.default(r.broadcasterEl,r.accessKey,r.options);for(var s=function(e){r.broadcaster.on(A[e],function(){for(var t=arguments.length,n=Array(t),i=0;i<t;i++)n[i]=arguments[i];n.unshift(A[e]),r.emit.apply(r,n)})},a=0;a<A.length;a++)s(a);r.setupControls(),r.emit("access-key",r.accessKey),e&&e()})}},{key:"regenerate",value:function(e){this.broadcaster&&this.broadcaster.destroy(),this.setup(e,!0)}}]),t}(u.default);t.default=O}])});
-},{}],46:[function(require,module,exports){
+!function(t,r){e.exports=r()}(this,function(){function e(){if(!X&&document.getElementsByTagName("body")[0]){try{var e,t=m("span");t.style.display="none",e=B.getElementsByTagName("body")[0].appendChild(t),e.parentNode.removeChild(e),e=null,t=null}catch(e){return}X=!0;for(var r=U.length,n=0;n<r;n++)U[n]()}}function t(e){X?e():U[U.length]=e}function r(e){if(typeof N.addEventListener!=M)N.addEventListener("load",e,!1);else if(typeof B.addEventListener!=M)B.addEventListener("load",e,!1);else if(typeof N.attachEvent!=M)g(N,"onload",e);else if("function"==typeof N.onload){var t=N.onload;N.onload=function(){t(),e()}}else N.onload=e}function n(){var e=B.getElementsByTagName("body")[0],t=m(j);t.setAttribute("style","visibility: hidden;"),t.setAttribute("type",P);var r=e.appendChild(t);if(r){var n=0;!function o(){if(typeof r.GetVariable!=M)try{var s=r.GetVariable("$version");s&&(s=s.split(" ")[1].split(","),J.pv=[b(s[0]),b(s[1]),b(s[2])])}catch(e){J.pv=[8,0,0]}else if(n<10)return n++,void setTimeout(o,10);e.removeChild(t),r=null,i()}()}else i()}function i(){var e=F.length;if(e>0)for(var t=0;t<e;t++){var r=F[t].id,n=F[t].callbackFn,i={success:!1,id:r};if(J.pv[0]>0){var u=y(r);if(u)if(!w(F[t].swfVersion)||J.wk&&J.wk<312)if(F[t].expressInstall&&s()){var l={};l.data=F[t].expressInstall,l.width=u.getAttribute("width")||"0",l.height=u.getAttribute("height")||"0",u.getAttribute("class")&&(l.styleclass=u.getAttribute("class")),u.getAttribute("align")&&(l.align=u.getAttribute("align"));for(var f={},h=u.getElementsByTagName("param"),d=h.length,p=0;p<d;p++)"movie"!=h[p].getAttribute("name").toLowerCase()&&(f[h[p].getAttribute("name")]=h[p].getAttribute("value"));a(l,f,r,n)}else c(u),n&&n(i);else E(r,!0),n&&(i.success=!0,i.ref=o(r),i.id=r,n(i))}else if(E(r,!0),n){var v=o(r);v&&typeof v.SetVariable!=M&&(i.success=!0,i.ref=v,i.id=v.id),n(i)}}}function o(e){var t=null,r=y(e);return r&&"OBJECT"===r.nodeName.toUpperCase()&&(t=typeof r.SetVariable!==M?r:r.getElementsByTagName(j)[0]||r),t}function s(){return!G&&w("6.0.65")&&(J.win||J.mac)&&!(J.wk&&J.wk<312)}function a(e,t,r,n){var i=y(r);if(r=v(r),G=!0,A=n||null,O={success:!1,id:r},i){"OBJECT"==i.nodeName.toUpperCase()?(k=u(i),L=null):(k=i,L=r),e.id=R,(typeof e.width==M||!/%$/.test(e.width)&&b(e.width)<310)&&(e.width="310"),(typeof e.height==M||!/%$/.test(e.height)&&b(e.height)<137)&&(e.height="137"),B.title=B.title.slice(0,47)+" - Flash Player Installation";var o=J.ie?"ActiveX":"PlugIn",s="MMredirectURL="+encodeURIComponent(N.location.toString().replace(/&/g,"%26"))+"&MMplayerType="+o+"&MMdoctitle="+B.title;if(typeof t.flashvars!=M?t.flashvars+="&"+s:t.flashvars=s,J.ie&&4!=i.readyState){var a=m("div");r+="SWFObjectNew",a.setAttribute("id",r),i.parentNode.insertBefore(a,i),i.style.display="none",d(i)}f(e,t,r)}}function c(e){if(J.ie&&4!=e.readyState){e.style.display="none";var t=m("div");e.parentNode.insertBefore(t,e),t.parentNode.replaceChild(u(e),t),d(e)}else e.parentNode.replaceChild(u(e),e)}function u(e){var t=m("div");if(J.win&&J.ie)t.innerHTML=e.innerHTML;else{var r=e.getElementsByTagName(j)[0];if(r){var n=r.childNodes;if(n)for(var i=n.length,o=0;o<i;o++)1==n[o].nodeType&&"PARAM"==n[o].nodeName||8==n[o].nodeType||t.appendChild(n[o].cloneNode(!0))}}return t}function l(e,t){var r=m("div");return r.innerHTML="<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'><param name='movie' value='"+e+"'>"+t+"</object>",r.firstChild}function f(e,t,r){var n,i=y(r);if(r=v(r),J.wk&&J.wk<312)return n;if(i){var o,s,a,c=m(J.ie?"div":j);typeof e.id==M&&(e.id=r);for(a in t)t.hasOwnProperty(a)&&"movie"!==a.toLowerCase()&&h(c,a,t[a]);J.ie&&(c=l(e.data,c.innerHTML));for(o in e)e.hasOwnProperty(o)&&(s=o.toLowerCase(),"styleclass"===s?c.setAttribute("class",e[o]):"classid"!==s&&"data"!==s&&c.setAttribute(o,e[o]));J.ie?K[K.length]=e.id:(c.setAttribute("type",P),c.setAttribute("data",e.data)),i.parentNode.replaceChild(c,i),n=c}return n}function h(e,t,r){var n=m("param");n.setAttribute("name",t),n.setAttribute("value",r),e.appendChild(n)}function d(e){var t=y(e);t&&"OBJECT"==t.nodeName.toUpperCase()&&(J.ie?(t.style.display="none",function e(){if(4==t.readyState){for(var r in t)"function"==typeof t[r]&&(t[r]=null);t.parentNode.removeChild(t)}else setTimeout(e,10)}()):t.parentNode.removeChild(t))}function p(e){return e&&e.nodeType&&1===e.nodeType}function v(e){return p(e)?e.id:e}function y(e){if(p(e))return e;var t=null;try{t=B.getElementById(e)}catch(e){}return t}function m(e){return B.createElement(e)}function b(e){return parseInt(e,10)}function g(e,t,r){e.attachEvent(t,r),H[H.length]=[e,t,r]}function w(e){e+="";var t=J.pv,r=e.split(".");return r[0]=b(r[0]),r[1]=b(r[1])||0,r[2]=b(r[2])||0,t[0]>r[0]||t[0]==r[0]&&t[1]>r[1]||t[0]==r[0]&&t[1]==r[1]&&t[2]>=r[2]}function _(e,t,r,n){var i=B.getElementsByTagName("head")[0];if(i){var o="string"==typeof r?r:"screen";if(n&&(C=null,T=null),!C||T!=o){var s=m("style");s.setAttribute("type","text/css"),s.setAttribute("media",o),C=i.appendChild(s),J.ie&&typeof B.styleSheets!=M&&B.styleSheets.length>0&&(C=B.styleSheets[B.styleSheets.length-1]),T=o}C&&(typeof C.addRule!=M?C.addRule(e,t):typeof B.createTextNode!=M&&C.appendChild(B.createTextNode(e+" {"+t+"}")))}}function E(e,t){if($){var r=t?"visible":"hidden",n=y(e);X&&n?n.style.visibility=r:"string"==typeof e&&_("#"+e,"visibility:"+r)}}function S(e){var t=/[\\\"<>\.;]/,r=null!=t.exec(e);return r&&typeof encodeURIComponent!=M?encodeURIComponent(e):e}var k,L,A,O,C,T,M="undefined",j="object",x="Shockwave Flash",I="ShockwaveFlash.ShockwaveFlash",P="application/x-shockwave-flash",R="SWFObjectExprInst",D="onreadystatechange",N=window,B=document,V=navigator,q=!1,U=[],F=[],K=[],H=[],X=!1,G=!1,$=!0,W=!1,J=function(){var e=typeof B.getElementById!=M&&typeof B.getElementsByTagName!=M&&typeof B.createElement!=M,t=V.userAgent.toLowerCase(),r=V.platform.toLowerCase(),n=r?/win/.test(r):/win/.test(t),i=r?/mac/.test(r):/mac/.test(t),o=!!/webkit/.test(t)&&parseFloat(t.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")),s="Microsoft Internet Explorer"===V.appName,a=[0,0,0],c=null;if(typeof V.plugins!=M&&typeof V.plugins[x]==j)c=V.plugins[x].description,c&&typeof V.mimeTypes!=M&&V.mimeTypes[P]&&V.mimeTypes[P].enabledPlugin&&(q=!0,s=!1,c=c.replace(/^.*\s+(\S+\s+\S+$)/,"$1"),a[0]=b(c.replace(/^(.*)\..*$/,"$1")),a[1]=b(c.replace(/^.*\.(.*)\s.*$/,"$1")),a[2]=/[a-zA-Z]/.test(c)?b(c.replace(/^.*[a-zA-Z]+(.*)$/,"$1")):0);else if(typeof N.ActiveXObject!=M)try{var u=new ActiveXObject(I);u&&(c=u.GetVariable("$version"),c&&(s=!0,c=c.split(" ")[1].split(","),a=[b(c[0]),b(c[1]),b(c[2])]))}catch(e){}return{w3:e,pv:a,wk:o,ie:s,win:n,mac:i}}();return function(){J.w3&&((typeof B.readyState!=M&&("complete"===B.readyState||"interactive"===B.readyState)||typeof B.readyState==M&&(B.getElementsByTagName("body")[0]||B.body))&&e(),X||(typeof B.addEventListener!=M&&B.addEventListener("DOMContentLoaded",e,!1),J.ie&&(B.attachEvent(D,function t(){"complete"==B.readyState&&(B.detachEvent(D,t),e())}),N==top&&!function t(){if(!X){try{B.documentElement.doScroll("left")}catch(e){return void setTimeout(t,0)}e()}}()),J.wk&&!function t(){if(!X)return/loaded|complete/.test(B.readyState)?void e():void setTimeout(t,0)}()))}(),U[0]=function(){q?n():i()},function(){J.ie&&window.attachEvent("onunload",function(){for(var e=H.length,t=0;t<e;t++)H[t][0].detachEvent(H[t][1],H[t][2]);for(var r=K.length,n=0;n<r;n++)d(K[n]);for(var i in J)J[i]=null;if(J=null,"undefined"!=typeof swfobject){for(var o in swfobject)swfobject[o]=null;swfobject=null}})}(),{registerObject:function(e,t,r,n){if(J.w3&&e&&t){var i={};i.id=e,i.swfVersion=t,i.expressInstall=r,i.callbackFn=n,F[F.length]=i,E(e,!1)}else n&&n({success:!1,id:e})},getObjectById:function(e){if(J.w3)return o(e)},embedSWF:function(e,r,n,i,o,c,u,l,h,d){var p=v(r),y={success:!1,id:p};J.w3&&!(J.wk&&J.wk<312)&&e&&r&&n&&i&&o?(E(p,!1),t(function(){n+="",i+="";var t={};if(h&&typeof h===j)for(var v in h)t[v]=h[v];t.data=e,t.width=n,t.height=i;var m={};if(l&&typeof l===j)for(var b in l)m[b]=l[b];if(u&&typeof u===j)for(var g in u)if(u.hasOwnProperty(g)){var _=W?encodeURIComponent(g):g,S=W?encodeURIComponent(u[g]):u[g];typeof m.flashvars!=M?m.flashvars+="&"+_+"="+S:m.flashvars=_+"="+S}if(w(o)){var k=f(t,m,r);t.id==p&&E(p,!0),y.success=!0,y.ref=k,y.id=k.id}else{if(c&&s())return t.data=c,void a(t,m,r,d);E(p,!0)}d&&d(y)})):d&&d(y)},switchOffAutoHideShow:function(){$=!1},enableUriEncoding:function(e){W=typeof e===M||e},ua:J,getFlashPlayerVersion:function(){return{major:J.pv[0],minor:J.pv[1],release:J.pv[2]}},hasFlashPlayerVersion:w,createSWF:function(e,t,r){return J.w3?f(e,t,r):void 0},showExpressInstall:function(e,t,r,n){J.w3&&s()&&a(e,t,r,n)},removeSWF:function(e){J.w3&&d(e)},createCSS:function(e,t,r,n){J.w3&&_(e,t,r,n)},addDomLoadEvent:t,addLoadEvent:r,getQueryParamValue:function(e){var t=B.location.search||B.location.hash;if(t){if(/\?/.test(t)&&(t=t.split("?")[1]),null==e)return S(t);for(var r=t.split("&"),n=0;n<r.length;n++)if(r[n].substring(0,r[n].indexOf("="))==e)return S(r[n].substring(r[n].indexOf("=")+1))}return""},expressInstallCallback:function(){if(G){var e=y(R);e&&k&&(e.parentNode.replaceChild(k,e),L&&(E(L,!0),J.ie&&(k.style.display="block")),A&&A(O)),G=!1}},version:"2.3"}})},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(7),u=n(c),l=r(8),f=n(l),h=r(0),d=n(h),p=r(1),v=n(p),y=r(2),m=n(y),b=r(3),g=n(b),w=r(4),_=n(w),E=r(5),S=n(E),k=r(6),L=n(k),A="11.0.0",O="aiwswfbroadcast",C=0,T=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return s.el=e,s.accessKey=r,s.options=n,s.encodingSettings=n.encodingSettings||S.default.preset,s.origin=n.rtmpUrl,s.origin||s.emit("error","no origin supplied"),s.origin+="?host="+s.options.host,s.options.affiliate&&(s.origin+="&affiliate="+s.options.affiliate),s.id=C++,s.broadcastId=null,s.cameraId=null,s.microphoneId=null,s.swf=null,s.pollingTf=null,s.pollingTfAttempts=0,s.devicesAttempts=0,s.tfIsReadyCbs=[],s.render(),s.setupThinflash(function(){s.emit("ready")}),s}return s(t,e),a(t,[{key:"supportsDevices",value:function(){return!1}},{key:"supportsMute",value:function(){return!0}},{key:"supportsEncodingSettings",value:function(){return!0}},{key:"onceDevicesAreReady",value:function(e){var t=this;return this.devicesAttempts++,this.cameraId||(this.cameraId=this.cameraApi.createCamera()),this.microphoneId||this.createMicrophone(),this.cameraId&&this.microphoneId?void e():this.devicesAttempts>10?void this.emit("error","no devices"):void setTimeout(function(){t.onceDevicesAreReady(e)},200)}},{key:"onceTfIsReady",value:function(e){return this.swf&&this.swf.tfBroadcastCreate?void e():(this.tfIsReadyCbs.push(e),void this.pollTf())}},{key:"pollTf",value:function(){var e=this;this.pollingTf||(this.pollingTfAttempts=0,clearInterval(this.pollingTf),this.pollingTf=setInterval(function(){if(e.pollingTfAttempts++,e.pollingTfAttempts>30)return clearInterval(e.pollingTf),void e.emit("error","embedding swf timed out");if(e.swf&&e.swf.tfBroadcastCreate){clearInterval(e.pollingTf);for(var t=e.tfIsReadyCbs.shift();t;)t(),t=e.tfIsReadyCbs.shift()}},20))}},{key:"getDetails",value:function(){var e={state:this.state};if(this.broadcastId){var t=this.swf.tfGetNetStreamProperty(this.broadcastId,"info");e.droppedFrames=t.droppedFrames,e.kbps=.008*t.currentBytesPerSecond}return e}},{key:"destroy",value:function(){this.stop(),this.cameraApi.cameraDetachFromStage(this.cameraId),this.cameraApi.destroyCamera(this.cameraId),this.microphoneApi.destroyMicrophone(this.microphoneId),this.swf&&this.swf.remove()}},{key:"stop",value:function(e){this.cameraId&&(this.cameraApi.cameraDetachFromStage(this.cameraId),this.cameraApi.destroyCamera(this.cameraId),this.cameraId=null),this.microphoneId&&(this.microphoneApi.destroyMicrophone(this.microphoneId),this.microphoneId=null),this.broadcastId?this.broadcastApi.destroyBroadcast(this.broadcastId)?(this.broadcastId=null,this.emit("stop")):(this.broadcastId=null,this.emit("error","stop failed")):this.emit("stop"),this.setup(e)}},{key:"attachCamera",value:function(){this.cameraApi.cameraSetMode(this.cameraId,_.default.mode.width,_.default.mode.height,_.default.mode.fps,_.default.mode.favorArea),this.cameraApi.cameraSetQuality(this.cameraId,this.encodingSettings.quality.split(",")[0],this.encodingSettings.quality.split(",")[1]),this.cameraApi.cameraSetKeyFrameInterval(this.cameraId,this.encodingSettings.keyframeinterval),this.options.preview&&this.cameraApi.cameraAttachToStage(this.cameraId)}},{key:"createMicrophone",value:function(){this.microphoneId=this.microphoneApi.createMicrophone(),this.microphoneApi.micUseEchoSuppression(this.microphoneId,L.default.useEchoSuppression)}},{key:"broadcast",value:function(e){var t=this;this.setupThinflash(function(){return t.broadcastId=t.broadcastApi.createBroadcast(),t.broadcastId?(t.once("BroadcastEvent",function(){t.broadcastApi.broadcastAttachCamera(t.broadcastId,t.cameraId),t.microphoneId&&t.broadcastApi.broadcastAttachMicrophone(t.broadcastId,t.microphoneId),t.emit("broadcasting"),e&&e()}),void t.broadcastApi.connectToBroadcast.apply(t.broadcastApi,[t.broadcastId,t.origin,t.accessKey].concat(t.options.tfArgs))):void t.emit("error","could not start broadcast")})}},{key:"enumerateDevices",value:function(){return null}},{key:"setup",value:function(e){var t=this;this.onceDevicesAreReady(function(){t.attachCamera(),e&&e()})}},{key:"render",value:function(){this.obj=document.createElement("div"),this.el.appendChild(this.obj),this.obj.setAttribute("class","aiw-swf-container"),this.obj.setAttribute("id",O+"_"+this.id)}},{key:"setupThinflash",value:function(e){var t=this;if(this.swf)return void(e&&e());if(this.loading)return void setTimeout(this.setupThinflash.bind(this,e),50);window.tfSendToJavaScript=function(e,r,n){if(e===t.obj.getAttribute("id")){switch(n[1]){case"NetConnection.Connect.Closed":t.stop()}t.emit(r,n[1],n[0],n.slice(2))}},window.tfIsReady=function(){return!0};var r=function(e){var r=Object.create(e);return r.logError=function(){for(var e=arguments.length,r=Array(e),n=0;n<e;n++)r[n]=arguments[n];t.emit("tf-error",r)},r.getSwf=function(){return t.swf},r};this.broadcastApi=r(d.default),this.cameraApi=r(v.default),this.microphoneApi=r(m.default),this.playbackApi=r(g.default),f.default.embedSWF(this.options.tfSwfPath,this.obj.getAttribute("id"),"100%","100%",11,"/dist/expressInstall.swf",{tfID:this.obj.getAttribute("id")},{scale:"noscale",quality:"high",allowscriptaccess:"always",allowfullscreen:"true",wmode:"direct",align:"middle",salign:"TL",menu:"true",id:this.obj.getAttribute("id")},{id:this.obj.getAttribute("id"),class:"tf-content"},function(r){return t.swf=r.ref,t.swf?void t.onceTfIsReady(function(){t.onceDevicesAreReady(function(){t.attachCamera(),e&&e(r)})}):(t.emit("error","embedding swf failed"),void(e&&e()))})}},{key:"encodingSettings",set:function(e){var t=this;return e.quality&&"string"==typeof e.quality?isNaN(e.keyframeinterval)?void this.emit("error","encoder settings must include a keyframeinterval, must be a number"):"broadcasting"!==this.state?void(this.encodingSettingsValue=e):void this.stop(function(){t.encodingSettingsValue=e,t.broadcast()}):void this.emit("error","encoder settings must include a quality, must be a string")},get:function(){return this.encodingSettingsValue||S.default.preset}},{key:"mute",set:function(e){return!!this.microphoneId&&(e?this.microphoneApi.setVolume(this.microphoneId,0):this.microphoneApi.setVolume(this.microphoneId,60),this.emit(this.mute?"mute":"unmute"),this.mute)},get:function(){return!!this.microphoneId&&!this.microphoneApi.getVolume(this.microphoneId)}},{key:"state",get:function(){return this.broadcastId?"broadcasting":"stopped"}}],[{key:"isSupported",value:function(){return f.default.hasFlashPlayerVersion(A)}}]),t}(u.default);e.exports=T}])})},function(e,t,r){!function(t,r){e.exports=r()}(this,function(){return function(e){function t(n){if(r[n])return r[n].exports;var i=r[n]={i:n,l:!1,exports:{}};return e[n].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var r={};return t.m=e,t.c=r,t.i=function(e){return e},t.d=function(e,t,r){Object.defineProperty(e,t,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(r,"a",r),r},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=6)}([function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(5),u=n(c),l=r(1),f=n(l),h=r(2),d=n(h),p=r(3),v=n(p);r(4);var y={accessKey:null,affiliate:null,drivers:["flash","webrtc"],flashWmode:"transparent",gateway:null,host:null,iceServers:[],preview:!0,rtmpUrl:null,tfArgs:[],tfSwfPath:"",user:null},m=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));if(s.el=e,s.accessKey=r,s.options=(0,v.default)(n,y),!s.options.affiliate)throw new Error("affiliate required for broadcaster");if(!s.options.host)throw new Error("host required for broadcaster");s.drivers=[],s.currentDriver=null;for(var a=0;a<s.options.drivers.length;a++)s.options.drivers[a].isSupported()&&s.drivers.push(s.options.drivers[a]);return s.setup(),s}return s(t,e),a(t,[{key:"setup",value:function(){return this.drivers.length?(this.currentDriver=new this.drivers[0](this.el,this.accessKey,(0,v.default)(this.options)),void this.proxyEvents()):void this.emit(d.default.ERROR,f.default.NO_DRIVERS)}},{key:"broadcast",value:function(){var e=this;return this.currentDriver||this.setup(),this.currentDriver?void this.currentDriver.broadcast(function(){e.emit(d.default.START)}):void this.emit(d.default.NO_DRIVERS)}},{key:"proxyEvent",value:function(e){return function(){for(var t=arguments.length,r=Array(t),n=0;n<t;n++)r[n]=arguments[n];this.emit.apply(this,[e].concat(r))}.bind(this)}},{key:"proxyEvents",value:function(){for(var e in d.default)this.currentDriver.on(d.default[e],this.proxyEvent(d.default[e]))}},{key:"destroy",value:function(){this.currentDriver&&this.currentDriver.destroy()}},{key:"stop",value:function(){var e=this;return this.currentDriver?void this.currentDriver.stop(function(){e.emit(d.default.STOP)}):void this.emit(d.default.ERROR,"cannot stop, no driver set")}},{key:"enumerateDevices",value:function(){return this.currentDriver?this.currentDriver.enumerateDevices?this.currentDriver.enumerateDevices():null:(this.emit(d.default.ERROR,"cannot get cameras, no driver set"),null)}},{key:"setCamera",value:function(e){return this.currentDriver?void this.currentDriver.setCamera(e):void this.emit(d.default.ERROR,"cannot set camera, no driver set")}},{key:"supportsEncodingSettings",value:function(){return!!this.currentDriver&&this.currentDriver.supportsEncodingSettings()}},{key:"supportsMute",value:function(){return!!this.currentDriver&&this.currentDriver.supportsMute()}},{key:"supportsDevices",value:function(){return!!this.currentDriver&&this.currentDriver.supportsDevices()}},{key:"mute",set:function(e){return this.currentDriver?(this.currentDriver.mute=e,this.currentDriver.mute):void this.emit(d.default.ERROR,"cannot set mute, no driver set")},get:function(){return this.currentDriver?this.currentDriver.mute:void this.emit(d.default.ERROR,"cannot get mute, no driver set")}},{key:"state",get:function(){return this.currentDriver?this.currentDriver.state:"uninitialized"}},{key:"encodingSettings",set:function(e){this.currentDriver&&this.this.currentDriver.supportsEncodingSettings()&&this.currentDriver.setEncodingSettings(e)}}]),t}(u.default);t.default=m},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={ELEMENT_REQUIRED:"element required",EMBED_SWF_FAILED:"embedding flash swf failed",GATEWAY_ERROR:"gateway error",GATEWAY_HANDLE_ERROR:"gateway create handle error",GATEWAY_REQUIRED:"gateway required",RTC_OFFER_FAILED:"rtc offer failed",SETUP_PEER_ANSWER_FAILED:"setup peer answer failed",NO_DRIVERS:"no supported drivers",NO_DEVICES:"no devices found",STOP_FAILED:"could not stop broadcast",ICE_SERVERS:"no valid ice servers"};t.default=r},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={UPDATE_STREAM:"update-local-stream",REMOVE_STREAM:"remove-local-stream",ERROR:"error",HANGUP:"hangup",JANUS:"janus",MUTE:"mute",UNMUTE:"unmute",BROADCASTING:"broadcasting",READY:"ready",START:"start",STOP:"stop"};t.default=r},function(e,t){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default=function(e,t){var r=e?Object.create(e):{};if(!t)return r;for(var n in t)"undefined"==typeof r[n]&&(r[n]=t[n]);return r}},function(e,t){"use strict";"function"!=typeof Object.create&&(Object.create=function(e){var t=function(){};return function(r,n){if(r!==Object(r)&&null!==r)throw TypeError("Argument must be an object, or null");t.prototype=r||{},n!==e&&Object.defineProperties(t.prototype,n);var i=new t;return t.prototype=null,i}}())},function(e,t){function r(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function n(e){return"function"==typeof e}function i(e){return"number"==typeof e}function o(e){return"object"==typeof e&&null!==e}function s(e){return void 0===e}e.exports=r,r.EventEmitter=r,r.prototype._events=void 0,r.prototype._maxListeners=void 0,r.defaultMaxListeners=10,r.prototype.setMaxListeners=function(e){if(!i(e)||e<0||isNaN(e))throw TypeError("n must be a positive number");return this._maxListeners=e,this},r.prototype.emit=function(e){var t,r,i,a,c,u;if(this._events||(this._events={}),"error"===e&&(!this._events.error||o(this._events.error)&&!this._events.error.length)){if(t=arguments[1],t instanceof Error)throw t;var l=new Error('Uncaught, unspecified "error" event. ('+t+")");throw l.context=t,l}if(r=this._events[e],s(r))return!1;if(n(r))switch(arguments.length){case 1:r.call(this);break;case 2:r.call(this,arguments[1]);break;case 3:r.call(this,arguments[1],arguments[2]);break;default:a=Array.prototype.slice.call(arguments,1),r.apply(this,a)}else if(o(r))for(a=Array.prototype.slice.call(arguments,1),u=r.slice(),i=u.length,c=0;c<i;c++)u[c].apply(this,a);return!0},r.prototype.addListener=function(e,t){var i;if(!n(t))throw TypeError("listener must be a function");return this._events||(this._events={}),this._events.newListener&&this.emit("newListener",e,n(t.listener)?t.listener:t),this._events[e]?o(this._events[e])?this._events[e].push(t):this._events[e]=[this._events[e],t]:this._events[e]=t,o(this._events[e])&&!this._events[e].warned&&(i=s(this._maxListeners)?r.defaultMaxListeners:this._maxListeners,i&&i>0&&this._events[e].length>i&&(this._events[e].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[e].length),"function"==typeof console.trace&&console.trace())),this},r.prototype.on=r.prototype.addListener,r.prototype.once=function(e,t){function r(){this.removeListener(e,r),i||(i=!0,t.apply(this,arguments))}if(!n(t))throw TypeError("listener must be a function");var i=!1;return r.listener=t,this.on(e,r),this},r.prototype.removeListener=function(e,t){var r,i,s,a;if(!n(t))throw TypeError("listener must be a function");if(!this._events||!this._events[e])return this;if(r=this._events[e],s=r.length,i=-1,r===t||n(r.listener)&&r.listener===t)delete this._events[e],this._events.removeListener&&this.emit("removeListener",e,t);else if(o(r)){for(a=s;a-- >0;)if(r[a]===t||r[a].listener&&r[a].listener===t){i=a;break}if(i<0)return this;1===r.length?(r.length=0,delete this._events[e]):r.splice(i,1),this._events.removeListener&&this.emit("removeListener",e,t)}return this},r.prototype.removeAllListeners=function(e){var t,r;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[e]&&delete this._events[e],this;if(0===arguments.length){for(t in this._events)"removeListener"!==t&&this.removeAllListeners(t);return this.removeAllListeners("removeListener"),this._events={},this}if(r=this._events[e],n(r))this.removeListener(e,r);else if(r)for(;r.length;)this.removeListener(e,r[r.length-1]);return delete this._events[e],this},r.prototype.listeners=function(e){var t;return t=this._events&&this._events[e]?n(this._events[e])?[this._events[e]]:this._events[e].slice():[]},r.prototype.listenerCount=function(e){if(this._events){var t=this._events[e];if(n(t))return 1;if(t)return t.length}return 0},r.listenerCount=function(e,t){return e.listenerCount(t)}},function(e,t,r){"use strict";"undefined"==typeof window?e.exports=function(){}:e.exports=r(0).default}])})},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),d=n(h),p=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return r.stock=e,r.el=(0,d.default)("div",["access_key"]),r.accessKeyDiv=(0,d.default)("div",["access_key__key"]),r.originDiv=(0,d.default)("div",["access_key__origin"]),r.regenerateEl=(0,d.default)("button",["access_key__regenerate"]),r.stock.bar.appendChild(r.el),r.stock.bar.appendChild(r.regenerateEl),r.el.appendChild(r.originDiv),r.el.appendChild(r.accessKeyDiv),(0,f.default)(r.originDiv,"Origin Server: "+r.stock.options.rtmpUrl),(0,f.default)(r.accessKeyDiv,"Access Key: "+r.stock.accessKey),(0,f.default)(r.regenerateEl,"Reset key"),r.regenerateEl.onclick=function(){r.stock.regenerate()},r}return s(t,e),a(t,[{key:"destroy",value:function(){this.el.remove(),this.regenerateEl.remove()}}]),t}(u.default);t.default=p},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),d=n(h),p=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));r.stock=e,r.el=(0,d.default)("button",["broadcast"]),r.stock.bar.appendChild(r.el);var n=function(){"stopped"===r.stock.broadcaster.state?(r.el.classList.add("stopped"),(0,f.default)(r.el,"Broadcast")):(r.el.classList.remove("stopped"),(0,f.default)(r.el,"Stop"))};n();var s=function(){"stopped"===r.stock.broadcaster.state?r.stock.broadcaster.broadcast():r.stock.broadcaster.stop()};return e.broadcaster.on("start",n),e.broadcaster.on("stop",n),r.el.addEventListener("click",s),r}return s(t,e),a(t,[{key:"destroy",value:function(){this.el.remove()}}]),t}(u.default);t.default=p},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),d=n(h),p=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));return r.stock=e,r.stock.broadcaster.on("error",r.updateError.bind(r)),r.el=(0,d.default)("div",["error"]),r.stock.bar.appendChild(r.el),r.stock.broadcaster.on("start",r.clearError.bind(r)),r.stock.broadcaster.on("error",r.updateError.bind(r)),r}return s(t,e),a(t,[{key:"clearError",value:function(){(0,f.default)(this.el,"")}},{key:"updateError",value:function(e){var t=void 0;switch(e){default:t="Unknown broadcast failure"}(0,f.default)(this.el,t)}},{key:"destroy",value:function(){this.stock.broadcaster.removeListener("error",this.updateError),this.el.remove()}}]),t}(u.default);t.default=p},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0
+}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(2),f=n(l),h=r(0),d=n(h),p=function(e){function t(e){i(this,t);var r=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));r.stock=e,r.el=(0,d.default)("button",["mute"]),r.stock.bar.appendChild(r.el),r.updateMuteButton();var n=function(){r.stock.broadcaster.mute=!r.stock.broadcaster.mute};return r.stock.broadcaster.on("mute",r.updateMuteButton.bind(r)),r.stock.broadcaster.on("unmute",r.updateMuteButton.bind(r)),r.el.addEventListener("click",n),r}return s(t,e),a(t,[{key:"updateMuteButton",value:function(){(0,f.default)(this.el,this.stock.broadcaster.mute?"Unmute":"Mute")}},{key:"destroy",value:function(){this.stock.broadcaster.removeListener("mute",this.updateMuteButton),this.stock.broadcaster.removeListener("unmute",this.updateMuteButton),this.el.remove()}}]),t}(u.default);t.default=p},function(e,t,r){"use strict";function n(e,t){for(var r=0;r<e.length;r++)t(e[r])}function i(e){for(var t in e)if(e.hasOwnProperty(t))return!1;return!0}function o(e,t,r){var n=e;return f(t)?(r=t,"string"==typeof e&&(n={uri:e})):n=d(t,{uri:e}),n.callback=r,n}function s(e,t,r){return t=o(e,t,r),a(t)}function a(e){function t(){4===f.readyState&&o()}function r(){var e=void 0;if(e=f.response?f.response:f.responseText||c(f),_)try{e=JSON.parse(e)}catch(e){}return e}function n(e){return clearTimeout(v),e instanceof Error||(e=new Error(""+(e||"Unknown XMLHttpRequest Error"))),e.statusCode=0,u(e,l)}function o(){if(!p){var t;clearTimeout(v),t=e.useXDR&&void 0===f.status?200:1223===f.status?204:f.status;var n=l,i=null;return 0!==t?(n={body:r(),statusCode:t,method:m,headers:{},url:y,rawRequest:f},f.getAllResponseHeaders&&(n.headers=h(f.getAllResponseHeaders()))):i=new Error("Internal XMLHttpRequest Error"),u(i,n,n.body)}}if("undefined"==typeof e.callback)throw new Error("callback argument missing");var a=!1,u=function(t,r,n){a||(a=!0,e.callback(t,r,n))},l={body:void 0,headers:{},statusCode:0,method:m,url:y,rawRequest:f},f=e.xhr||null;f||(f=e.cors||e.useXDR?new s.XDomainRequest:new s.XMLHttpRequest);var d,p,v,y=f.url=e.uri||e.url,m=f.method=e.method||"GET",b=e.body||e.data||null,g=f.headers=e.headers||{},w=!!e.sync,_=!1;if("json"in e&&(_=!0,g.accept||g.Accept||(g.Accept="application/json"),"GET"!==m&&"HEAD"!==m&&(g["content-type"]||g["Content-Type"]||(g["Content-Type"]="application/json"),b=JSON.stringify(e.json))),f.onreadystatechange=t,f.onload=o,f.onerror=n,f.onprogress=function(){},f.ontimeout=n,f.open(m,y,!w,e.username,e.password),w||(f.withCredentials=!!e.withCredentials),!w&&e.timeout>0&&(v=setTimeout(function(){p=!0,f.abort("timeout");var e=new Error("XMLHttpRequest timeout");e.code="ETIMEDOUT",n(e)},e.timeout)),f.setRequestHeader)for(d in g)g.hasOwnProperty(d)&&f.setRequestHeader(d,g[d]);else if(e.headers&&!i(e.headers))throw new Error("Headers cannot be set on an XDomainRequest object");return"responseType"in e&&(f.responseType=e.responseType),"beforeSend"in e&&"function"==typeof e.beforeSend&&e.beforeSend(f),f.send(b),f}function c(e){if("document"===e.responseType)return e.responseXML;var t=204===e.status&&e.responseXML&&"parsererror"===e.responseXML.documentElement.nodeName;return""!==e.responseType||t?null:e.responseXML}function u(){}var l=r(12),f=r(3),h=r(13),d=r(16);e.exports=s,s.XMLHttpRequest=l.XMLHttpRequest||u,s.XDomainRequest="withCredentials"in new s.XMLHttpRequest?s.XMLHttpRequest:l.XDomainRequest,n(["get","put","post","patch","head","delete"],function(e){s["delete"===e?"del":e]=function(t,r,n){return r=o(t,r,n),r.method=e.toUpperCase(),a(r)}})},function(e,t,r){function n(e,t,r){if(!a(t))throw new TypeError("iterator must be a function");arguments.length<3&&(r=this),"[object Array]"===c.call(e)?i(e,t,r):"string"==typeof e?o(e,t,r):s(e,t,r)}function i(e,t,r){for(var n=0,i=e.length;n<i;n++)u.call(e,n)&&t.call(r,e[n],n,e)}function o(e,t,r){for(var n=0,i=e.length;n<i;n++)t.call(r,e.charAt(n),n,e)}function s(e,t,r){for(var n in e)u.call(e,n)&&t.call(r,e[n],n,e)}var a=r(3);e.exports=n;var c=Object.prototype.toString,u=Object.prototype.hasOwnProperty},function(e,t,r){(function(t){"undefined"!=typeof window?e.exports=window:"undefined"!=typeof t?e.exports=t:"undefined"!=typeof self?e.exports=self:e.exports={}}).call(t,r(15))},function(e,t,r){var n=r(14),i=r(11),o=function(e){return"[object Array]"===Object.prototype.toString.call(e)};e.exports=function(e){if(!e)return{};var t={};return i(n(e).split("\n"),function(e){var r=e.indexOf(":"),i=n(e.slice(0,r)).toLowerCase(),s=n(e.slice(r+1));"undefined"==typeof t[i]?t[i]=s:o(t[i])?t[i].push(s):t[i]=[t[i],s]}),t}},function(e,t){function r(e){return e.replace(/^\s*|\s*$/g,"")}t=e.exports=r,t.left=function(e){return e.replace(/^\s*/,"")},t.right=function(e){return e.replace(/\s*$/,"")}},function(e,t){var r;r=function(){return this}();try{r=r||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(r=window)}e.exports=r},function(e,t){function r(){for(var e={},t=0;t<arguments.length;t++){var r=arguments[t];for(var i in r)n.call(r,i)&&(e[i]=r[i])}return e}e.exports=r;var n=Object.prototype.hasOwnProperty},function(e,t,r){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function s(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var r=0;r<t.length;r++){var n=t[r];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(e,n.key,n)}}return function(t,r,n){return r&&e(t.prototype,r),n&&e(t,n),t}}(),c=r(1),u=n(c),l=r(5),f=n(l),h=r(4),d=n(h),p=r(10),v=n(p),y=r(0),m=n(y),b=r(9),g=n(b),w=r(6),_=n(w),E=r(7),S=n(E),k=r(8),L=n(k),A=["ready","mute","unmute","start","stop","error"],O=function(e){function t(e,r,n){i(this,t);var s=o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this));s.broadcasterEl=(0,m.default)("div",["broadcaster"]),s.bar=(0,m.default)("div",["control-bar"]),s.el=e,s.el.appendChild(s.broadcasterEl),s.el.appendChild(s.bar),s.accessKeyEndpoint=r,s.options=n,n.gateway&&(n.janusGateway=n.gateway),n.host||(n.host="livelyvideo.tv");for(var a=[],c=[],u=0;u<s.options.drivers.length;u++)switch(s.options.drivers[u]){case"flash":n.rtmpUrl||a.push("flash driver requires rtmpUrl"),c.push(d.default);break;case"webrtc":n.janusGateway||a.push("webrtc driver requires gateway"),n.rtmpUrl||a.push("webrtc driver requires rtmpUrl"),n.iceServers&&!n.iceServers.length&&a.push("webrtc requires ice servers");break;default:a.push("unknown driver "+s.options.drivers[u])}if(a.length)throw new Error(a.join(", "));return n.drivers=c,n.preview=!0,s.controls=[],s}return s(t,e),a(t,[{key:"destroy",value:function(){this.previewEl&&this.previewEl.remove(),this.bar.remove(),this.broadcaster&&this.broadcaster.destroy()}},{key:"destroyControls",value:function(){for(var e=0;e<this.controls.length;e++)this.controls[e].destroy()}},{key:"setupControls",value:function(){this.controls=[],this.controls.push(new g.default(this)),this.controls.push(new S.default(this)),this.controls.push(new _.default(this)),this.controls.push(new L.default(this))}},{key:"setup",value:function(e,t){var r=this,n=this.accessKeyEndpoint;if(t){var i=n.indexOf("?")===-1?"?":"&";n+=i+"regenerate=1"}this.destroyControls(),(0,v.default)({method:"GET",uri:n,json:!0},function(t,n,i){if(t)return r.emit("error","failed to get access key",t),void(e&&e(t));if(n.statusCode>399){var o=new Error(i);return r.emit("error","failed to get access key",o),void(e&&e(o))}r.accessKey=i.results.pvtKey,r.broadcaster=new f.default(r.broadcasterEl,r.accessKey,r.options);for(var s=function(e){r.broadcaster.on(A[e],function(){for(var t=arguments.length,n=Array(t),i=0;i<t;i++)n[i]=arguments[i];n.unshift(A[e]),r.emit.apply(r,n)})},a=0;a<A.length;a++)s(a);r.setupControls(),r.emit("access-key",r.accessKey),e&&e()})}},{key:"regenerate",value:function(e){this.broadcaster&&this.broadcaster.destroy(),this.setup(e,!0)}}]),t}(u.default);t.default=O}])});
+},{}],51:[function(require,module,exports){
 'use strict';
 
 if (typeof window === 'undefined') {
@@ -8446,7 +9799,7 @@ if (typeof window === 'undefined') {
 } else {
 	module.exports = require('./stock-live-player').default;
 }
-},{"./stock-live-player":47}],47:[function(require,module,exports){
+},{"./stock-live-player":52}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -8492,13 +9845,42 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * @class Stock live player
- * @property player
- * @property controls
+ * Class representing StockLivePlayer
  */
 var StockLivePlayer = function (_EventEmitter) {
 	_inherits(StockLivePlayer, _EventEmitter);
 
+	/**
+  * Constructs an instance of StockLivePlayer
+  *
+  * @property player
+  * @property controls
+  * @param {object} el - el containing dom element
+  * @param {string} manifest - manifest uri or object
+  * @param {Config} options
+  * @param {string} [options.host] - host
+  * @param {bool} [options.autoplay=true] - autoplays the stream when it loads
+  * @param {number} [options.bitrate=undefined] - null for adaptive when available, desired kbps otherwise
+  * @param {array} [options.drivers=['mediaSourceMp4', 'hls', 'hlsjs', 'flash']] - driver priority
+  * @param {bool} [options.debug=false] - enables debug logging
+  * @param {number} [options.recoverErrorCount=10] - Playback error count to recover the entire driver on
+  * @param {number} [options.forceDrivers=false]
+  * @param {bool} [options.muted] - whether or not the driver is muted
+  * @param {bool} [options.hijackingClicks=true] - whether or not the rest of the app is hijacking clicks for mobile autoplays
+  * @param {number} [options.pollingInterval=10000] - ms timeout to wait before polling again
+  * @param {number} [options.unauthorizedPollingInterval=1000] - ms timeout to wait before polling again if unauthorized, designed to be more frequent for a short interval of time to restart playback
+  * @param {number} [options.unauthorizedRecoveryDuration=5000] - ms timeout to poll quickly after receiving an unauthorized response
+  * @param {string} [options.posterUri] - sets the poster attribute when available
+  * @param {bool} [options.origin=false] - play the origin source
+  * @param {number} [options.volume=0.75] - 0-1 volume
+  * @param {Config} [controlsOptions] controls options
+  * @param {array} [controlsOptions.controls=['overlay', 'playpause', 'fullscreen', 'popout', 'progress', 'quality-selector','volume']] - controls to attach
+  * @param {object} [controlsOptions.popout] - popout options
+  * @param {string} [controlsOptions.popout.url] - url for popout
+  * @param {number} [controlsOptions.popout.width] - width for popout in px
+  * @param {number} [controlsOptions.popout.height] - height for popout in px
+  * @constructs StockLivePlayer
+  */
 	function StockLivePlayer(el, manifest, options, controlsOptions) {
 		_classCallCheck(this, StockLivePlayer);
 
@@ -8509,6 +9891,9 @@ var StockLivePlayer = function (_EventEmitter) {
 		_this.controlsEl = document.createElement('div');
 		_this.el.appendChild(_this.playerEl);
 		_this.el.appendChild(_this.controlsEl);
+
+		options = options || {};
+		controlsOptions = controlsOptions || {};
 
 		var drivers = [];
 		if (!options.drivers) {
@@ -8533,7 +9918,7 @@ var StockLivePlayer = function (_EventEmitter) {
 				}
 			}
 		}
-
+		controlsOptions.messages = controlsOptions.messages || {};
 		options.drivers = drivers;
 		_this.player = new _player2.default(_this.playerEl, manifest, options);
 		_this.controls = new _index2.default(_this.controlsEl, controlsOptions);
@@ -8560,7 +9945,189 @@ var StockLivePlayer = function (_EventEmitter) {
 }(_events2.default);
 
 exports.default = StockLivePlayer;
-},{"@livelyvideo/player-controls/lib/index":6,"@livelyvideo/player-core/lib/player":25,"@livelyvideo/player-flash-rtmp-driver/lib/driver":37,"@livelyvideo/player-hlsjs-driver/lib/driver":41,"@livelyvideo/player-media-source-mp4-driver/lib/driver":43,"@livelyvideo/player-native-hls-driver/lib/driver":44,"events":48}],48:[function(require,module,exports){
+},{"@livelyvideo/player-controls/lib/index":7,"@livelyvideo/player-core/lib/player":27,"@livelyvideo/player-flash-rtmp-driver/lib/driver":39,"@livelyvideo/player-hlsjs-driver/lib/driver":43,"@livelyvideo/player-media-source-mp4-driver/lib/driver":46,"@livelyvideo/player-native-hls-driver/lib/driver":49,"events":54}],53:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],54:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -8864,7 +10431,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],49:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 var isFunction = require('is-function')
 
 module.exports = forEach
@@ -8912,7 +10479,7 @@ function forEachObject(object, iterator, context) {
     }
 }
 
-},{"is-function":51}],50:[function(require,module,exports){
+},{"is-function":57}],56:[function(require,module,exports){
 (function (global){
 if (typeof window !== "undefined") {
     module.exports = window;
@@ -8925,7 +10492,7 @@ if (typeof window !== "undefined") {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],51:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 module.exports = isFunction
 
 var toString = Object.prototype.toString
@@ -8942,7 +10509,7 @@ function isFunction (fn) {
       fn === window.prompt))
 };
 
-},{}],52:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 /**
  * lodash 3.0.1 (Custom Build) <https://lodash.com/>
  * Build: `lodash modularize include="noop" exports="npm" -o ./foo`
@@ -8972,7 +10539,7 @@ function noop() {
 
 module.exports = noop;
 
-},{}],53:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 (function (global){
 /**
  * lodash (Custom Build) <https://lodash.com/>
@@ -9415,7 +10982,7 @@ function toNumber(value) {
 module.exports = throttle;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],54:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 var trim = require('trim')
   , forEach = require('for-each')
   , isArray = function(arg) {
@@ -9447,7 +11014,7 @@ module.exports = function (headers) {
 
   return result
 }
-},{"for-each":49,"trim":57}],55:[function(require,module,exports){
+},{"for-each":55,"trim":63}],61:[function(require,module,exports){
 /*!    SWFObject v2.3.20120118 <http://github.com/swfobject/swfobject>
     is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
 */
@@ -10296,7 +11863,7 @@ module.exports = function (headers) {
     };
 }));
 
-},{}],56:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 module.exports = function(node, value) {
   var text = (node.textContent !== undefined ?
     'textContent' : 'innerText'
@@ -10309,7 +11876,7 @@ module.exports = function(node, value) {
   return node[text]
 }
 
-},{}],57:[function(require,module,exports){
+},{}],63:[function(require,module,exports){
 
 exports = module.exports = trim;
 
@@ -10325,7 +11892,7 @@ exports.right = function(str){
   return str.replace(/\s*$/, '');
 };
 
-},{}],58:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 "use strict";
 var window = require("global/window")
 var isFunction = require("is-function")
@@ -10393,7 +11960,7 @@ function _createXHR(options) {
 
     function readystatechange() {
         if (xhr.readyState === 4) {
-            loadFunc()
+            setTimeout(loadFunc, 0)
         }
     }
 
@@ -10415,15 +11982,6 @@ function _createXHR(options) {
 
         return body
     }
-
-    var failureResponse = {
-                body: undefined,
-                headers: {},
-                statusCode: 0,
-                method: method,
-                url: uri,
-                rawRequest: xhr
-            }
 
     function errorFunc(evt) {
         clearTimeout(timeoutTimer)
@@ -10480,18 +12038,26 @@ function _createXHR(options) {
     var aborted
     var uri = xhr.url = options.uri || options.url
     var method = xhr.method = options.method || "GET"
-    var body = options.body || options.data || null
+    var body = options.body || options.data
     var headers = xhr.headers = options.headers || {}
     var sync = !!options.sync
     var isJson = false
     var timeoutTimer
+    var failureResponse = {
+        body: undefined,
+        headers: {},
+        statusCode: 0,
+        method: method,
+        url: uri,
+        rawRequest: xhr
+    }
 
-    if ("json" in options) {
+    if ("json" in options && options.json !== false) {
         isJson = true
         headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json") //Don't override existing accept header declared by user
         if (method !== "GET" && method !== "HEAD") {
             headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json") //Don't override existing accept header declared by user
-            body = JSON.stringify(options.json)
+            body = JSON.stringify(options.json === true ? body : options.json)
         }
     }
 
@@ -10501,6 +12067,9 @@ function _createXHR(options) {
     // IE9 must have onprogress be set to a unique function.
     xhr.onprogress = function () {
         // IE must die
+    }
+    xhr.onabort = function(){
+        aborted = true;
     }
     xhr.ontimeout = errorFunc
     xhr.open(method, uri, !sync, options.username, options.password)
@@ -10513,7 +12082,8 @@ function _createXHR(options) {
     // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
     if (!sync && options.timeout > 0 ) {
         timeoutTimer = setTimeout(function(){
-            aborted=true//IE9 may still call readystatechange
+            if (aborted) return
+            aborted = true//IE9 may still call readystatechange
             xhr.abort("timeout")
             var e = new Error("XMLHttpRequest timeout")
             e.code = "ETIMEDOUT"
@@ -10541,7 +12111,10 @@ function _createXHR(options) {
         options.beforeSend(xhr)
     }
 
-    xhr.send(body)
+    // Microsoft Edge browser sends "undefined" when send is called with undefined value.
+    // XMLHttpRequest spec says to pass null as body to indicate no body
+    // See https://github.com/naugtur/xhr/issues/100.
+    xhr.send(body || null)
 
     return xhr
 
@@ -10552,7 +12125,7 @@ function getXml(xhr) {
     if (xhr.responseType === "document") {
         return xhr.responseXML
     }
-    var firefoxBugTakenEffect = xhr.status === 204 && xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror"
+    var firefoxBugTakenEffect = xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror"
     if (xhr.responseType === "" && !firefoxBugTakenEffect) {
         return xhr.responseXML
     }
@@ -10562,7 +12135,7 @@ function getXml(xhr) {
 
 function noop() {}
 
-},{"global/window":50,"is-function":51,"parse-headers":54,"xtend":59}],59:[function(require,module,exports){
+},{"global/window":56,"is-function":57,"parse-headers":60,"xtend":65}],65:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
