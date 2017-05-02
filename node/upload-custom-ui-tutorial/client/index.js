@@ -1,7 +1,7 @@
-import LivelyUpload from '@livelyvideo/upload';
-import StockPlayer from '@livelyvideo/stock-vod-player';
-import xhr from 'xhr';
-import text from 'text-content';
+import LivelyUpload from '@livelyvideo/upload/lib';
+// import StockPlayer from '@livelyvideo/stock-vod-player';
+// import xhr from 'xhr';
+// import text from 'text-content';
 
 /**
  * This is a guide building a custom upload ui
@@ -20,8 +20,10 @@ import text from 'text-content';
  */
 const uploadVanilla = new LivelyUpload(document.querySelector('#upload-vanilla'), {
 	host: 'dev.livelyvideo.tv',
-	authUrl: 'http://localhost:7000/access-token'
+	authUrl: '/access-token',
+	bemPrefix: 'upload'
 });
+window.uploadVanilla = uploadVanilla;
 
 /**
  * Example 2: Custom Multiple Upload
@@ -48,15 +50,17 @@ const uploadVanilla = new LivelyUpload(document.querySelector('#upload-vanilla')
  * @param {object} [options.selectTarget] - Select a custom DOM element to open file select on click, disables drag and drop
  * @param {object} [options.previewsTarget] - Select a custom DOM element for previews to be appended to
  */
+
 const uploadMultipleSelectTarget = document.querySelector('#upload-multiple__select-target');
 const uploadMultiplePreviewsTarget = document.querySelector('#upload-multiple__previews-target');
 const uploadMultiple = new LivelyUpload(document.querySelector('#upload-multiple'), {
 	host: 'dev.livelyvideo.tv',
-	authUrl: 'http://localhost:7000/access-token',
+	authUrl: '/access-token',
 	bemPrefix: 'upload-multiple',
 	selectTarget: uploadMultipleSelectTarget,
 	previewsTarget: uploadMultiplePreviewsTarget
 });
+window.uploadMultiple = uploadMultiple;
 
 /**
  * Example 2: Custom Avatar Upload
@@ -87,7 +91,7 @@ const uploadMultiple = new LivelyUpload(document.querySelector('#upload-multiple
  */
  const uploadAvatar = new LivelyUpload(document.querySelector('#upload-avatar'), {
  	host: 'dev.livelyvideo.tv',
- 	authUrl: 'http://localhost:7000/access-token',
+ 	authUrl: '/access-token',
  	bemPrefix: 'upload-avatar',
  	multiple: false,
  	accept: 'image/*'
