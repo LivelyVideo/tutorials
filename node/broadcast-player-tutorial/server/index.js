@@ -3,7 +3,7 @@ const moment = require('moment');
 const router = module.exports = express.Router();
 const request = require('request');
 const path = require('path');
-const uuid = require('node-uuid');
+const uuid = require('uuid');
 const subdomain = 'dev';
 const token = 'something-i-can-type';
 

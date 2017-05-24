@@ -25,7 +25,7 @@ Params:
 		{number} [options.chunkConnections=3] - Number of concurrent chunk connections
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
-	authUrl: 'http://localhost:7000/access-token',
+	authUrl: '/access-token',
 	host: 'dev.livelyvideo.tv'
 });
 window.upload = upload;

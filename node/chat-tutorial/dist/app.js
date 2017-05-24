@@ -29,7 +29,7 @@ function createChat(user, el) {
 	chat = new _chat2.default(el, {
 		user: user,
 		room: ROOM,
-		host: 'img2.livelyvideo.tv',
+		host: 'dev.livelyvideo.tv',
 		authUrl: '/access-token?username=' + user
 	});
 }

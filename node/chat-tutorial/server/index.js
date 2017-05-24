@@ -5,7 +5,10 @@ const path = require('path');
 const moment = require('moment');
 
 const ROOM_NAME = 'blt';
-const OWNER = 'owner';
+const OWNER = {
+	id: 'owner_id',
+	username: 'owner'
+};
 
 router.get('/access-token', (req, res) => {
 	// this request creates an access token
@@ -50,8 +53,8 @@ function createRoomIfNotExists() {
 			Authorization: 'Bearer something-i-can-type'
 		},
 		json: {
-			id: OWNER,
-			username: OWNER
+			id: OWNER.id,
+			username: OWNER.username
 		}
 	}, (err, response, body) => {
 		if (err) {
@@ -76,7 +79,7 @@ function createRoomIfNotExists() {
 				Authorization: 'Bearer something-i-can-type'
 			},
 			json: {
-				owner: OWNER,
+				owner: OWNER.id,
 				name: ROOM_NAME,
 				title: 'Test Room'
 			}
