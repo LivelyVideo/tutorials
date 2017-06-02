@@ -23,7 +23,7 @@ router.get('/access-token', (req, res) => {
 			expire: moment.utc().add(1, 'days').format(),
 			scopes: ['chat'],
 			userId: req.query.username,
-			admin: req.query.username == "admin",
+			admin: req.query.role == 'admin',
 			chatUser: {
 				avatar: null,
 				username: req.query.username
@@ -34,9 +34,39 @@ router.get('/access-token', (req, res) => {
 			res.status(500).send('internal server error')
 			return;
 		}
+
+		if (req.query.role && req.query.role != "admin") {
+			request({
+				method: 'PATCH',
+				uri: `http://localhost:8080/chat/private/v1/rooms/${ROOM_NAME}/users/${req.query.username}`,
+				rejectUnauthorized: false,
+				requestCert: true,
+				headers: {
+					Authorization: 'Bearer something-i-can-type'
+				},
+				json: {
+					role: req.query.role
+				}
+			}, (rerr, rresponse, rbody) => {
+				if (rerr) {
+					console.error('role not updated', rerr);
+					process.exit(1);
+				}
+				if (rresponse.statusCode > 399) {
+					console.error('role not updated', {
+						code: rresponse.statusCode,
+						error: JSON.stringify(rbody, null, '  ')
+					});
+					process.exit(1);
+				}
+				res.status(response.statusCode).send(body);
+			});
+			return
+		}
 		res.status(response.statusCode).send(body);
 	});
 });
+
 
 function createRoomIfNotExists() {
 	// this function creates a room, or updates it if exists

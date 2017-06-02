@@ -15,7 +15,7 @@ Params:
 let chat;
 const ROOM = 'blt';
 //const ROOM = 'sea1a~1~931c1d57-785d-4629-adb2-f290b74b16eb_585_426x240_56';
-function createChat(user, el) {
+function createChat(user, role, el) {
 	if (chat) {
 		chat.destroy();
 	}
@@ -25,13 +25,14 @@ function createChat(user, el) {
 		unsecure: true,
 		host: 'localhost:8080',
 		wshost: 'localhost:8081',
-		authUrl: `/access-token?username=${user}`
+		authUrl: `/access-token?username=${user}&role=${role}`
 	});
 }
 
 document.querySelector('#pickuser').onsubmit = (e) => {
 	e.preventDefault();
-	createChat(e.target.querySelector('[name=username]').value, document.querySelector('.chat'));
+	createChat(e.target.querySelector('[name=username]').value, e.target.querySelector('[name=role]').value, document.querySelector('.chat'));
 	e.target.setAttribute('disabled', true);
 	e.target.querySelector('[name=username]').value = '';
+	e.target.querySelector('[name=role]').value = '';
 };

@@ -1,0 +1,91 @@
+---
+version: '3'
+services:
+  auth:
+    image: "livelyvideotv/auth:atg"
+    restart: on-failure
+    ports:
+      - "8090:80"
+    links:
+      - "redis"
+    env_file: "common.env"
+  images:
+    image: "livelyvideotv/images:atg"
+    restart: on-failure
+    env_file: "common.env"
+    ports:
+      - "8091:80"
+    volumes:
+      - "/data/glusterfs/images"
+  chat-http:
+    image: "livelyvideotv/chat:atg"
+    command:
+      - "--http-only"
+    restart: on-failure
+    ports:
+      - "8080:80"
+    links:
+      - "redis"
+      - "images"
+      - "mysql"
+      - "auth"
+    env_file:
+      - "common.env"
+      - "chat.env"
+  chat-ws:
+    image: "livelyvideotv/chat:atg"
+    restart: on-failure
+    ports:
+      - "8081:8081"
+      - "9000:9000"
+    links:
+      - "redis"
+      - "mysql"
+      - "auth"
+    env_file:
+      - "common.env"
+      - "chat.env"
+  chat-jobs:
+    image: "livelyvideotv/chat:atg"
+    restart: on-failure
+    command:
+      - "-j"
+    links:
+      - "redis"
+      - "mysql"
+      - "auth"
+    env_file:
+      - "common.env"
+      - "chat.env"
+  chat-startup-mysql:
+    image: "livelyvideotv/chat:atg"
+    restart: on-failure
+    entrypoint: "/migrations/migrate-up.sh"
+    depends_on:
+      - "mysql"
+    env_file:
+      - "common.env"
+      - "chat.env"
+  chat-startup-images:
+    image: "livelyvideotv/chat:atg"
+    restart: on-failure
+    command:
+      - "-j"
+      - "-s"
+      - "--jobsList"
+      - "emoticons,avatars"
+    depends_on:
+      - "images"
+      - "chat-http"
+    env_file:
+      - "common.env"
+      - "chat.env"
+  redis:
+    image: "redis:3.2"
+    restart: on-failure
+  mysql:
+    image: "mysql:5.7.18"
+    restart: on-failure
+    command:
+      - "--sql_mode="
+    env_file: "common.env"
