@@ -1,11 +1,19 @@
 {
-  "name": "chat-tutorial",
-  "version": "1.0.0",
+  "name": "@livelyvideo/chat-tutorial",
+  "version": "1.0.0-atg",
   "description": "This tutorial has two components, an authorization service and the client for chat.",
+  "license": "proprietary",
   "main": "index.js",
+  "publishConfig": {
+    "always-auth": true,
+    "registry": "https://npm.livelyvideo.tv"
+  },
+  "repository": {
+    "private": true
+  },
   "scripts": {
     "browserify": "browserify ./client/index.js -o dist/app.js -t [ babelify ]",
-    "start": "node server/server.js"
+    "start": "npm run browserify && node server/server.js"
   },
   "author": "",
   "license": "ISC",
