@@ -12,7 +12,7 @@ router.get('/access-token', (req, res) => {
 	// access tokens are paired with user and grant access for that user to specific scopes
 	// access tokens are intended to be used directly by users on clients in cookies or auth headers
 	request({
-		uri: 'https://dev.livelyvideo.tv/auth/v1/access-tokens',
+		uri: 'http://localhost:8090/auth/v1/access-tokens',
 		method: 'POST',
 		rejectUnauthorized: false,
 		requestCert: true,
@@ -23,6 +23,7 @@ router.get('/access-token', (req, res) => {
 			expire: moment.utc().add(1, 'days').format(),
 			scopes: ['chat'],
 			userId: req.query.username,
+			admin: req.query.username == "admin",
 			chatUser: {
 				avatar: null,
 				username: req.query.username
@@ -43,7 +44,7 @@ function createRoomIfNotExists() {
 	// create the owner user if they do not exist
 	request({
 		method: 'POST',
-		uri: 'https://dev.livelyvideo.tv/chat/private/v1/users',
+		uri: 'http://localhost:8080/chat/private/v1/users',
 		rejectUnauthorized: false,
 		requestCert: true,
 		headers: {
@@ -69,7 +70,7 @@ function createRoomIfNotExists() {
 		// the name of the room cannot change, the title will be displayed in the UI
 		request({
 			method: 'POST',
-			uri: 'https://sandbox.livelyvideo.tv/chat/private/v1/rooms',
+			uri: 'http://localhost:8080/chat/private/v1/rooms',
 			rejectUnauthorized: false,
 			requestCert: true,
 			headers: {

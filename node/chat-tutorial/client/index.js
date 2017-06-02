@@ -22,7 +22,9 @@ function createChat(user, el) {
 	chat = new LivelyChat(el, {
 		user: user,
 		room: ROOM,
-		host: 'dev.livelyvideo.tv',
+		unsecure: true,
+		host: 'localhost:8080',
+		wshost: 'localhost:8081',
 		authUrl: `/access-token?username=${user}`
 	});
 }
