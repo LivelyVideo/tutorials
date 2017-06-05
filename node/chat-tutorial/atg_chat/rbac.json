@@ -129,6 +129,7 @@
       "CAN_RECEIVE_IN:gold-paid-private",
       "CAN_MUTE:non-premium",
       "CAN_MUTE:non-premium-private",
+      "CAN_BAN:non-premium",
       "CAN_BAN:non-premium-private",
       "CAN_IGNORE_MUTE",
       "CAN_SPAM",
