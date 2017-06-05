@@ -18,7 +18,7 @@ services:
     volumes:
       - "/data/glusterfs/images"
   chat-http:
-    image: "livelyvideotv/chat:atg-1"
+    image: "livelyvideotv/chat:atg-2"
     command:
       - "--http-only"
     restart: on-failure
@@ -33,7 +33,7 @@ services:
       - "common.env"
       - "chat.env"
   chat-ws:
-    image: "livelyvideotv/chat:atg-1"
+    image: "livelyvideotv/chat:atg-2"
     restart: on-failure
     ports:
       - "8081:8081"
@@ -46,7 +46,7 @@ services:
       - "common.env"
       - "chat.env"
   chat-jobs:
-    image: "livelyvideotv/chat:atg-1"
+    image: "livelyvideotv/chat:atg-2"
     restart: on-failure
     command:
       - "-j"
@@ -58,7 +58,7 @@ services:
       - "common.env"
       - "chat.env"
   chat-startup-mysql:
-    image: "livelyvideotv/chat:atg-1"
+    image: "livelyvideotv/chat:atg-2"
     restart: on-failure
     entrypoint: "/migrations/migrate-up.sh"
     depends_on:
@@ -67,7 +67,7 @@ services:
       - "common.env"
       - "chat.env"
   chat-startup-images:
-    image: "livelyvideotv/chat:atg-1"
+    image: "livelyvideotv/chat:atg-2"
     restart: on-failure
     command:
       - "-j"
