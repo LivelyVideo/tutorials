@@ -79,7 +79,7 @@ function createRoomIfNotExists() {
 				Authorization: 'Bearer something-i-can-type'
 			},
 			json: {
-				owner: OWNER.id,
+				owner: OWNER.username,
 				name: ROOM_NAME,
 				title: 'Test Room'
 			}
