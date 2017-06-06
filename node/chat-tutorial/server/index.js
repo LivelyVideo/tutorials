@@ -25,7 +25,7 @@ router.get('/access-token', (req, res) => {
 		json: {
 			expire: moment.utc().add(1, 'days').format(),
 			scopes: ['chat'],
-			userId: req.query.username,
+			userId: `${req.query.username}_id`,
 			chatUser: {
 				avatar: null,
 				username: req.query.username
@@ -79,7 +79,7 @@ function createRoomIfNotExists() {
 				Authorization: 'Bearer something-i-can-type'
 			},
 			json: {
-				owner: OWNER.username,
+				owner: OWNER.id,
 				name: ROOM_NAME,
 				title: 'Test Room'
 			}
