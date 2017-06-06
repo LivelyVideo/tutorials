@@ -22,7 +22,8 @@ function createChat(user, role, el) {
 	chat = new LivelyChat(el, {
 		user: user,
 		room: ROOM,
-		unsecure: true,
+		insecure: true,
+		roleHistory: true,
 		host: 'localhost:8080',
 		wshost: 'localhost:8081',
 		authUrl: `/access-token?username=${user}&role=${role}`
