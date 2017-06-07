@@ -7,6 +7,7 @@
       "CAN_RECEIVE_IN:owner"
     ],
     "addPermissions": [
+      "CAN_RECEIVE_IN:chat",
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:freemium",
       "CAN_RECEIVE_IN:premium",
