@@ -25,7 +25,9 @@
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:freemium",
       "CAN_RECEIVE_IN:premium",
-      "CAN_RECEIVE_IN:reward"
+      "CAN_RECEIVE_IN:reward",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer"
     ]
   },
   {
@@ -39,6 +41,8 @@
       "CAN_RECEIVE_IN:freemium",
       "CAN_RECEIVE_IN:premium",
       "CAN_RECEIVE_IN:reward",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer",
       "CAN_IGNORE_MUTE"
     ]
   },
@@ -53,6 +57,8 @@
       "CAN_RECEIVE_IN:freemium",
       "CAN_RECEIVE_IN:premium",
       "CAN_RECEIVE_IN:reward",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer",
       "CAN_IGNORE_MUTE"
     ]
   },
@@ -65,6 +71,8 @@
       "CAN_CHAT_IN:reward-private",
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:reward-private",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer",
       "CAN_IGNORE_MUTE"
     ]
   },
@@ -77,6 +85,8 @@
       "CAN_CHAT_IN:gold-private",
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:gold-private",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer",
       "CAN_IGNORE_MUTE"
     ]
   },
@@ -89,6 +99,8 @@
       "CAN_CHAT_IN:gold-free-private",
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:gold-free-private",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer",
       "CAN_IGNORE_MUTE"
     ]
   },
@@ -102,6 +114,8 @@
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:gold-paid",
       "CAN_RECEIVE_IN:gold-paid-private",
+      "CAN_WHISPER_TO:performer",
+      "CAN_RECEIVE_WHISPER_FROM:performer",
       "CAN_IGNORE_MUTE"
     ]
   },
@@ -128,6 +142,34 @@
       "CAN_RECEIVE_IN:gold-free-private",
       "CAN_RECEIVE_IN:gold-paid",
       "CAN_RECEIVE_IN:gold-paid-private",
+      "CAN_WHISPER_TO:non-premium",
+      "CAN_RECEIVE_WHISPER_FROM:non-premium",
+      "CAN_WHISPER_TO:freemium",
+      "CAN_RECEIVE_WHISPER_FROM:freemium",
+      "CAN_WHISPER_TO:premium",
+      "CAN_RECEIVE_WHISPER_FROM:premium",
+      "CAN_WHISPER_TO:reward",
+      "CAN_RECEIVE_WHISPER_FROM:reward",
+      "CAN_WHISPER_TO:non-premium-private",
+      "CAN_RECEIVE_WHISPER_FROM:non-premium-private",
+      "CAN_WHISPER_TO:freemium-private",
+      "CAN_RECEIVE_WHISPER_FROM:freemium-private",
+      "CAN_WHISPER_TO:premium-private",
+      "CAN_RECEIVE_WHISPER_FROM:premium-private",
+      "CAN_WHISPER_TO:reward-private",
+      "CAN_RECEIVE_WHISPER_FROM:reward-private",
+      "CAN_WHISPER_TO:gold",
+      "CAN_RECEIVE_WHISPER_FROM:gold",
+      "CAN_WHISPER_TO:gold-private",
+      "CAN_RECEIVE_WHISPER_FROM:gold-private",
+      "CAN_WHISPER_TO:gold-free",
+      "CAN_RECEIVE_WHISPER_FROM:gold-free",
+      "CAN_WHISPER_TO:gold-free-private",
+      "CAN_RECEIVE_WHISPER_FROM:gold-free-private",
+      "CAN_WHISPER_TO:gold-paid",
+      "CAN_RECEIVE_WHISPER_FROM:gold-paid",
+      "CAN_WHISPER_TO:gold-paid-private",
+      "CAN_RECEIVE_WHISPER_FROM:gold-paid-private",
       "CAN_MUTE:non-premium",
       "CAN_MUTE:non-premium-private",
       "CAN_BAN:non-premium",
