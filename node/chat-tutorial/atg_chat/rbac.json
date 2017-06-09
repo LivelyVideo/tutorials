@@ -127,6 +127,7 @@
       "CAN_CHAT_IN:performer",
       "CAN_CHAT_IN:performer-private",
       "CAN_CHAT_IN:performer-to-non-premium",
+      "CAN_RECEIVE_IN:performer-to-non-premium",
       "CAN_RECEIVE_IN:performer",
       "CAN_RECEIVE_IN:non-premium",
       "CAN_RECEIVE_IN:freemium",
