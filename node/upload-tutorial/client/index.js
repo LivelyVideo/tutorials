@@ -1,4 +1,3 @@
-import LivelyUpload from '@livelyvideo/upload';
 import StockPlayer from '@livelyvideo/stock-vod-player';
 import xhr from 'xhr';
 import text from 'text-content';
