@@ -72,7 +72,7 @@ function createRoomIfNotExists() {
 		// the name of the room cannot change, the title will be displayed in the UI
 		request({
 			method: 'POST',
-			uri: 'https://sandbox.livelyvideo.tv/chat/private/v1/rooms',
+			uri: 'https://dev.livelyvideo.tv/chat/private/v1/rooms',
 			rejectUnauthorized: false,
 			requestCert: true,
 			headers: {
