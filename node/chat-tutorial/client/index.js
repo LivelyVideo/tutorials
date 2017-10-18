@@ -13,7 +13,7 @@ Params:
 			url: the company's auth url, which should access livelyvideo to create an access token for the user
 **/
 let chat;
-const ROOM = 'blt';
+const ROOM = 'demo';
 //const ROOM = 'sea1a~1~931c1d57-785d-4629-adb2-f290b74b16eb_585_426x240_56';
 function createChat(user, el) {
 	if (chat) {
