@@ -9,20 +9,21 @@ Set up the upload instance
 Params:
 	- html element
 	- options
-		{object} el - The DOM element for Chat to be constructed on
-		{Config} [options] - Configurable options for the Chat class
-		{string} options.host - host of upload route
-		{string} options.authUrl - authUrl to connect to
-		{string} [options.token] - Manual token for authorization
-		{string} [options.redirect] - Redirect url for legacy support
-		{string} [options.accept] - Accept field for upload accept attribute
-		{string} [options.bemPrefix=upload] - Prefix for DOM classes
-		{string} [options.autoSubmit=true] - Auto submit upload on select
-		{string} [options.pause=false] - Render pause button
-		{string} [options.cancel=false] - Render cancel button
-		{string} [options.messages] - Hard code message strings
-		{number} [options.chunkSize=102400] - Size of chunks to be uploaded
-		{number} [options.chunkConnections=3] - Number of concurrent chunk connections
+		* @param {object} el - The DOM element for UploadClient to be constructed on
+		* @param {Config} [options] - Configurable options for the UploadClient class
+		* @param {string} options.host - Destination host of your uploads
+		* @param {string} options.authUrl - Route to retreive access tokens that authorize you to use host
+		* @param {string} [options.token] - Manual token for authorization
+		* @param {string} [options.accept] - Accept field for upload accept attribute
+		* @param {string} [options.bemPrefix=upload] - Prefix for DOM classes
+		* @param {string} [options.version=v2] - Api version
+		* @param {bool} [options.autoSubmit=true] - Auto submit upload on select. If false you must call
+		* @param {bool} [options.multiple=true] - Allow multiple files for upload
+		* @param {number} [options.chunkSize=102400] - Size of chunks to be uploaded
+		* @param {number} [options.chunkConnections=3] - Number of concurrent chunk connections
+		* @param {object} [options.messages] - Hard code message strings
+		* @param {object} [options.selectTarget] - Select a custom DOM element to open file select on click, disables drag and drop
+		* @param {object} [options.previewsTarget] - Select a custom DOM element for previews to be appended to
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
 	authUrl: '/access-token',
