@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<link type="text/css" rel="stylesheet" href="/dist/demo.css">
 	<link type="text/css" rel="stylesheet" href="/dist/upload.min.css">
-	<link type="text/css" rel="stylesheet" href="/dist/player.min.css">
+	<link type="text/css" rel="stylesheet" href="/dist/stock.min.css">
 	<style>
 	body .upload {
 		padding: 0; #temporary fixes

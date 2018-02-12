@@ -8,8 +8,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@livelyvideo/stock-vod-player": "^1.0.1-beta.1",
-    "@livelyvideo/upload": "^0.1.2",
+    "@livelyvideo/stock-vod-player": "1.1.6",
+    "@livelyvideo/upload": "5.0.2-beta",
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
     "babelify": "^7.3.0",

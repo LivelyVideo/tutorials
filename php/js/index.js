@@ -35,8 +35,8 @@ Params:
 				LEGACY_SUBTITLE - File preview and drag and drop unavailable. Please upgrade your browser for a better experience. |
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
-	url: 'http://sandbox.livelyvideo.tv/api/upload',
-	authUrl: 'http://localhost/access-token.php'
+	host: 'sandbox.livelyvideo.tv',
+	authUrl: 'http://localhost:8000/access-token.php'
 });
 window.upload = upload;
 
@@ -94,9 +94,7 @@ function loadPlayer (manifest) {
 		}
 
 		window.stockPlayer = stockPlayer = new StockPlayer(document.querySelector('#player'), manifest, {
-			drivers: ['hlsjs', 'hls', 'flashHls', 'mp4'],
-			hlsjsPath: 'http://dailymotion.github.io/hls.js/dist/hls.js',
-			flashlsPath: './flashlsChromeless.swf',
+			drivers: ['hlsjs', 'hls', 'flashHls', 'mp4']
 		});
 	};
 }
