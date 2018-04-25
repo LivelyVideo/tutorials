@@ -9,25 +9,34 @@ Set up the upload instance
 Params:
 	- html element
 	- options
-		* @param {object} el - The DOM element for UploadClient to be constructed on
-		* @param {Config} [options] - Configurable options for the UploadClient class
-		* @param {string} options.host - Destination host of your uploads
-		* @param {string} options.authUrl - Route to retreive access tokens that authorize you to use host
-		* @param {string} [options.token] - Manual token for authorization
-		* @param {string} [options.accept] - Accept field for upload accept attribute
-		* @param {string} [options.bemPrefix=upload] - Prefix for DOM classes
-		* @param {string} [options.version=v2] - Api version
-		* @param {bool} [options.autoSubmit=true] - Auto submit upload on select. If false you must call
-		* @param {bool} [options.multiple=true] - Allow multiple files for upload
-		* @param {number} [options.chunkSize=102400] - Size of chunks to be uploaded
-		* @param {number} [options.chunkConnections=3] - Number of concurrent chunk connections
-		* @param {object} [options.messages] - Hard code message strings
-		* @param {object} [options.selectTarget] - Select a custom DOM element to open file select on click, disables drag and drop
-		* @param {object} [options.previewsTarget] - Select a custom DOM element for previews to be appended to
+			url: (Required) Route to your upload api.
+			authUrl: (Required) Route to your auth api.
+			redirect: Defaults to null. The redirect route to your results template for cross-origin form compatibility.
+			accept: Defaults to null. Sets the value of accept attribute on file input.
+			supportLegacy: Defaults to true. Turn legacy support on or off.
+			forceLegacy: Defaults to false. Helpful option to force use of legacy form for debugging.
+			autoSubmit: Defaults to true. Automatically upload file when added to the uploader.
+			MESSAGES: (Localization) Object containing list of message names and message strings.
+				ERROR_NETWORK - Network error.
+				ERROR_DUP_FILE - This file has already been uploaded.
+				ERROR_FILE_NAME - This file does not have a name.
+				ERROR_FILE_EXT - This file extension is not supported.
+				ERROR_MISSING_BODY - This file does not have any data.
+				ERROR_FILE_SIZE - This file exceeds max file size.
+				ERROR_UNAUTH - The user is not authorized to perform this action.
+				ERROR_DEFAULT - Error.
+				ERROR_CANCEL - Upload has been canceled.
+				ERROR_URL - Invalid url.
+				ERROR_EL - The constructor has not been given a valid element or selector.
+				UNSUPPORTED_BROWSER - Your browser does not support HTML5 upload. We recommend upgrading your browser.
+				TITLE - Drop files here or click to upload.
+				SUBTITLE - Max file size 48Mb.
+				LEGACY_TITLE - Click to upload.
+				LEGACY_SUBTITLE - File preview and drag and drop unavailable. Please upgrade your browser for a better experience. |
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
-	authUrl: '/access-token',
-	host: 'dev.livelyvideo.tv'
+	host: 'sandbox.livelyvideo.tv',
+	authUrl: 'http://localhost:8000/access-token.php'
 });
 window.upload = upload;
 
@@ -85,9 +94,7 @@ function loadPlayer (manifest) {
 		}
 
 		window.stockPlayer = stockPlayer = new StockPlayer(document.querySelector('#player'), manifest, {
-			drivers: ['hlsjs', 'hls', 'flashHls', 'mp4'],
-			hlsjsPath: 'https://cdn.jsdelivr.net/hls.js/latest/hls.min.js',
-			flashlsPath: './flashlsChromeless.swf',
+			drivers: ['hlsjs', 'hls', 'flashHls', 'mp4']
 		});
 	};
 }
@@ -99,7 +106,7 @@ const videosContainer = document.querySelector('.videos');
 function loadVideos() {
 	xhr({
 		method: 'GET',
-		uri: '/videos',
+		uri: '/videos.php',
 		json: true
 	}, (err, response, body) => {
 		if (err) {
