@@ -23,7 +23,7 @@ const BOT = {
 
 const useBot = process.argv.indexOf('-b') > -1 || process.argv.indexOf('--with-bot') > -1;
 
-function getAccessToken(res, username) {
+function getAccessToken(res, req, username) {
 	request({
 		uri: 'http://localhost:8090/auth/v1/access-tokens',
 		method: 'POST',
@@ -51,7 +51,7 @@ function getAccessToken(res, username) {
 		if (req.query.role && req.query.role != "admin") {
 			request({
 				method: 'PATCH',
-				uri: `http://localhost:8080/chat/private/v1/rooms/${ROOM_NAME}/users/${req.query.username}`,
+				uri: `http://localhost:8080/chat/private/v1/rooms/${ROOM_NAME}/users/${username}`,
 				rejectUnauthorized: false,
 				requestCert: true,
 				headers: {
@@ -84,12 +84,12 @@ router.get('/access-token', (req, res) => {
 	// this request creates an access token
 	// access tokens are paired with user and grant access for that user to specific scopes
 	// access tokens are intended to be used directly by users on clients in cookies or auth headers
-	getAccessToken(res, req.query.username);
+	getAccessToken(res, req, req.query.username);
 });
 
 router.get('/access-token-bot', (req, res) => {
 	// this request creates an access token for the bot
-	getAccessToken(res, BOT.username);
+	getAccessToken(res, req, BOT.username);
 });
 
 

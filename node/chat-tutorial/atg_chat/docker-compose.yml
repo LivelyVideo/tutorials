@@ -2,7 +2,7 @@
 version: '3'
 services:
   auth:
-    image: "livelyvideotv/auth:atg-1"
+    image: "livelyvideotv/auth:1.1.9"
     restart: on-failure
     ports:
       - "8090:80"
