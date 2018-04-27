@@ -1,6 +1,6 @@
 {
   "name": "@livelyvideo/chat-tutorial",
-  "version": "1.0.0-atg-7",
+  "version": "1.0.0-atg-8",
   "description": "This tutorial has two components, an authorization service and the client for chat.",
   "license": "ISC",
   "main": "index.js",
