@@ -27,7 +27,10 @@ Params:
 **/
 const upload = new LivelyUpload(document.querySelector('.upload'), {
 	authUrl: '/access-token',
-	host: 'dev.livelyvideo.tv'
+	host: 'dev.livelyvideo.tv',
+	loggerOptions: {
+		disable: true
+	}
 });
 window.upload = upload;
 
