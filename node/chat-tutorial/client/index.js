@@ -15,12 +15,12 @@ Params:
 let chat;
 const ROOM = 'demo';
 //const ROOM = 'sea1a~1~931c1d57-785d-4629-adb2-f290b74b16eb_585_426x240_56';
+
 function createChat(user, el) {
 	if (chat) {
 		chat.destroy();
 	}
 	chat = new LivelyChat(el, {
-		user: user,
 		room: ROOM,
 		host: 'dev.livelyvideo.tv',
 		authUrl: `/access-token?username=${user}`
