@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="broadcaster"></div>
+
+    <script type='text/javascript'>
+      // hack to load webencoder late
+      const cluster = "%REACT_APP_CLUSTER%" || "lively-staging";
+      const host = "%REACT_APP_CLUSTER%" ? "%REACT_APP_CLUSTER%"+'.livelyvideo.tv' : 'lively-pvc-staging.livelyvideo.tv';
+      const demoHost = "%REACT_APP_CLUSTER%" ? "%REACT_APP_CLUSTER%"+'-demo.livelyvideo.tv' : 'lively-pvc-demo.livelyvideo.tv';
+      setTimeout(function() {
+        const webencoder = new window.LivelyWebEncoder(document.getElementById('broadcaster'), {
+          authUrl: 'https://' + demoHost + '/access-token',
+          displayName: 'lvpvc1',
+          streamKey: 'lvpvc1',
+          username: 'lvpvc1',
+          clientReferrer: cluster,
+          lbUrl: 'https://' + host,
+          roomState: 'free',
+          on: (event, ...args) => {
+            if (event === 'call') {
+                console.log('broadcaster event ->> call', event, ...args);
+            }
+            if (event === 'start') {
+                console.log('broadcaster event ->> start', event, ...args);
+            }
+            if (event === 'stop') {
+                console.log('broadcaster event ->> stop', event, ...args);
+            }
+            if (event === 'error') {
+                console.log('broadcaster event ->> error', event, ...args);
+            }
+          }
+        });
+        window.webencoder = webencoder;
+      }, 500);
+    </script>
+  </body>
+</html>
