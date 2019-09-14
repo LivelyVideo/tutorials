@@ -11,6 +11,14 @@ function getAccessToken(scopes) {
 		// this request creates an access token
 		// access tokens are paired with user and grant access for that user to specific scopes
 		// access tokens are intended to be used directly by users on clients in cookies or auth headers
+		console.log({
+			expire: moment.utc().add(1, 'days').format(),
+			scopes: scopes,
+			userId: 'demouser',
+			data: {
+				watermarkId: process.env.WATERMARK || undefined
+			}
+		});
 		request({
 			uri: 'https://dev.livelyvideo.tv/auth/v1/access-tokens',
 			method: 'POST',
@@ -22,7 +30,10 @@ function getAccessToken(scopes) {
 			json: {
 				expire: moment.utc().add(1, 'days').format(),
 				scopes: scopes,
-				userId: 'demouser'
+				userId: 'demouser',
+				data: {
+					watermarkId: process.env.WATERMARK || undefined
+				}
 			}
 		}, (err, response, body) => {
 			if (err) {
