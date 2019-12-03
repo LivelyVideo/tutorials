@@ -5,8 +5,8 @@
   "dependencies": {
     "@babel/core": "7.1.6",
     "@livelyvideo/logger": "^2.0.1",
-    "@livelyvideo/pvc": "^3.11.2",
-    "@livelyvideo/react-web-encoder": "^1.9.12",
+    "@livelyvideo/pvc": "^5.0.10",
+    "@livelyvideo/react-web-encoder": "^2.0.3",
     "@livelyvideo/react-web-encoder-controls": "^1.10.3",
     "@svgr/webpack": "2.4.1",
     "babel-core": "7.0.0-bridge.0",
