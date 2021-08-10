@@ -19,7 +19,7 @@
     "moment": "^2.16.0",
     "node-fetch-polyfill": "^2.0.6",
     "request": "^2.88.0",
-    "ws": "^3.3.3"
+    "ws": "^5.2.3"
   },
   "devDependencies": {
     "@livelyvideo/chat": "^1.1.0"
